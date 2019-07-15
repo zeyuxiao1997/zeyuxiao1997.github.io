@@ -103,20 +103,18 @@
 
 
 
-  <meta name="description" content="CVPR2019新作,阅读笔记敬请期待。">
-<meta name="keywords" content="VSR">
+  <meta name="description" content="计划在研究生入学前的暑假将这本书中与我相关的部分【前五章、第八章和第十章】阅读完，在入学前构建一套与我有关的知识体系。 【flag在2019年7月7日立下，长期有效】。阅读的主力是英文，在PDF中做的笔记同样是英文，部分有困惑的地方查询中文版的实体书。为了锻炼英语写话水平，本文的笔记部分将全部采用英文进行记录。在记笔记的时候如果遇到零碎的点，我将挑出重要的进行记录；如果是一个成熟的算法，我将在自己">
+<meta name="keywords" content="computer vision,review">
 <meta property="og:type" content="article">
-<meta property="og:title" content="paper——Fast Spatio-Temporal Residual Network for Video Super-Resolution(FSTRN)">
-<meta property="og:url" content="https://zeyuxiao1997.github.io/2019/04/21/paper-STRVSR/index.html">
+<meta property="og:title" content="&lt;计算机视觉-算法与应用&gt;学习笔记">
+<meta property="og:url" content="https://zeyuxiao1997.github.io/2019/07/07/cvaa/index.html">
 <meta property="og:site_name" content="ZeyuXiao @ USTC">
-<meta property="og:description" content="CVPR2019新作,阅读笔记敬请期待。">
+<meta property="og:description" content="计划在研究生入学前的暑假将这本书中与我相关的部分【前五章、第八章和第十章】阅读完，在入学前构建一套与我有关的知识体系。 【flag在2019年7月7日立下，长期有效】。阅读的主力是英文，在PDF中做的笔记同样是英文，部分有困惑的地方查询中文版的实体书。为了锻炼英语写话水平，本文的笔记部分将全部采用英文进行记录。在记笔记的时候如果遇到零碎的点，我将挑出重要的进行记录；如果是一个成熟的算法，我将在自己">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://zeyuxiao1997.github.io/img/FSTRN.png">
-<meta property="og:updated_time" content="2019-04-21T13:42:28.884Z">
+<meta property="og:updated_time" content="2019-07-15T12:04:23.835Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="paper——Fast Spatio-Temporal Residual Network for Video Super-Resolution(FSTRN)">
-<meta name="twitter:description" content="CVPR2019新作,阅读笔记敬请期待。">
-<meta name="twitter:image" content="https://zeyuxiao1997.github.io/img/FSTRN.png">
+<meta name="twitter:title" content="&lt;计算机视觉-算法与应用&gt;学习笔记">
+<meta name="twitter:description" content="计划在研究生入学前的暑假将这本书中与我相关的部分【前五章、第八章和第十章】阅读完，在入学前构建一套与我有关的知识体系。 【flag在2019年7月7日立下，长期有效】。阅读的主力是英文，在PDF中做的笔记同样是英文，部分有困惑的地方查询中文版的实体书。为了锻炼英语写话水平，本文的笔记部分将全部采用英文进行记录。在记笔记的时候如果遇到零碎的点，我将挑出重要的进行记录；如果是一个成熟的算法，我将在自己">
 
 
 
@@ -126,7 +124,7 @@
 
   
   
-  <link rel="canonical" href="https://zeyuxiao1997.github.io/2019/04/21/paper-STRVSR/">
+  <link rel="canonical" href="https://zeyuxiao1997.github.io/2019/07/07/cvaa/">
 
 
 
@@ -136,7 +134,7 @@
   };
 </script>
 
-  <title>paper——Fast Spatio-Temporal Residual Network for Video Super-Resolution(FSTRN) | ZeyuXiao @ USTC</title>
+  <title><计算机视觉-算法与应用>学习笔记 | ZeyuXiao @ USTC</计算机视觉-算法与应用></title>
   
 
 
@@ -404,7 +402,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zeyuxiao1997.github.io/2019/04/21/paper-STRVSR/">
+    <link itemprop="mainEntityOfPage" href="https://zeyuxiao1997.github.io/2019/07/07/cvaa/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zeyuxiao">
@@ -421,11 +419,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">paper——Fast Spatio-Temporal Residual Network for Video Super-Resolution(FSTRN)
+          <h1 class="post-title" itemprop="name headline"><计算机视觉-算法与应用>学习笔记
 
               
             
-          </h1>
+          </计算机视觉-算法与应用></h1>
         
 
         <div class="post-meta">
@@ -447,12 +445,24 @@
                 
               
 
-              <time title="Created: 2019-04-21 21:31:16 / Modified: 21:42:28" itemprop="dateCreated datePublished" datetime="2019-04-21T21:31:16+08:00">2019-04-21</time>
+              <time title="Created: 2019-07-07 09:54:37" itemprop="dateCreated datePublished" datetime="2019-07-07T09:54:37+08:00">2019-07-07</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-15 20:04:23" itemprop="dateModified" datetime="2019-07-15T20:04:23+08:00">2019-07-15</time>
               
             
           </span>
@@ -469,7 +479,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/paper-reading/" itemprop="url" rel="index"><span itemprop="name">paper reading</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/book-reading/" itemprop="url" rel="index"><span itemprop="name">book reading</span></a></span>
 
                 
                 
@@ -484,7 +494,7 @@
 
           
           
-            <span id="/2019/04/21/paper-STRVSR/" class="leancloud_visitors" data-flag-title="paper——Fast Spatio-Temporal Residual Network for Video Super-Resolution(FSTRN)">
+            <span id="/2019/07/07/cvaa/" class="leancloud_visitors" data-flag-title="<计算机视觉-算法与应用>学习笔记">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -509,7 +519,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">29</span>
+                <span title="Symbols count in article">3.1k</span>
               
 
               
@@ -523,7 +533,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">1 mins.</span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -541,21 +551,48 @@
 
       
       
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <img src="/img/FSTRN.png" itemprop="contentUrl">
-            
-          
-
-          
-          </div>
-        </div>
-      
 
       
-        <p>CVPR2019新作,阅读笔记敬请期待。<br><a id="more"></a><br>论文可<a href="/download/1904.02870.pdf">点击下载</a>.</p>
+        <p>计划在研究生入学前的暑假将这本书中与我相关的部分【前五章、第八章和第十章】阅读完，在入学前构建一套与我有关的知识体系。</p>
+<p>【flag在2019年7月7日立下，长期有效】。阅读的主力是英文，在PDF中做的笔记同样是英文，部分有困惑的地方查询中文版的实体书。为了锻炼英语写话水平，本文的笔记部分将全部采用英文进行记录。在记笔记的时候如果遇到零碎的点，我将挑出重要的进行记录；如果是一个成熟的算法，我将在自己理解的基础上进行摘录。<br><a id="more"></a></p>
+<h2 id="chapter1—Book-Review"><a href="#chapter1—Book-Review" class="headerlink" title="chapter1—Book Review"></a>chapter1—Book Review</h2><ul>
+<li><p><strong>Computer vision involves going from images to a structural description of the scene (and computer graphics the converse)</strong>：reveal the difference between computer vision and computer graphics. Seen literally, CV is image—&gt;scene description while CG is scene description—&gt;image. My own understanding is THE DIFFERENCE between <strong>understanding and creation</strong>, CV means “I give you an image, and you tell me what is included in it” and CG means “I tell you my needs and things conclude in the image, you draw it”.</p>
+</li>
+<li><p>Computer vision tasks can be divided into 3 categories, namely Images, Geometry and Photometry.</p>
+</li>
+<li><p>Here I excerpt a significant point of view — <strong>The exercises can be used to build up your own personal library of selftested and validated vision algorithms, which is more worthwhile in the long term (assuming you have the time) than simply pulling algorithms out of a library whose performance you do not really understand</strong>, which emphasize the necessity of implementing algorithm.</p>
+</li>
+</ul>
+<h2 id="chapter2—Image-Formation"><a href="#chapter2—Image-Formation" class="headerlink" title="chapter2—Image Formation"></a>chapter2—Image Formation</h2><p>Image formation process should be given following prerequisites—&gt;lighting conditions, scene geometry, surface properties, and camera optics.</p>
+<h3 id="Geometric-primitives-and-transformations"><a href="#Geometric-primitives-and-transformations" class="headerlink" title="Geometric primitives and transformations"></a>Geometric primitives and transformations</h3><h4 id="Geometric-primitives"><a href="#Geometric-primitives" class="headerlink" title="Geometric primitives"></a>Geometric primitives</h4><ul>
+<li><p>points, lines, planes</p>
+</li>
+<li><p>2D points:</p>
+<blockquote>
+<p>normal form: $\boldsymbol{x}=(x, y) \in \mathcal{R}^{2}$ or $\boldsymbol{x}=\left[\begin{array}{l}{x} \ {y}\end{array}\right]$<br>homogeneous coordinates: $\tilde{\boldsymbol{x}}=(\tilde{x}, \tilde{y}, \tilde{w}) \in \mathcal{P}^{2}$<br>2D projective space: $P^{2}=\mathcal{R}^{3}-(0,0,0)$<br>$\tilde{\boldsymbol{x}}=(\tilde{x}, \tilde{y}, \tilde{w})=\tilde{w}(x, y, 1)=\tilde{w} \overline{\boldsymbol{x}}$</p>
+</blockquote>
+</li>
+<li><p>2D lines:</p>
+<blockquote>
+<p>homogeneous coordinates(使用齐次坐标表示): $\tilde{\boldsymbol{l}}=(a, b, c)$<br>corresponing line equation: $\overline{\boldsymbol{x}} \cdot \tilde{\boldsymbol{l}}=a x+b y+c=0$<br>normalize the line equation vector: $l=\left(\hat{n}_{x}, \hat{n}_{y}, d\right)=(\hat{\boldsymbol{n}}, d)$<br>calculate intersection of two lines: $\tilde{\boldsymbol{x}}=\tilde{\boldsymbol{l}}_{1} \times \tilde{\boldsymbol{l}}_{2}$<br>line joining two points: $\tilde{\boldsymbol{l}}=\tilde{\boldsymbol{x}}_{1} \times \tilde{\boldsymbol{x}}_{2}$</p>
+</blockquote>
+</li>
+<li><p>2D conics(圆锥曲线)</p>
+<blockquote>
+<p>$\tilde{x}^{T} Q \tilde{x}=0$</p>
+</blockquote>
+</li>
+<li><p>3D points</p>
+<blockquote>
+<p>inhomogeneous coordinates: $\boldsymbol{x}=(x, y, z) \in \mathcal{R}^{3}$<br>homogeneous coordinates: $\tilde{\boldsymbol{x}}=(\tilde{x}, \tilde{y}, \tilde{z}, \tilde{w}) \in \mathcal{P}^{3}$<br>augmented vector: $\tilde{\boldsymbol{x}}=\tilde{w} \overline{\boldsymbol{x}}$, where $\overline{\boldsymbol{x}}=(x, y, z, 1)$</p>
+</blockquote>
+</li>
+<li><p>3D planes</p>
+<blockquote>
+<p>homogeneous coordinates: $\tilde{\boldsymbol{m}}=(a, b, c, d)$<br>$\overline{\boldsymbol{x}} \cdot \tilde{\boldsymbol{m}}=a x+b y+c z+d=0$<br>$\boldsymbol{m}=\left(\hat{n}_{x}, \hat{n}_{y}, \hat{n}_{z}, d\right)=(\hat{\boldsymbol{n}}, d)$, where $\hat{\boldsymbol{n}}=(\cos \theta \cos \phi, \sin \theta \cos \phi, \sin \phi)$ (<strong>spherical coordinates</strong>)</p>
+</blockquote>
+</li>
+</ul>
 
       
     </div>
@@ -575,12 +612,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/04/21/paper-STRVSR/">paper——Fast Spatio-Temporal Residual Network for Video Super-Resolution(FSTRN)</a></p>
+  <p><span>本文标题:</span><a href="/2019/07/07/cvaa/"><计算机视觉-算法与应用>学习笔记</计算机视觉-算法与应用></a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Zeyuxiao 的个人博客">Zeyuxiao</a></p>
-  <p><span>发布时间:</span>2019年04月21日 - 21:04</p>
-  <p><span>最后更新:</span>2019年04月21日 - 21:04</p>
-  <p><span>原始链接:</span><a href="/2019/04/21/paper-STRVSR/" title="paper——Fast Spatio-Temporal Residual Network for Video Super-Resolution(FSTRN)">https://zeyuxiao1997.github.io/2019/04/21/paper-STRVSR/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2019/04/21/paper-STRVSR/" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2019年07月07日 - 09:07</p>
+  <p><span>最后更新:</span>2019年07月15日 - 20:07</p>
+  <p><span>原始链接:</span><a href="/2019/07/07/cvaa/" title="<计算机视觉-算法与应用>学习笔记">https://zeyuxiao1997.github.io/2019/07/07/cvaa/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2019/07/07/cvaa/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -654,7 +691,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/VSR/" rel="tag">  <i class="fa fa-tag"></i>  VSR</a>
+            <a href="/tags/computer-vision/" rel="tag">  <i class="fa fa-tag"></i>  computer vision</a>
+          
+            <a href="/tags/review/" rel="tag">  <i class="fa fa-tag"></i>  review</a>
           
         </div>
       
@@ -667,8 +706,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/21/paper-CameraSR/" rel="next" title="paper——Camera Lens Super-Resolution">
-                <i class="fa fa-chevron-left"></i> paper——Camera Lens Super-Resolution
+              <a href="/2019/05/05/paper-derain-CVPR2017/" rel="next" title="paper-derain_CVPR2017">
+                <i class="fa fa-chevron-left"></i> paper-derain_CVPR2017
               </a>
             
           </div>
@@ -676,10 +715,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/21/class-C3D/" rel="prev" title="Important network structure——C3D">
-                Important network structure——C3D <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -723,8 +758,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -919,6 +963,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#chapter1—Book-Review"><span class="nav-number">1.</span> <span class="nav-text">chapter1—Book Review</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chapter2—Image-Formation"><span class="nav-number">2.</span> <span class="nav-text">chapter2—Image Formation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Geometric-primitives-and-transformations"><span class="nav-number">2.1.</span> <span class="nav-text">Geometric primitives and transformations</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Geometric-primitives"><span class="nav-number">2.1.1.</span> <span class="nav-text">Geometric primitives</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zeyuxiao1997.github.io/"/>
-  <updated>2019-05-05T08:46:51.060Z</updated>
+  <updated>2019-07-15T12:04:23.835Z</updated>
   <id>https://zeyuxiao1997.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>&lt;计算机视觉-算法与应用&gt;学习笔记</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/07/cvaa/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/07/cvaa/</id>
+    <published>2019-07-07T01:54:37.000Z</published>
+    <updated>2019-07-15T12:04:23.835Z</updated>
+    
+    <content type="html"><![CDATA[<p>计划在研究生入学前的暑假将这本书中与我相关的部分【前五章、第八章和第十章】阅读完，在入学前构建一套与我有关的知识体系。</p><p>【flag在2019年7月7日立下，长期有效】。阅读的主力是英文，在PDF中做的笔记同样是英文，部分有困惑的地方查询中文版的实体书。为了锻炼英语写话水平，本文的笔记部分将全部采用英文进行记录。在记笔记的时候如果遇到零碎的点，我将挑出重要的进行记录；如果是一个成熟的算法，我将在自己理解的基础上进行摘录。<br><a id="more"></a></p><h2 id="chapter1—Book-Review"><a href="#chapter1—Book-Review" class="headerlink" title="chapter1—Book Review"></a>chapter1—Book Review</h2><ul><li><p><strong>Computer vision involves going from images to a structural description of the scene (and computer graphics the converse)</strong>：reveal the difference between computer vision and computer graphics. Seen literally, CV is image—&gt;scene description while CG is scene description—&gt;image. My own understanding is THE DIFFERENCE between <strong>understanding and creation</strong>, CV means “I give you an image, and you tell me what is included in it” and CG means “I tell you my needs and things conclude in the image, you draw it”.</p></li><li><p>Computer vision tasks can be divided into 3 categories, namely Images, Geometry and Photometry.</p></li><li><p>Here I excerpt a significant point of view — <strong>The exercises can be used to build up your own personal library of selftested and validated vision algorithms, which is more worthwhile in the long term (assuming you have the time) than simply pulling algorithms out of a library whose performance you do not really understand</strong>, which emphasize the necessity of implementing algorithm.</p></li></ul><h2 id="chapter2—Image-Formation"><a href="#chapter2—Image-Formation" class="headerlink" title="chapter2—Image Formation"></a>chapter2—Image Formation</h2><p>Image formation process should be given following prerequisites—&gt;lighting conditions, scene geometry, surface properties, and camera optics.</p><h3 id="Geometric-primitives-and-transformations"><a href="#Geometric-primitives-and-transformations" class="headerlink" title="Geometric primitives and transformations"></a>Geometric primitives and transformations</h3><h4 id="Geometric-primitives"><a href="#Geometric-primitives" class="headerlink" title="Geometric primitives"></a>Geometric primitives</h4><ul><li><p>points, lines, planes</p></li><li><p>2D points:</p><blockquote><p>normal form: $\boldsymbol{x}=(x, y) \in \mathcal{R}^{2}$ or $\boldsymbol{x}=\left[\begin{array}{l}{x} \ {y}\end{array}\right]$<br>homogeneous coordinates: $\tilde{\boldsymbol{x}}=(\tilde{x}, \tilde{y}, \tilde{w}) \in \mathcal{P}^{2}$<br>2D projective space: $P^{2}=\mathcal{R}^{3}-(0,0,0)$<br>$\tilde{\boldsymbol{x}}=(\tilde{x}, \tilde{y}, \tilde{w})=\tilde{w}(x, y, 1)=\tilde{w} \overline{\boldsymbol{x}}$</p></blockquote></li><li><p>2D lines:</p><blockquote><p>homogeneous coordinates(使用齐次坐标表示): $\tilde{\boldsymbol{l}}=(a, b, c)$<br>corresponing line equation: $\overline{\boldsymbol{x}} \cdot \tilde{\boldsymbol{l}}=a x+b y+c=0$<br>normalize the line equation vector: $l=\left(\hat{n}_{x}, \hat{n}_{y}, d\right)=(\hat{\boldsymbol{n}}, d)$<br>calculate intersection of two lines: $\tilde{\boldsymbol{x}}=\tilde{\boldsymbol{l}}_{1} \times \tilde{\boldsymbol{l}}_{2}$<br>line joining two points: $\tilde{\boldsymbol{l}}=\tilde{\boldsymbol{x}}_{1} \times \tilde{\boldsymbol{x}}_{2}$</p></blockquote></li><li><p>2D conics(圆锥曲线)</p><blockquote><p>$\tilde{x}^{T} Q \tilde{x}=0$</p></blockquote></li><li><p>3D points</p><blockquote><p>inhomogeneous coordinates: $\boldsymbol{x}=(x, y, z) \in \mathcal{R}^{3}$<br>homogeneous coordinates: $\tilde{\boldsymbol{x}}=(\tilde{x}, \tilde{y}, \tilde{z}, \tilde{w}) \in \mathcal{P}^{3}$<br>augmented vector: $\tilde{\boldsymbol{x}}=\tilde{w} \overline{\boldsymbol{x}}$, where $\overline{\boldsymbol{x}}=(x, y, z, 1)$</p></blockquote></li><li><p>3D planes</p><blockquote><p>homogeneous coordinates: $\tilde{\boldsymbol{m}}=(a, b, c, d)$<br>$\overline{\boldsymbol{x}} \cdot \tilde{\boldsymbol{m}}=a x+b y+c z+d=0$<br>$\boldsymbol{m}=\left(\hat{n}_{x}, \hat{n}_{y}, \hat{n}_{z}, d\right)=(\hat{\boldsymbol{n}}, d)$, where $\hat{\boldsymbol{n}}=(\cos \theta \cos \phi, \sin \theta \cos \phi, \sin \phi)$ (<strong>spherical coordinates</strong>)</p></blockquote></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;计划在研究生入学前的暑假将这本书中与我相关的部分【前五章、第八章和第十章】阅读完，在入学前构建一套与我有关的知识体系。&lt;/p&gt;
+&lt;p&gt;【flag在2019年7月7日立下，长期有效】。阅读的主力是英文，在PDF中做的笔记同样是英文，部分有困惑的地方查询中文版的实体书。为了锻炼英语写话水平，本文的笔记部分将全部采用英文进行记录。在记笔记的时候如果遇到零碎的点，我将挑出重要的进行记录；如果是一个成熟的算法，我将在自己理解的基础上进行摘录。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="book reading" scheme="https://zeyuxiao1997.github.io/categories/book-reading/"/>
+    
+    
+      <category term="computer vision" scheme="https://zeyuxiao1997.github.io/tags/computer-vision/"/>
+    
+      <category term="review" scheme="https://zeyuxiao1997.github.io/tags/review/"/>
+    
+  </entry>
   
   <entry>
     <title>paper-derain_CVPR2017</title>

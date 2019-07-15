@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>ZeyuXiao @ USTC</title>
+  
+  <subtitle>Paper reading notes, code sharing platforms</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://zeyuxiao1997.github.io/"/>
+  <updated>2019-05-05T08:46:51.060Z</updated>
+  <id>https://zeyuxiao1997.github.io/</id>
+  
+  <author>
+    <name>Zeyuxiao</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>paper-derain_CVPR2017</title>
+    <link href="https://zeyuxiao1997.github.io/2019/05/05/paper-derain-CVPR2017/"/>
+    <id>https://zeyuxiao1997.github.io/2019/05/05/paper-derain-CVPR2017/</id>
+    <published>2019-05-05T07:17:12.000Z</published>
+    <updated>2019-05-05T08:46:51.060Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2017的作品。我阅读的第一篇关于图像去雨的论文，希望对raw climate data 中的噪声进行一个良好的建模和去除。<br><a id="more"></a><br>论文可<a href="/download/Yang_Deep_Joint_Rain_CVPR_2017_paper.pdf">点击下载</a>,代码可<a href="http://www.icst.pku.edu.cn/struct/Projects/joint_rain_removal.html" target="_blank" rel="noopener">点击获取</a>.</p><h2 id="一、introduction"><a href="#一、introduction" class="headerlink" title="一、introduction"></a>一、introduction</h2><h3 id="1-关于图像去雨的background"><a href="#1-关于图像去雨的background" class="headerlink" title="1.关于图像去雨的background"></a>1.关于图像去雨的background</h3><p>【第一次接触low-level中的derain，势必需要好好理解一下derain是个啥】</p><h3 id="2-现有方法的弊端"><a href="#2-现有方法的弊端" class="headerlink" title="2.现有方法的弊端"></a>2.现有方法的弊端</h3><ul><li><p>Due to the intrinsic overlapping between rain streaks and background texture patterns, most methods tend to remove texture details in non-rain regions, leading to over-smoothing the regions.</p></li><li><p>The degradation of rain is complex, and the existing rain model widely used in previous methods is insufficient to over some important factors in real rain images, such as the atmospheric veils due to rain streak accumulation, and different shapes or directions of streaks</p></li><li><p>The basic operation of many existing algorithms is on a local image patch or a limited receptive field (a limited spatial range). Thus, spatial contextual information in larger regions, which has been proven to be useful for rain removal, is rarely used.</p></li></ul><h3 id="3-claimed-contributions"><a href="#3-claimed-contributions" class="headerlink" title="3.claimed contributions"></a>3.claimed contributions</h3><ul><li><p>The first method to model the rain-streak binary mask, and also to model the atmospheric veils due to rain streak accumulation as well as various shapes and directions of overlapping rain streaks. This enables us to synthesize more similar data to real rain images for the network training.</p></li><li><p>The first method to jointly detect and remove rains from single images. With the additional information of detected rain regions, our rain removal achieves better performance.</p></li><li><p>The first rain removal method that uses a contextualized dilated network to obtain more context while preserving rich local details.</p></li><li><p>The first method that addresses heavy rain by introducing a recurrent rain detection and removal network, where it removes rain progressively, enabling us to obtain good results even in significantly complex cases.</p></li></ul><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p>[1]<a href="https://blog.csdn.net/zhangjunhit/article/details/64442994" target="_blank" rel="noopener">https://blog.csdn.net/zhangjunhit/article/details/64442994</a><br>[2]<a href="https://www.leiphone.com/news/201707/ZXZ450ilP3PnyUUx.html" target="_blank" rel="noopener">https://www.leiphone.com/news/201707/ZXZ450ilP3PnyUUx.html</a><br>[3]<a href="https://www.jianshu.com/p/15ca85da6ae2" target="_blank" rel="noopener">https://www.jianshu.com/p/15ca85da6ae2</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CVPR2017的作品。我阅读的第一篇关于图像去雨的论文，希望对raw climate data 中的噪声进行一个良好的建模和去除。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="derain" scheme="https://zeyuxiao1997.github.io/tags/derain/"/>
+    
+      <category term="low-level vision" scheme="https://zeyuxiao1997.github.io/tags/low-level-vision/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为什么深度学习去噪都采用高斯白噪声？</title>
+    <link href="https://zeyuxiao1997.github.io/2019/05/05/why-gaussian-noise/"/>
+    <id>https://zeyuxiao1997.github.io/2019/05/05/why-gaussian-noise/</id>
+    <published>2019-05-05T02:05:24.000Z</published>
+    <updated>2019-05-05T02:29:36.053Z</updated>
+    
+    <content type="html"><![CDATA[<p>来源知乎：<a href="https://www.zhihu.com/question/67938028" target="_blank" rel="noopener">https://www.zhihu.com/question/67938028</a><br><a id="more"></a></p><p>需要通过以下三个子问题来说明：</p><ul><li><p>为什么要做仿真噪音synthetic noise的实验？</p></li><li><p>在所有的synthetic noise里，为什么大家都用高斯白噪声，而不太常用其他distribution的噪声？</p></li><li><p>基于synthetic noise，比如高斯噪音的算法，可以适用于真实噪音吗？ </p></li></ul><p>以下回答，我尽量不引用论文，不安利自己的工作，先说结论，后说论据，以方便阅读。</p><h2 id="问题一：Why-synthetic-noise？"><a href="#问题一：Why-synthetic-noise？" class="headerlink" title="问题一：Why synthetic noise？"></a>问题一：Why synthetic noise？</h2><p>先说结论：相对于real noise，用synthetic noise的好处是便于分析问题/设计算法，便于量化和评价算法效果。</p><p>便于对降噪问题的分析/算法的设计：降噪的本质是对数据本身的重建，以起到排除污染（corruption）的作用。这里面涉及到需要对(1)数据，(2)污染（噪音）的模型和分析。数据的模型就是我们一般常用的那些，比如稀疏表达(sparse coding），统计（probabilistic），低秩（low-rankness），collaborative filtering之类的。这些都是基于一定的数学假设。说穿了，事实上没不存在对数据100%精确的model，或者所谓的true model。再来说噪音模型，我们一般把noise这种污染定义为一个additive或者multiplicative的随机变量。那么这个随机变量的随机分布是什么？如果知道了这个，我们就可以设计出对应的合理的算法。</p><p>那么如果是real noise，他是什么分布呢？没有人知道，因为real就意味着未知。噪音可以是unstructured的，也可以是structured的。real的数据里面的噪音，可以是consistent的，也可以是变动的。甚至一幅图，一个视频里的real noise在不同位置都是不一样的。那这种情况下的问题分析就是极难的，或者说这个问题本身就是untrackable的，not well defined的。</p><p>所以科研或者工程设计里面，都会对这类问题做出合理的假设，比如这里的：噪音是高斯白噪声。基于这个假设再来分析问题。</p><p>便于量化和评价算法效果：评价一个降噪算法的效果，需要采用一定的评价标准（metric）。我们一般把评价标准分为客观（objective）和主观（subjective）的：客观标准很好理解：给我一个数学计算方式，算出这个降噪过后的数据，到底有多好。这样做清晰明了，一般没有什么好争议的。常见的这样的metric有Peak Signal-to-Noise Ratio （PSNR），Mean Square Error（MSE），Structured Similarity（SSIM），等等。你经常可以在降噪论文里面看到这三个家伙的身影。他们这些metric的绝对数值的高低，直观地反应方法效果的好坏。</p><p>虽然我知道也有一些工作，试着propose一些不需要ground truth的objective quality metric，但最常用的这类经典metric无一例外地需要图片的无噪音真实值（ground truth）作为参考。如果你是使用仿真噪音，你自然是有ground truth的。但如果是真实噪音，你确一般不知道ground truth是什么。</p><p>所以一般对于真实噪音的降噪实验，我们都只好算法一些subjective的metric：让人眼来辨认降噪出来的图效果是否好。这不同的人，可能对图的喜好也会不一样，这样就经常会产生评价的个体差异，产生争议。就算想要组织一大批人来做测试，成本会很高，不利于科研的高效性。</p><h2 id="问题二：Why-Gaussian-noise？"><a href="#问题二：Why-Gaussian-noise？" class="headerlink" title="问题二：Why Gaussian noise？"></a>问题二：Why Gaussian noise？</h2><p>先说结论：相比于其他的synthetic noise distribution，高斯噪音确实有他的合理性。在真实噪音的噪音源特别复杂的时候，高斯噪音可能算是最好的对真实噪音的模拟。</p><p>其实不光是深度学习的降噪算法，传统方法（好吧，自从有了深度学习以后，什么sparse coding，GMM，low-rank，collaborative filtering都变成传统方法了…）也大多喜欢用高斯白噪声来做仿真实验。那么大家不约而同地都玩儿高斯噪音可能有背后的原因。我觉得这个可能才是题主最关心的问题。</p><p>那这里的答案就是，采用高斯噪音，是为了更好地模拟未知的真实噪音：在真实环境中，噪音往往不是由单一源头造成的，而是很多不同来源的噪音复合体。假设，我们把真实噪音看成非常多不同概率分布的随机变量的加合，并且每一个随机变量都是独立的，那么根据Central Limit Theorem，他们的normalized sum就随着噪音源数量的上升，趋近于一个高斯分布。基于这种假设来看，采用合成的高斯噪音，是在处理这种复杂，且不知道噪音分布为何的情况下，一个既简单又不差的近似仿真。</p><h2 id="问题三：Can-it-work-for-real-noise？"><a href="#问题三：Can-it-work-for-real-noise？" class="headerlink" title="问题三：Can it work for real noise？"></a>问题三：Can it work for real noise？</h2><p>先说结论：在高斯噪音试验下效果的算法，不一定在真实噪音下效果也同样地好。这个要看真实噪音具体长啥样，还要看算法本身的设计是否对噪音分布有一定的鲁棒性。</p><p>在搞清楚了问题一和二之后，相信问题三应该就很好理解了：因为Gaussian noise只是对real noise的一个近似和仿真，没有任何的保证说，设计的算法在处理real noise的时候就一定要表现得同样得好。但由于问题二我们讲了，Gaussian noise test有一定的合理性，所以这类算法在real noise的情况下都会有一定的降噪功用。</p><p>最近有一些新的数据库，包括了真实噪音图片以及他们捕捉到的ground truth。我认为这类数据库将会带来一波专注于真实噪音除去的工作。</p><h2 id="deep-learning"><a href="#deep-learning" class="headerlink" title="deep learning"></a>deep learning</h2><p>最后再来说说深度学习，在降噪问题上的特殊性：深度学习之类算法，模型本身是高度data-driven，而不是rule-based的。换句话说，深度学习算法的设计，或者说网络结构的设计，并不强烈依赖于噪音的概率分布。这对于降噪算法的generalization是很好的。</p><p>然而这并不是说，深度学习的降噪算法，是对所有噪音类型通吃的。深度学习算法一般需要supervised training。这样在训练数据上的选择，确实往往依赖于噪音的概率分布：如果我们要做Gaussian noise removal，那训练数据就应该是添加了Gaussian noise的结果。那么如果我们要做真实噪音的denoising，要怎么准备训练数据？你的训练数据的噪音分布，和你的测试数据是一样的吗？这些都没有保证，或者说不一定说是consistent的。</p><p>但是我个人看法是，可能相对于传统方法而言，深度学习算法在从一种特定噪音的处理，generalize到未知噪音，鲁棒性应该会更高。虽然没有理论上的证明（深度学习上搞这种证明，臣妾确实办不到…），我们近期的工作也证实了这一点。这一段都是私货，如果有其他大神有对这个更好的看法，欢迎讨论。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;来源知乎：&lt;a href=&quot;https://www.zhihu.com/question/67938028&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.zhihu.com/question/67938028&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Technical guide" scheme="https://zeyuxiao1997.github.io/categories/Technical-guide/"/>
+    
+    
+      <category term="denoise" scheme="https://zeyuxiao1997.github.io/tags/denoise/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper-NLRN</title>
+    <link href="https://zeyuxiao1997.github.io/2019/05/05/paper-NLRN/"/>
+    <id>https://zeyuxiao1997.github.io/2019/05/05/paper-NLRN/</id>
+    <published>2019-05-05T02:00:48.000Z</published>
+    <updated>2019-05-05T02:00:49.136Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Video Frame Synthesis using Deep Voxel Flow</title>
+    <link href="https://zeyuxiao1997.github.io/2019/05/04/paper-dvf/"/>
+    <id>https://zeyuxiao1997.github.io/2019/05/04/paper-dvf/</id>
+    <published>2019-05-04T08:33:05.000Z</published>
+    <updated>2019-05-05T01:33:15.786Z</updated>
+    
+    <content type="html"><![CDATA[<p>ICCV2017的作品。解决了模拟新的视频帧的问题，要么是现有视频帧之间的插值，要么是紧跟着他们的探索。这个问题是非常具有挑战性的，因为，视频的外观和运动是非常复杂的。传统 optical-flow-based solutions 当 flow estimation 失败的时候，就变得非常困难；而最新的基于神经网络的方法直接预测像素值，经常产生模糊的结果。于是，在此motivation的基础上，作者提出了结合这两种方法的思路，通过训练一个神经网络，来学习去合成视频帧，通过 flowing pixel values from existing ones, 我们称之为：deep voxel flow. 所提出的方法不需要人类监督，任何video都可以用于训练，通过丢掉，并且预测现有的frames。<br><a id="more"></a><br>论文可<a href="/download/Liu_Video_Frame_Synthesis_ICCV_2017_paper.pdf">点击下载</a>,代码可<a href="https://github.com/liuziwei7/voxel-flow" target="_blank" rel="noopener">点击获取</a>.</p><h2 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h2><h3 id="1-motivation"><a href="#1-motivation" class="headerlink" title="1. motivation"></a>1. motivation</h3><p>传统的方法解决视频插帧（内插或外插），就是依赖于帧与帧之间的optical flow，然后进行 optical flow vectors 之间的【插值】或者【预测】。这种方法称为：“optical-flow-complete”；当光流准确的时候，这种方法是非常有效的，但是当不准确的时候，就会产生额外的错误信息。一种基于产生式CNN的方法，直接产生RGB像素值。但是这种方法经常会产生模糊的情况，并非像光流一样有效。</p><h3 id="2-现有方法的弊端"><a href="#2-现有方法的弊端" class="headerlink" title="2.现有方法的弊端"></a>2.现有方法的弊端</h3><p>【略】</p><h2 id="二、method"><a href="#二、method" class="headerlink" title="二、method"></a>二、method</h2><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p>[1] <a href="https://yq.aliyun.com/articles/310845" target="_blank" rel="noopener">https://yq.aliyun.com/articles/310845</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ICCV2017的作品。解决了模拟新的视频帧的问题，要么是现有视频帧之间的插值，要么是紧跟着他们的探索。这个问题是非常具有挑战性的，因为，视频的外观和运动是非常复杂的。传统 optical-flow-based solutions 当 flow estimation 失败的时候，就变得非常困难；而最新的基于神经网络的方法直接预测像素值，经常产生模糊的结果。于是，在此motivation的基础上，作者提出了结合这两种方法的思路，通过训练一个神经网络，来学习去合成视频帧，通过 flowing pixel values from existing ones, 我们称之为：deep voxel flow. 所提出的方法不需要人类监督，任何video都可以用于训练，通过丢掉，并且预测现有的frames。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="Video Frame Interpolation" scheme="https://zeyuxiao1997.github.io/tags/Video-Frame-Interpolation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Deep Video Frame Interpolation using Cyclic Frame Generation</title>
+    <link href="https://zeyuxiao1997.github.io/2019/05/04/paper-VFICFG/"/>
+    <id>https://zeyuxiao1997.github.io/2019/05/04/paper-VFICFG/</id>
+    <published>2019-05-04T01:48:49.000Z</published>
+    <updated>2019-05-05T02:29:33.433Z</updated>
+    
+    <content type="html"><![CDATA[<p>AAAI2019的作品。基于DVF，加入3个extensions，使表现进一步提高。<br><a id="more"></a><br>论文可<a href="/download/liu.pdf">点击下载</a>,代码可<a href="https://github.com/alex04072000/CyclicGen" target="_blank" rel="noopener">点击获取</a>.</p><h2 id="一、introduction"><a href="#一、introduction" class="headerlink" title="一、introduction"></a>一、introduction</h2><h3 id="1-motivation"><a href="#1-motivation" class="headerlink" title="1.motivation"></a>1.motivation</h3><p>高帧率视频获取成本高，因此使用视频插帧的方法生成连续的中间帧是很实用的。但是现有方法常常使得插值的帧过于平滑或者过于模糊，这些情况在运动很大或者纹理丰富的局部区域尤其明显。因此寻找一种好的限制方式很重要，用于捕捉帧之间的变化和纹理细节。</p><p>作者提出的CyclicGen使用循环一致性损失，并增加了两个extension（motion linearity loss和edge guided training），使得表现进一步提升。</p><h3 id="2-现有方法的弊端"><a href="#2-现有方法的弊端" class="headerlink" title="2.现有方法的弊端"></a>2.现有方法的弊端</h3><h4 id="视频插帧"><a href="#视频插帧" class="headerlink" title="视频插帧"></a>视频插帧</h4><p>现有的视频插帧方法计算复杂、为了改善结果一味增加网络深度用于提取特征。</p><p>【这篇文章是我看的第一篇关于视频插帧的论文，里面提到的论文我不是很了解，后续会把相关工作补上】</p><h4 id="cycle-constrant"><a href="#cycle-constrant" class="headerlink" title="cycle constrant"></a>cycle constrant</h4><p>这个思想是第一次用于视频插帧。之前常用于语言翻译、运动追踪、深度估计、3D视觉匹配等方向。</p><h2 id="二、method"><a href="#二、method" class="headerlink" title="二、method"></a>二、method</h2><p>假设输入为：$S=\left\{I_{0}, I_{1}, I_{2}, \dots, I_{N}\right\}$，2倍的插值为$S^{\prime}=\left\{I_{0.5}, I_{1.5}, I_{2.5}, \dots, I_{N-0.5}\right\}$，当对$S \cup S^{\prime}$进行插值时，$S^{\prime \prime}=\left\{I_{0.25}, I_{0.75}, \dots, I_{N-0.25}\right\}$是4倍的插值结果。</p><p>网络是两步的训练结果。有3个重要的部件：</p><ul><li><p>cycle consistency loss：boosts the model to produce plausible intermediate frames so that these frames can be used to reversely reconstruct the given frames. </p></li><li><p>motion linearity loss：regularize the estimation of motions in training. </p></li><li><p>Edge guided training：help preserve the edge structure</p></li></ul><p>网络结构如下图：<br><img src="/2019/05/04/paper-VFICFG/1.png" width="1"></p><h3 id="Cycle-Consistency-Loss-mathcal-L-c"><a href="#Cycle-Consistency-Loss-mathcal-L-c" class="headerlink" title="Cycle Consistency Loss $\mathcal{L}_{c}$"></a>Cycle Consistency Loss $\mathcal{L}_{c}$</h3><script type="math/tex; mode=display">\mathcal{L}_{r}=\sum_{n=1}^{N}\left\|f\left(I_{n, 0}, I_{n, 2}\right)-I_{n, 1}\right\|_{1}=\sum_{n=1}^{N}\left\|I_{n, 1}^{\prime}-I_{n, 1}\right\|_{1}</script><p><script type="math/tex">\mathcal{L}=\mathcal{L}_{r}+\mathcal{L}_{c}=\sum_{n=1}^{N}\left\|I_{n, 1}^{\prime}-I_{n, 1}\right\|_{1}+\left\|I_{n, 1}^{\prime \prime}-I_{n, 1}\right\|_{1}</script>，where $I_{n, 1}^{\prime \prime}=f\left(I_{n, 0.5}^{\prime}, I_{n, 1.5}^{\prime}\right), I_{n, 0.5}^{\prime}=f\left(I_{n, 0}, I_{n, 1}\right)$ $I_{n, 1.5}^{\prime}=f\left(I_{n, 1}, I_{n, 2}\right)$</p><h3 id="Motion-Linearity-Loss-mathcal-L-m"><a href="#Motion-Linearity-Loss-mathcal-L-m" class="headerlink" title="Motion Linearity Loss $\mathcal{L}_{m}$"></a>Motion Linearity Loss $\mathcal{L}_{m}$</h3><p>运动很大的区域会有巨大的预测错误。因此假设两个连续帧之间的时间间隔足够短，使得两个帧之间的运动是线性的。 在大多数情况下，该假设有助于减少运动的不确定性并减轻近似误差</p><p><script type="math/tex">\mathcal{L}_{m}=\sum_{n=1}^{N}\left\|F_{n, 0 \rightarrow 2}-2 \cdot F_{n, 0.5 \rightarrow 1.5}\right\|_{2}^{2}</script>，where F表示flow map，其下标表示其数据索引和输入帧的时间间隔。</p><h3 id="Edge-guided-Training-mathcal-E"><a href="#Edge-guided-Training-mathcal-E" class="headerlink" title="Edge-guided Training $\mathcal{E}$"></a>Edge-guided Training $\mathcal{E}$</h3><p>使用holistically-nested edge detection</p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>似乎结果都蛮不错的，后续跑完实验再来更。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;AAAI2019的作品。基于DVF，加入3个extensions，使表现进一步提高。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="Video Frame Interpolation" scheme="https://zeyuxiao1997.github.io/tags/Video-Frame-Interpolation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Video Frame Interpolation via Adaptive Convolution</title>
+    <link href="https://zeyuxiao1997.github.io/2019/05/04/paper-adaconv/"/>
+    <id>https://zeyuxiao1997.github.io/2019/05/04/paper-adaconv/</id>
+    <published>2019-05-04T01:03:41.000Z</published>
+    <updated>2019-05-04T01:29:00.560Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2017的作品。为了避免遮挡、模糊、亮度突变造成伪像的问题，将传统的视频插帧的motion estimation+pixel synthesis合并为一步。将像素插值视为两个输入视频帧中相应图像块的卷积，并使用深度完全卷积神经网络估计空间自适应卷积核。<br><a id="more"></a><br>论文可<a href="/download/1703.07514.pdf">点击下载</a>,代码可<a href="http://web.cecs.pdx.edu/~fliu/project/adaconv/" target="_blank" rel="noopener">点击获取</a>.</p><h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><p>[1] <a href="https://blog.csdn.net/zhangjunhit/article/details/78181959" target="_blank" rel="noopener">https://blog.csdn.net/zhangjunhit/article/details/78181959</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CVPR2017的作品。为了避免遮挡、模糊、亮度突变造成伪像的问题，将传统的视频插帧的motion estimation+pixel synthesis合并为一步。将像素插值视为两个输入视频帧中相应图像块的卷积，并使用深度完全卷积神经网络估计空间自适应卷积核。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="Video Frame Interpolation" scheme="https://zeyuxiao1997.github.io/tags/Video-Frame-Interpolation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Deep Image Prior</title>
+    <link href="https://zeyuxiao1997.github.io/2019/05/03/paper-Deep-Image-Prior/"/>
+    <id>https://zeyuxiao1997.github.io/2019/05/03/paper-Deep-Image-Prior/</id>
+    <published>2019-05-03T13:39:28.000Z</published>
+    <updated>2019-05-03T13:46:39.372Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2018的论文。不同的神经网络可以实现给图像去噪、去水印、消除马赛克等等功能，但我们能否让一个模型完成上述所有事？事实证明 AI 确实有这样的能力。来自 Skoltech、Yandex 和牛津大学的学者们提出了一种可以满足所有大胆想法的神经网络，这就是Deep Image Prior。<br><a id="more"></a><br><a href="/download/deep_image_prior_journal.pdf">会议论文</a>和<a href="/download/deep_image_prior.pdf">期刊论文</a>可分别点击下载；<a href="https://github.com/DmitryUlyanov/deep-image-prior" target="_blank" rel="noopener">代码链接</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CVPR2018的论文。不同的神经网络可以实现给图像去噪、去水印、消除马赛克等等功能，但我们能否让一个模型完成上述所有事？事实证明 AI 确实有这样的能力。来自 Skoltech、Yandex 和牛津大学的学者们提出了一种可以满足所有大胆想法的神经网络，这就是Deep Image Prior。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>BDGAN</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/30/BDGAN/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/30/BDGAN/</id>
+    <published>2019-04-30T12:35:14.000Z</published>
+    <updated>2019-04-30T12:35:14.721Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>MatconvNet安装与使用</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/30/matlab-conv/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/30/matlab-conv/</id>
+    <published>2019-04-30T03:21:35.000Z</published>
+    <updated>2019-04-30T12:34:32.515Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文介绍matlab中MatconvNet的安装。matlab事实上也是一个很有用的深度学习库，并且现在看的论文有部分是基于matlab+MatconvNet实现的，因此安装支持GPU的matlab是必须的。<br><a id="more"></a></p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="查看matlab-cuda-cudnn的版本"><a href="#查看matlab-cuda-cudnn的版本" class="headerlink" title="查看matlab/cuda/cudnn的版本"></a>查看matlab/cuda/cudnn的版本</h3><p>输入如下指令，查看cuda版本<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nvcc -V</span></span><br></pre></td></tr></table></figure></p><p>或者进入到C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.0 目录，输入如下指令查看<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cat</span> <span class="keyword">version</span>.txt</span><br></pre></td></tr></table></figure></p><p>未完待续。。。。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文介绍matlab中MatconvNet的安装。matlab事实上也是一个很有用的深度学习库，并且现在看的论文有部分是基于matlab+MatconvNet实现的，因此安装支持GPU的matlab是必须的。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="tools" scheme="https://zeyuxiao1997.github.io/categories/tools/"/>
+    
+    
+      <category term="matlab" scheme="https://zeyuxiao1997.github.io/tags/matlab/"/>
+    
+      <category term="MatconvNet" scheme="https://zeyuxiao1997.github.io/tags/MatconvNet/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IPS流程（camera成像原理的介绍）</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/28/camera/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/28/camera/</id>
+    <published>2019-04-28T01:37:26.000Z</published>
+    <updated>2019-04-28T01:47:25.506Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><p>在看真实图像盲去噪的时候偶然看到了这个博客，很遗憾没有在网上找到原版ppt或者pdf，因此把链接放在这，具体的成像原理可以通过<a href="https://blog.csdn.net/gwplovekimi/article/details/84638925" target="_blank" rel="noopener">https://blog.csdn.net/gwplovekimi/article/details/84638925</a>进行查看。</p><p>感谢原链接作者。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;在看真实图像盲去噪的时候偶然看到了这个博客，很遗憾没有在网上找到原版ppt或者pdf，因此把链接放在这，具体的成像原理可以通过&lt;a href=&quot;https://blog.csdn.net/gwplovekimi/article/detai
+      
+    
+    </summary>
+    
+      <category term="Theory and application" scheme="https://zeyuxiao1997.github.io/categories/Theory-and-application/"/>
+    
+    
+      <category term="camera imaging" scheme="https://zeyuxiao1997.github.io/tags/camera-imaging/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>pytorch的一些学习记录/困惑/笔记等(持续更新)</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/25/pytorch-learn/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/25/pytorch-learn/</id>
+    <published>2019-04-25T08:13:25.000Z</published>
+    <updated>2019-04-25T08:23:13.881Z</updated>
+    
+    <content type="html"><![CDATA[<p>pytorch的相关学习记录、困惑、学习笔记等，持续更新。<br><a id="more"></a></p><h2 id="查看网络参数总量"><a href="#查看网络参数总量" class="headerlink" title="查看网络参数总量"></a>查看网络参数总量</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">netG = Generator(UPSCALE_FACTOR)</span><br><span class="line"><span class="comment"># here is generator network, which generate a super-resolved image</span></span><br><span class="line">print(<span class="string">'# generator parameters:'</span>, <span class="built_in">sum</span>(<span class="built_in">param</span>.numel() <span class="keyword">for</span> <span class="built_in">param</span> <span class="keyword">in</span> netG.parameters()))</span><br><span class="line">netD = Discriminator()</span><br><span class="line"><span class="comment"># here is discriminator network, which decide whether the image is the real one or the super-resolved one</span></span><br><span class="line">print(<span class="string">'# discriminator parameters:'</span>, <span class="built_in">sum</span>(<span class="built_in">param</span>.numel() <span class="keyword">for</span> <span class="built_in">param</span> <span class="keyword">in</span> netD.parameters()))</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;pytorch的相关学习记录、困惑、学习笔记等，持续更新。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Technical guide" scheme="https://zeyuxiao1997.github.io/categories/Technical-guide/"/>
+    
+    
+      <category term="pytorch" scheme="https://zeyuxiao1997.github.io/tags/pytorch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/22/paper-SRGAN/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/22/paper-SRGAN/</id>
+    <published>2019-04-22T05:40:12.000Z</published>
+    <updated>2019-04-23T14:56:26.690Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2017的论文，第一篇使用GAN做SR的。由于SRGAN年代较为久远、网络结构较为经典，网上有很多解读。我主要参考的链接将出现在reference部分。<br>事实上，文章的出发点基于：高的数值准确性并不能表征高的人体感知，也就是说，PSNR高的值在人眼中不一定视觉效果好。<br><a id="more"></a><br>论文可<a href="https://arxiv.org/pdf/1609.04802v1.pdf" target="_blank" rel="noopener">点击下载</a></p><h2 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h2><h3 id="3-文中claim的contributions"><a href="#3-文中claim的contributions" class="headerlink" title="3. 文中claim的contributions"></a>3. 文中claim的contributions</h3><ul><li><p>通过对16块深度ResNet (SRResNet)进行MSE优化，通过PSNR（峰值信噪比）和结构相似性(SSIM)测量了具有高上标度因子(4x)的图像SR，并为其设置了一种新的技术的最新水平。</p></li><li><p>我们提出了一种基于神经网络的感知损失优化算法。在这里，我们将基于mse的内容损失替换为基于VGG网络[49]特征图计算的损失，该特征图对像素空间[38]的变化更加不变。</p></li><li><p>我们通过对三个公共基准数据集的图像进行广泛的平均意见得分(MOS)测试，证实了SRGAN是一种新的技术状态，在很大程度上可以用于估计具有高放大因子的照片真实感SR图像(4x)。</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CVPR2017的论文，第一篇使用GAN做SR的。由于SRGAN年代较为久远、网络结构较为经典，网上有很多解读。我主要参考的链接将出现在reference部分。&lt;br&gt;事实上，文章的出发点基于：高的数值准确性并不能表征高的人体感知，也就是说，PSNR高的值在人眼中不一定视觉效果好。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="SR" scheme="https://zeyuxiao1997.github.io/tags/SR/"/>
+    
+      <category term="GAN" scheme="https://zeyuxiao1997.github.io/tags/GAN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Benchmarking Denoising Algorithms with Real Photographs</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/21/paper-denoise/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/21/paper-denoise/</id>
+    <published>2019-04-21T15:22:23.000Z</published>
+    <updated>2019-04-21T15:24:56.873Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="denoising" scheme="https://zeyuxiao1997.github.io/tags/denoising/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Important network structure——C3D</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/21/class-C3D/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/21/class-C3D/</id>
+    <published>2019-04-21T14:29:04.000Z</published>
+    <updated>2019-04-22T07:27:32.854Z</updated>
+    
+    <content type="html"><![CDATA[<p>C3D，也就是3D卷积神经网络，首先被提出并应用于action recognition。论文距今已经有了一些年月，这个网络现在对于行为识别已经有点过时了，只是里面的3D卷积成为了经典，没有花里胡哨的连接，只有传统网络的一条路，卷积，池化，分类。<br><a id="more"></a><br>论文可<a href="http://vlg.cs.dartmouth.edu/c3d/c3d_video.pdf" target="_blank" rel="noopener">点击下载</a></p><p>论文之前在看过，这里就不再写笔记了，我直接写3D卷积部分。</p><h2 id="关于C3D"><a href="#关于C3D" class="headerlink" title="关于C3D"></a>关于C3D</h2><p>C3D网络设计主要是用来解决Action Recognition,之前有用2D-CNN网络来识别的，但是2D的不能很好的提取时间特性，所以效果也不是很好。</p><img src="/2019/04/21/class-C3D/1.png" width="1"><p>a)和b)分别为2D卷积用于单通道图像和多通道图像的情况（此处多通道图像可以指同一张图片的3个颜色通道，也指多张堆叠在一起的图片，即一小段视频），对于一个滤波器，输出为一张二维的特征图，多通道的信息被完全压缩了。而c)中的3D卷积的输出仍然为3D的特征图。</p><p>现在考虑一个视频段输入，其大小为 $c \times l \times h \times w$ ,其中c为图像通道(一般为3),l为视频序列的长度，h和w分别为视频的宽与高。进行一次kernel size为$3 \times 3$,stride为1,padding=True,滤波器个数为K的3D 卷积后，输出的大小为$K \times l \times h \times w$。池化同理。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>C3D使用3D CNN构造了一个效果不错的网络结构，对于基于视频的问题均可以用来提取特征。可以将其全连接层去掉，将前面的卷积层放入自己的模型中，就像使用预训练好的VGG模型一样。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;C3D，也就是3D卷积神经网络，首先被提出并应用于action recognition。论文距今已经有了一些年月，这个网络现在对于行为识别已经有点过时了，只是里面的3D卷积成为了经典，没有花里胡哨的连接，只有传统网络的一条路，卷积，池化，分类。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Important network structure" scheme="https://zeyuxiao1997.github.io/categories/Important-network-structure/"/>
+    
+    
+      <category term="CNN" scheme="https://zeyuxiao1997.github.io/tags/CNN/"/>
+    
+      <category term="3D" scheme="https://zeyuxiao1997.github.io/tags/3D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Fast Spatio-Temporal Residual Network for Video Super-Resolution(FSTRN)</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/21/paper-STRVSR/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/21/paper-STRVSR/</id>
+    <published>2019-04-21T13:31:16.000Z</published>
+    <updated>2019-04-21T13:42:28.884Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2019新作,阅读笔记敬请期待。<br><a id="more"></a><br>论文可<a href="/download/1904.02870.pdf">点击下载</a>.</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CVPR2019新作,阅读笔记敬请期待。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="VSR" scheme="https://zeyuxiao1997.github.io/tags/VSR/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Camera Lens Super-Resolution</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/21/paper-CameraSR/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/21/paper-CameraSR/</id>
+    <published>2019-04-21T02:08:11.000Z</published>
+    <updated>2019-04-21T11:14:18.182Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2019新作，一篇关于真实图像的超分辨率作品，还是具有开创意义的。和之前那篇《Bridging the Simulated-to-Real Gap:Benchmarking Super-Resolution on Real Data》一样，也是自己手工搭建了一套数据集。文章从R-V trade-off入手，也就是视野和分辨率之间的权衡，构建了一套（HR，LR）数据集并提出CameraSR方法，较好的提高真实图像场景下的分辨率。<br><a id="more"></a><br>论文可<a href="/download/cameraSR.pdf">点击下载</a>.</p><h2 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h2><h3 id="1-motivation"><a href="#1-motivation" class="headerlink" title="1. motivation"></a>1. motivation</h3><p>现有的SR方法都是基于bicubic downsampling和gaussian downsampling的degradation方法。但是真实的图像系统不能这么搞，因为存在其他更复杂的影响因素。因此作者探究了一个分辨率和视野的一个权衡，通过学习R-V degradation（resolution vs field-of-view）的这么一个过程提高了实际情况下的分辨率。</p><p>下图分别说明R-V degradation对分辨率的影响和重建之后的效果图<br><img src="/2019/04/21/paper-CameraSR/1.png" width="1"><br><img src="/2019/04/21/paper-CameraSR/2.png" width="2"><br>上图表明，R-V确实对分辨率有较大影响，必须考虑R-V才能对重建产生积极影响。</p><h3 id="2-文中claim的contributions"><a href="#2-文中claim的contributions" class="headerlink" title="2. 文中claim的contributions"></a>2. 文中claim的contributions</h3><ul><li>考虑真实世界图片系统的重建，本文的切入点是R-V degradation of camera lense</li><li>获取LR-HR pair的新方法</li><li>将常用的SR方法迁移到真实数据集上</li></ul><h3 id="3-几个有用的前人工作"><a href="#3-几个有用的前人工作" class="headerlink" title="3. 几个有用的前人工作"></a>3. 几个有用的前人工作</h3><ul><li><p>[1] introduced more degradation operators into the bicubicdownsampled LR images, including motion blur and Poisson noise</p></li><li><p>[4] defined the LR face images with the low-quality assumptions (e.g., noise, blur, and compression artifacts) and trained a GAN to learn the degradation process</p></li><li><p>[20] estimated the degradation model relying on the inherent recurrence of the input image</p></li><li><p>[23]  further optimized an imagespecific CNN with examples solely extracted from the input image </p></li></ul><p>和上面几个重要的前人工作相比，cameraSR使用真实图像采集系统进行操作，参考[21]，对degradation过程进行建模。高ISO值捕获的对象被定义为noise并且低ISO值捕获的相同对象被定义为clean。 将此定义扩展到SR场景，该场景解决了获得真实LR-HR图像对的关键挑战将此定义扩展到SR场景，该场景解决了获得真实LR-HR图像对的关键挑战</p><p>采用VDSR [13]和SRGAN [16]作为两个代表性实施例来证明CameraSR的有效性和普遍性，可以用任何基于CNN的方法代替。</p><h2 id="二、Method"><a href="#二、Method" class="headerlink" title="二、Method"></a>二、Method</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>一个既定的事实是：<font color="#FF0000">缩小镜头会以牺牲对象的分辨率损失为代价获得更大的FoV</font>。假设R-V退化过程是$D_{R V}(\cdot)$，我们的目标是获得$S(\cdot)$，方程可以写作：<script type="math/tex">\hat{X}=S\left(D_{R V}(X)\right)</script>，其中$\hat{X}$和$X$分别表示super-resolved和原图。</p><p>要注意的是，针对不同的退化方法，表达式可以进行变化。$\hat{X}=S\left(D_{B i c}(X)\right)$为bicubic downsample；更复杂一点可以表示为$\hat{X}=S\left(D_{B l u r}\left(D_{B i c}(X)\right)+v\right)$，where $D_{B l u r}(\cdot)$是blurring operator，$v$是某一个类型的噪声。</p><p>使用深度学习方法进行隐式计算$D_{R V}(\cdot)$，parametric SR function为$S_{\Theta}(\cdot)$，<script type="math/tex">\hat{X}=S_{\Theta}\left(\hat{D}_{R V}(X)\right)</script>，大数定理表明$\hat{D}_{R V}(\cdot) \rightarrow {D}_{R V}$，loss function是</p><script type="math/tex; mode=display">\min _{\Theta} \frac{1}{n} \sum_{i=1}^{n} \mathcal{L}\left(X_{i}-S_{\Theta}\left(Y_{i}\right)\right)</script><h3 id="数据获取"><a href="#数据获取" class="headerlink" title="数据获取"></a>数据获取</h3><p>在采数据的时候出现了包括空间错位，强度变化和颜色不匹配的问题。 这可能是由于焦距的变化是一个无法理想控制的机械过程。 因此，它导致相机机身的轻微抖动以及曝光配置</p><p>然后使了一套方法进行校正标定</p><h2 id="三、结论和讨论"><a href="#三、结论和讨论" class="headerlink" title="三、结论和讨论"></a>三、结论和讨论</h2><ul><li>没有更多的在采集数据的时候考虑噪声</li><li>可以加入时间维</li><li>self-similarity based methods to utilize the inherent recurrence</li></ul><h2 id="四、启发"><a href="#四、启发" class="headerlink" title="四、启发"></a>四、启发</h2><ul><li>气候信息是有噪声的，我是不是可以用什么方法把噪声去了或者减轻噪声的影响？</li><li>有什么好的去噪方法可以尝试的呢？把噪声去了就好了</li><li>除了考虑时间，我是不是也可以加强先验呢？</li></ul><h2 id="references"><a href="#references" class="headerlink" title="references"></a>references</h2><p>[1] Yochai Blau and Tomer Michaeli. The perception-distortion tradeoff. In CVPR, 2018.<br>[4] Adrian Bulat, Jing Yang, and Georgios Tzimiropoulos. To learn image super-resolution, use a gan to learn how to do image degradation first. In ECCV, 2018.<br>[20]Tomer Michaeli and Michal Irani. Nonparametric blind super-resolution. In CVPR, 2013.<br>[23] Assaf Shocher, Nadav Cohen, and Michal Irani. zero-shot super-resolution using deep internal learning. In CVPR, 2018.</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CVPR2019新作，一篇关于真实图像的超分辨率作品，还是具有开创意义的。和之前那篇《Bridging the Simulated-to-Real Gap:Benchmarking Super-Resolution on Real Data》一样，也是自己手工搭建了一套数据集。文章从R-V trade-off入手，也就是视野和分辨率之间的权衡，构建了一套（HR，LR）数据集并提出CameraSR方法，较好的提高真实图像场景下的分辨率。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="SR" scheme="https://zeyuxiao1997.github.io/tags/SR/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Deep High-Resolution Representation Learning for Human Pose Estimation(HRnet)</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/20/paper-HRnet/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/20/paper-HRnet/</id>
+    <published>2019-04-20T01:51:49.000Z</published>
+    <updated>2019-04-22T07:35:37.292Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2019新作，各大微信公众号已经吹爆了，我的个人解读即将出炉。。。。<br><a id="more"></a><br>论文可<a href="/download/1902.09212.pdf">点击下载</a>.</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CVPR2019新作，各大微信公众号已经吹爆了，我的个人解读即将出炉。。。。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="net structure" scheme="https://zeyuxiao1997.github.io/tags/net-structure/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Bridging the Simulated-to-Real Gap:Benchmarking Super-Resolution on Real Data</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/18/paper-1809-06420/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/18/paper-1809-06420/</id>
+    <published>2019-04-18T12:50:17.000Z</published>
+    <updated>2019-04-21T13:42:26.045Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文是TPAMI的论文，构建了一个真实世界下的LR-HR数据集，综合考虑了CMOS sensor noise, real sampling at four resolution levels, nine scene motion types, two photometric conditions, and lossy video coding at five levels这几个不同的影响因素；可以说，这篇文章将SR的发展又向前推进了一大步。<font color="#FF0000">  尤其值得注意的一点是：在模拟数据上表现好的方法在真实数据集上表现的并不好</font>。<br><a id="more"></a><br>论文可<a href="/download/1809.06420.pdf">点击下载</a>.</p><h2 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h2><h3 id="1-motivation"><a href="#1-motivation" class="headerlink" title="1. motivation"></a>1. motivation</h3><p>事实上，现有的SISR、MISR、VSR方法都是基于模拟方法获取pair并在此基础上进一步实现相关算法，简单来说，bicubic interpolation就是一个获取模拟数据的直接方法。真实SR数据更容易在精细结构处受到噪声影响，下图就是一个真实的例子。<br><img src="/2019/04/18/paper-1809-06420/1.png" title="real-vs-simulation"></p><h3 id="2-contributions"><a href="#2-contributions" class="headerlink" title="2.contributions"></a>2.contributions</h3><ul><li>propose SupER database (<a href="https://superresolution.tf.fau.de/" target="_blank" rel="noopener">https://superresolution.tf.fau.de/</a>)</li><li>uncover mismatches between quantitative evaluations and human perception</li><li>etc</li></ul><h3 id="3-你通过读论文可以获得什么？"><a href="#3-你通过读论文可以获得什么？" class="headerlink" title="3.你通过读论文可以获得什么？"></a>3.你通过读论文可以获得什么？</h3><ul><li>existing SR datasets and evaluation strategies</li><li>introduce the proposed benchmark database</li><li>underlying evaluation protocol</li><li>evaluate current SR approaches quantitatively and in the observer study</li><li>draw conclusions for future algorithm developments</li></ul><h3 id="Benchmarking-on-Simulated-Data"><a href="#Benchmarking-on-Simulated-Data" class="headerlink" title="Benchmarking on Simulated Data"></a>Benchmarking on Simulated Data</h3><p>All of these benchmarks have in common that only simplistic sampling kernels that are known a priori (e.g. bicubic [37] or Gaussian kernels [24], [39]) are simulated but SR in case of more general kernels is unexplored</p><p>模拟数据的使用使得能够通过全参考质量评估方法来比较算法性能，但限制了在实际约束下的性能。 物理上有意义的采样内核、真实噪声模型或环境条件对SR的影响是巨大的。</p><p>简化的模拟方法对真实世界真实图像的性能差异没有被很好的评估。作者做了<font color="#FF0000"> address this question and show the overall weak correlations between benchmarks on simulated and real data termed simulated-to-real gap</font>。</p><h3 id="Benchmarking-on-Real-Data"><a href="#Benchmarking-on-Real-Data" class="headerlink" title="Benchmarking on Real Data"></a>Benchmarking on Real Data</h3><font color="#FF0000">Work aims at broadly benchmarking SR algorithms on real captured images</font>.Qu et.al.[48]在多摄像机设置中所需的LR/HR对齐可能会受到容易出错的校准和图像配准的影响。 这使得用于像素比较的全参考质量测量的使用不可靠。 此外，[48]的数据仅包括单个图像，不包括MFSR。 我们提出单相机设置，避免这些限制，并允许我们获得两个以上的分辨率级别。### 数据集的获取和细节原文是这样的：We collect sets of LR and HR images at multiple resolutions with a single camera by capturing stop-motion videos. At each time step of a stop-motion video, the underlying scene, environmental conditions, and the camera pose are kept static. For consecutive time steps, the scene undergoes changes related to camera and/or object movements and/or environmental variations.一个time step由一个n+1维元组构成，元组为：$\left(\boldsymbol{X}_{\mathrm{gt}}, \boldsymbol{Y}_{b_{1}}, \boldsymbol{Y}_{b_{2}} \ldots, \boldsymbol{Y}_{b_{n}}\right)$，其中$\boldsymbol{X}_{\mathrm{gt}}$是ground truth，size=$N_{u} \times N_{v}$，$\boldsymbol{Y}_{b_{i}}, i=1, \dots, n$是LR帧，size=$N_{u} / b_{i} \times N_{v} / b_{i}$,$b_{i}$是binning值。### Image Formation使用取平均降低sensor noise，得到最终的ground truth。$$\boldsymbol{X}_{\mathrm{gt}}=\frac{1}{L} \sum_{l=1}^{L} \boldsymbol{X}^{(l)}$$<font color="#00FFFF"> 然后讲的是LR图片的获取，这一块涉及到image acquisition相关的理论，等到暑假的时候再看看吧，现在看不懂。 </font><p>大多数SR算法处理灰度或单个亮度通道，而色度通道只是插值[13]，[25]，[37]，[49]。 因此，我们仅限于单色采集，以在硬件要求和实际适用性之间进行折衷。 为了研究全色SR，可以推广设置以提供多个通道，例如， G。 使用彩色滤光片或全RGB相机。</p><h3 id="Image-Postprocessing"><a href="#Image-Postprocessing" class="headerlink" title="Image Postprocessing"></a>Image Postprocessing</h3><p>考虑了视频压缩等因素</p><h3 id="运动和光照"><a href="#运动和光照" class="headerlink" title="运动和光照"></a>运动和光照</h3><img src="/2019/04/18/paper-1809-06420/3.png" title="facility"><p>运动由设备控制（上升 下降 旋转 综合运动等），环境光照用明暗光进行控制—为了模拟白天和夜晚【光度条件由人工照明控制，我们考虑明亮（日光）和弱光照明（夜光）。 结合场景中对象的移动，这形成了具有不同难度级别的五个数据集类别】。</p><img src="/2019/04/18/paper-1809-06420/2.png" title="table"><p>下面是5种数据集类型:</p><ul><li>global motion: 包含具有恒定日光条件的静态场景。 所有帧间运动是使用Tab中具有均匀分布的相机位置的轨迹的全局相机运动</li><li>local motion: 包括在日光条件下使用静态相机拍摄但移动物体的动态场景，所有帧间运动是平移和/或旋转物体运动</li><li>mixed motion: 结合了全局和局部运动。 为此，每个相机轨迹与平移和/或旋转物体运动相结合</li><li>phptpmetric variation: 包括K帧序列，其中第一个K-Knight帧取自全局，局部和混合运动数据，剩余的Knight异常值帧在夜间条件下获得</li><li>Video compression: 进一步将上述数据集扩展了五个H.265 / HEVC压缩级别，即。即 所有LR图像都以未压缩和压缩的形式提供</li></ul><h3 id="和现有数据集的比较"><a href="#和现有数据集的比较" class="headerlink" title="和现有数据集的比较"></a>和现有数据集的比较</h3><img src="/2019/04/18/paper-1809-06420/4.png" title="table"><h4 id="比较pinning"><a href="#比较pinning" class="headerlink" title="比较pinning"></a>比较pinning</h4><img src="/2019/04/18/paper-1809-06420/5.png" title="pinning_compare"><h4 id="单camera和多camera对比"><a href="#单camera和多camera对比" class="headerlink" title="单camera和多camera对比"></a>单camera和多camera对比</h4><ul><li>保证LR和ground truth图像的对齐</li><li>可使用full-reference质量评价指标进行pixel-wise比较</li><li>避免多camera设置出错的可能</li><li>存在多个分辨率等级，收集图像序列而不是单个图像；这使得数据可用于SISR和MFSR</li></ul><h2 id="二、比较和结论"><a href="#二、比较和结论" class="headerlink" title="二、比较和结论"></a>二、比较和结论</h2><h3 id="评价方法"><a href="#评价方法" class="headerlink" title="评价方法"></a>评价方法</h3><p>使用$K=2 M+1$个连续LR帧$\boldsymbol{Y}^{(-M)}, \ldots, \boldsymbol{Y}^{(0)}, \ldots, \boldsymbol{Y}^{(M)}$。$\boldsymbol{Y}^{(0)}$是参照帧。对于SISR，$\boldsymbol{Y}^{(0)}$对应于HR帧$X_{sr}$；在MFSR中$\boldsymbol{Y}^{(-M)}, \ldots, \boldsymbol{Y}^{(M)}$需要使用optical flow算法进行中间帧$\boldsymbol{Y}^{(0)}$的估计。</p><p>评价指标使用的是PSNR、SSIM、MS-SSIM、IFC、S3、BRISQUE、SSEQ、NIQE和SRM【Higher S3 and SRM measure express higher perceptual quality of the assessed SR image. For BRISQUE, SSEQ and NIQE, we used the negated scores such that higher measures express higher quality.】由于场景会影响这些值，使用标准化的质量度量：</p><p><script type="math/tex">\tilde{Q}\left(\boldsymbol{X}_{\mathrm{sr}}\right)=\left(Q\left(\boldsymbol{X}_{\mathrm{sr}}\right)-Q(\tilde{\boldsymbol{Y}})\right) / Q(\tilde{\boldsymbol{Y}})</script>，where $\tilde{Y}$ denotes the nearest-neighbor interpolation of the reference frame $\boldsymbol{Y}^{(0)}$ on the target HR grid.</p><h3 id="比较方法"><a href="#比较方法" class="headerlink" title="比较方法"></a>比较方法</h3><p>DL方法有三个，SRCNN、VDSR、和DRCN</p><h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><img src="/2019/04/18/paper-1809-06420/6.png" title="result1"><img src="/2019/04/18/paper-1809-06420/7.png" title="result2"><img src="/2019/04/18/paper-1809-06420/8.png" title="result3"><img src="/2019/04/18/paper-1809-06420/9.png" title="result4"><h2 id="三、一点感想"><a href="#三、一点感想" class="headerlink" title="三、一点感想"></a>三、一点感想</h2><ul><li>本来还想看看这篇文章对VSR的分析，结果竟然没有！！！！未来也许可以使用deep learning方法分析一波VSR在真实数据集的表现；</li><li>关于肉眼视觉质量评价和数值质量评价，我将会在后面的阅读论文中着重学习，这应该是一个很好的点。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文是TPAMI的论文，构建了一个真实世界下的LR-HR数据集，综合考虑了CMOS sensor noise, real sampling at four resolution levels, nine scene motion types, two photometric conditions, and lossy video coding at five levels这几个不同的影响因素；可以说，这篇文章将SR的发展又向前推进了一大步。&lt;font color=&quot;#FF0000&quot;&gt;  尤其值得注意的一点是：在模拟数据上表现好的方法在真实数据集上表现的并不好&lt;/font&gt;。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="SR" scheme="https://zeyuxiao1997.github.io/tags/SR/"/>
+    
+      <category term="real-data" scheme="https://zeyuxiao1997.github.io/tags/real-data/"/>
+    
+      <category term="datasets" scheme="https://zeyuxiao1997.github.io/tags/datasets/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>several useful tools--updating</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/18/useful-tool/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/18/useful-tool/</id>
+    <published>2019-04-18T08:11:48.000Z</published>
+    <updated>2019-05-05T06:50:00.313Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇文章用于记录我在工作和学习中发现的好工具、软件等。文章将持续更新。<br><a id="more"></a></p><h2 id="github大文件的下载"><a href="#github大文件的下载" class="headerlink" title="github大文件的下载"></a>github大文件的下载</h2><p>github仓库在好大的时候基本上下载不了。找了几个解决这个问题的方法。</p><h3 id="使用插件进行下载"><a href="#使用插件进行下载" class="headerlink" title="使用插件进行下载"></a>使用插件进行下载</h3><p>还算是可以用，但是但是，下载总会出现一些东西下载不了，emmm这就比较郁闷了，不过该下的基本上都会下下来。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install git-down-repo -g <span class="comment">// 安装全局</span></span><br><span class="line"><span class="comment">// test </span></span><br><span class="line">gitdown <span class="string">https:</span><span class="comment">//github.com/hua1995116/webchat  // 下载整个仓库（默认master）</span></span><br><span class="line">gitdown <span class="string">https:</span><span class="comment">//github.com/hua1995116/webchat dev // 下载某个仓库的dev分支</span></span><br><span class="line">gitdown <span class="string">https:</span><span class="comment">//github.com/hua1995116/webchat/tree/master/config // 下载仓库某个文件夹</span></span><br><span class="line">gitdown <span class="string">https:</span><span class="comment">//github.com/hua1995116/webchat/blob/master/config/dev.env.js // 下载某个文件</span></span><br></pre></td></tr></table></figure></p><h2 id="不用梯子看油管"><a href="#不用梯子看油管" class="headerlink" title="不用梯子看油管"></a>不用梯子看油管</h2><p><a href="https://www.clipconverter.cc/" target="_blank" rel="noopener">https://www.clipconverter.cc/</a>用这个网站就好了。</p><p>但是！！！！需要视频的链接，emmm这是个大问题，这样看的话只能在有链接的情况下看了。<br><img src="/2019/04/18/useful-tool/1.png" title="compare"></p><h2 id="使用wget进行下载"><a href="#使用wget进行下载" class="headerlink" title="使用wget进行下载"></a>使用wget进行下载</h2><p>Wget主要用于下载文件，在安装软件时会经常用到，以下对wget做简单说明。</p><ul><li><p>下载单个文件：<figure class="highlight plain"><figcaption><span>http://www.baidu.com```。命令会直接在当前目录下载一个index.html的文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 将下载的文件存放到指定的文件夹下，同时重命名下载的文件，利用```-O：wget -O /home/index http://www.baidu.com</span><br></pre></td></tr></table></figure></p></li><li><p>下载多个文件：首先，创建一个file.txt文件，写入两个url（换行），如<a href="http://www.baidu.com;然后，wget" target="_blank" rel="noopener">http://www.baidu.com;然后，wget</a> -i file.txt;命令执行后会下载两个两个文件。</p></li><li><p>下载时，不显示详细信息，即在后台下载：wget -b <a href="http://www.baidu.com。命令执行后会，下载的详细信息不会显示在终端，会在当前目录下生成一个web-log记录下载的详细信息。" target="_blank" rel="noopener">http://www.baidu.com。命令执行后会，下载的详细信息不会显示在终端，会在当前目录下生成一个web-log记录下载的详细信息。</a></p></li><li><p>下载时，不显示详细信息，同时将下载信息保存到执行的文件中（同4）：<figure class="highlight plain"><figcaption><span>-o dw.txt</span><a href="http://www.baidu.com```" target="_blank" rel="noopener">link</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 断点续传：```wget -c http://www.baidu.com</span><br></pre></td></tr></table></figure></p></li><li><p>限制下载的的速度：<figure class="highlight plain"><figcaption><span>--limit-rate</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 测试是否能正常访问：```wget --spider http://www.baidu.com</span><br></pre></td></tr></table></figure></p></li><li><p>设置下载重试的次数：<figure class="highlight plain"><figcaption><span>--tries</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 下载的过程中拒绝下载指定类型的文件:```wget --reject=png --mirror -p --convert-links -P./test http://localhost</span><br></pre></td></tr></table></figure></p></li><li><p>多文件下载中拒绝下载超过设置大小的文件：<figure class="highlight plain"><figcaption><span>-Q5m -i file.txt```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">　　注意：此选项只能在下载多个文件时有用，当你下载一个文件时没用。</span><br><span class="line"></span><br><span class="line">- 从指定网站中下载所有指定类型的文件：```wget -r -A .png http://www.baidu.com</span><br></pre></td></tr></table></figure></p></li><li><p>wget下载时，某些资源必须使用<figure class="highlight plain"><figcaption><span>http://www.baidu.com```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 使用wget实现FTP下载：```wget --file-user=USERNAME --file-password=PASSWORD url</span><br></pre></td></tr></table></figure></p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇文章用于记录我在工作和学习中发现的好工具、软件等。文章将持续更新。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="tools" scheme="https://zeyuxiao1997.github.io/categories/tools/"/>
+    
+    
+      <category term="github" scheme="https://zeyuxiao1997.github.io/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SURVEY——A Deep Journey into Super-resolution-A Survey</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/18/review-SISR-2papers/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/18/review-SISR-2papers/</id>
+    <published>2019-04-18T04:44:37.000Z</published>
+    <updated>2019-04-20T05:38:56.235Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇文章是我在arxiv上偶然看见的，发布于2019年4月中旬，可以和华南理工的综述论文结合起来看。《A Deep Journey into Super-resolution: A Survey》一文是一篇很好的综述，总结了30+种基于深度学习的超分辨率网络，并将之分类为<font color="#FF0000"> linear, residual, multi-branch, recursive, progressive, attention-based and adversarial等九类</font>，并详细比较了<font color="#FF0000">网络复杂性，内存占用，模型输入和输出，学习细节，网络损耗类型和重要架构差异（例如，深度，跳过连接，过滤器）</font>。<br><a id="more"></a><br>两篇文章的链接分别为：(<a href="https://arxiv.org/abs/1904.07523)和(https://arxiv.org/abs/1902.06068" target="_blank" rel="noopener">https://arxiv.org/abs/1904.07523)和(https://arxiv.org/abs/1902.06068</a>)</p><h1 id="总体介绍"><a href="#总体介绍" class="headerlink" title="总体介绍"></a>总体介绍</h1><h2 id="SISR目前面临的challenge"><a href="#SISR目前面临的challenge" class="headerlink" title="SISR目前面临的challenge"></a>SISR目前面临的challenge</h2><ul><li>ill-posed inverse problem</li><li>只能SR小的scale factor</li><li>评价指标和人类感知差异巨大</li></ul><h2 id="contributions"><a href="#contributions" class="headerlink" title="contributions"></a>contributions</h2><ul><li>回顾SISR方法</li><li>提出基于结构差异的SR分类法</li><li>分析参数、算法设计、训练细节、结构创新对性能的提升</li><li>系统给出SISR在不同数据集的表现</li><li>分析挑战、展望未来</li></ul><h2 id="SR表示"><a href="#SR表示" class="headerlink" title="SR表示"></a>SR表示</h2><p>LR为$y$，HR为$x$，降质过程为：</p><script type="math/tex; mode=display">\mathbf{y}=\mathbf{\Phi}\left(\mathbf{x} ; \theta_{\eta}\right)</script><p>where $\Phi$是降质函数，$\theta_{\eta}$是降质参数。但是实际情况下，降质函数不可知、降质参数也不可知。SR的工作是从ground truth中恢复$\hat{\mathbf{X}}$，使用公式为：<script type="math/tex">\hat{\mathbf{x}}=\Phi^{-1}\left(\mathbf{y}, \theta_{\zeta}\right)</script><br>where $\theta_{\zeta}$是$\Phi^{-1}$的参数。</p><p>大多数的文献都采用下式的方法。<script type="math/tex">\mathbf{y}=(\mathbf{x} \otimes \mathbf{k}) \downarrow_{s}+\mathbf{n}</script></p><h1 id="网络结构及其思想"><a href="#网络结构及其思想" class="headerlink" title="网络结构及其思想"></a>网络结构及其思想</h1><h2 id="linear-model"><a href="#linear-model" class="headerlink" title="linear model"></a>linear model</h2><p>作者定义线性模型的概念是：<font color="#FF0000">single path for signal flow without skip connections or multiple-branches</font>。不同的线性模型区别主要在于upsampling的时期不同。</p><h3 id="SRCNN"><a href="#SRCNN" class="headerlink" title="SRCNN"></a>SRCNN</h3><ul><li>董超何凯明的开山之作，汤晓鸥的灌水乐园</li><li>三层conv，根据功能不同起了三个不同的名字</li><li>没什么好说的，开山之作，一定要看的</li></ul><h3 id="VDSR"><a href="#VDSR" class="headerlink" title="VDSR"></a>VDSR</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇文章是我在arxiv上偶然看见的，发布于2019年4月中旬，可以和华南理工的综述论文结合起来看。《A Deep Journey into Super-resolution: A Survey》一文是一篇很好的综述，总结了30+种基于深度学习的超分辨率网络，并将之分类为&lt;font color=&quot;#FF0000&quot;&gt; linear, residual, multi-branch, recursive, progressive, attention-based and adversarial等九类&lt;/font&gt;，并详细比较了&lt;font color=&quot;#FF0000&quot;&gt;网络复杂性，内存占用，模型输入和输出，学习细节，网络损耗类型和重要架构差异（例如，深度，跳过连接，过滤器）&lt;/font&gt;。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="SR" scheme="https://zeyuxiao1997.github.io/tags/SR/"/>
+    
+      <category term="survey" scheme="https://zeyuxiao1997.github.io/tags/survey/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>learn-docker</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/18/learn-docker/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/18/learn-docker/</id>
+    <published>2019-04-18T00:46:15.000Z</published>
+    <updated>2019-04-22T07:35:23.733Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Technical guide" scheme="https://zeyuxiao1997.github.io/categories/Technical-guide/"/>
+    
+    
+      <category term="docker" scheme="https://zeyuxiao1997.github.io/tags/docker/"/>
+    
+      <category term="dockerfile" scheme="https://zeyuxiao1997.github.io/tags/dockerfile/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Real-Time Non-Rigid Multi-Frame Depth Video Super-Resolution(NGVSR)</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/17/paper-NGVSR/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/17/paper-NGVSR/</id>
+    <published>2019-04-17T14:11:17.000Z</published>
+    <updated>2019-04-21T13:42:55.458Z</updated>
+    
+    <content type="html"><![CDATA[<p>《paper-Real-Time Non-Rigid Multi-Frame Depth Video Super-Resolution》是CVPRW2015的作品。从作品的时间可以看出，很遗憾，论文是基于数学方法，也就是传统方法的。因此这样一篇论文应该将侧重点放在思路理解和思维迁移上，看看Kalman filter能不能迁移到end-to-end上，3D non-rigid能不能迁移到一般图像、视频，甚至是气候变换图像等。<br><a id="more"></a></p><p>论文可<a href="/download/Ismaeil_Real-Time_Non-Rigid_Multi-Frame_2015_CVPR_paper.pdf">点击下载</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;《paper-Real-Time Non-Rigid Multi-Frame Depth Video Super-Resolution》是CVPRW2015的作品。从作品的时间可以看出，很遗憾，论文是基于数学方法，也就是传统方法的。因此这样一篇论文应该将侧重点放在思路理解和思维迁移上，看看Kalman filter能不能迁移到end-to-end上，3D non-rigid能不能迁移到一般图像、视频，甚至是气候变换图像等。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="VSR" scheme="https://zeyuxiao1997.github.io/tags/VSR/"/>
+    
+      <category term="non-rigid" scheme="https://zeyuxiao1997.github.io/tags/non-rigid/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Deep Back-Projection Networks For Super-Resolution(DBPN)</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/17/paper-DBPN/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/17/paper-DBPN/</id>
+    <published>2019-04-17T07:13:52.000Z</published>
+    <updated>2019-04-21T13:42:44.045Z</updated>
+    
+    <content type="html"><![CDATA[<p>《Deep Back-Projection Networks For Super-Resolution》是CVPR2018的作品。</p><a id="more"></a><p>论文可<a href="/download/1803.02735.pdf">点击下载</a>,代码可<a href="https://github.com/alterzero/DBPN-Pytorch" target="_blank" rel="noopener">点击获取</a>.</p><p>事实上，网上已经有两篇中文论文解析了，我在写paper reading notes的时候参考了它们。</p><p>(<a href="https://blog.csdn.net/shwan_ma/article/details/79611869" target="_blank" rel="noopener">https://blog.csdn.net/shwan_ma/article/details/79611869</a>)<br>(<a href="https://www.cnblogs.com/king-lps/p/9128072.html" target="_blank" rel="noopener">https://www.cnblogs.com/king-lps/p/9128072.html</a>)</p><h2 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h2><h3 id="1-motivation"><a href="#1-motivation" class="headerlink" title="1.motivation"></a>1.motivation</h3><p>deep super resolution networks通常是先学习一个特征，在通过network强大的non-linear mapping 将LR space 映射到 HR space。而这种操作可能对LR和HR图像之间的mutual dependencies挖掘的不是那么的有效。构建了一个不断相互上采样及下采样阶段的网络进行误差反馈，有种类似于”迭代反投影”算法的味道，从而将效果达到了state-of-the-art.</p><h3 id="2-现有的几个方法"><a href="#2-现有的几个方法" class="headerlink" title="2. 现有的几个方法"></a>2. 现有的几个方法</h3><p>直观的对比图如下。<br><img src="/2019/04/17/paper-DBPN/compare.png" title="compare"></p><h4 id="Predefined-upsampling"><a href="#Predefined-upsampling" class="headerlink" title="Predefined upsampling"></a>Predefined upsampling</h4><ul><li>这种算法需要进行预插值来使得输入及输出的size统一</li><li>Dong认为将输入输出的feature maps的size设置成一致，将有利于进行非线性映射。否则stride需要设置为分数，这将为带来很多不便之处</li><li>计算量的增大</li></ul><h4 id="Single-upsampling"><a href="#Single-upsampling" class="headerlink" title="Single upsampling"></a>Single upsampling</h4><ul><li>直接对LR Image进行处理，减少计算量</li><li>deconvlution layer： 代表FSRCNN, Dong et,al </li><li>sub-pixel convolution layer: 代表：ESPCN， twitter</li></ul><h4 id="Progressive-upsampling"><a href="#Progressive-upsampling" class="headerlink" title="Progressive upsampling"></a>Progressive upsampling</h4><ul><li>在每个阶段progress进行上采样，这种网络结构应对与upscaling factor为x4，x8时效果好</li></ul><h3 id="3-文中claim的contributions"><a href="#3-文中claim的contributions" class="headerlink" title="3.文中claim的contributions"></a>3.文中claim的contributions</h3><ul><li>Error feedback：分别计算up- and down-projection的误差，以获得更好的结果</li><li>Mutually connected up- and down-sampling stages：不断的上采样和下采样使得特征获取的更好</li><li>Deep concatenation：使用DesNet进行改进，提出的D-DBPN更好的融合特征进行重建</li></ul><h2 id="二、Method"><a href="#二、Method" class="headerlink" title="二、Method"></a>二、Method</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;《Deep Back-Projection Networks For Super-Resolution》是CVPR2018的作品。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="SR" scheme="https://zeyuxiao1997.github.io/tags/SR/"/>
+    
+      <category term="RNN" scheme="https://zeyuxiao1997.github.io/tags/RNN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Recurrent Back-Projection Network for Video Super-Resolution(RBPN)</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/17/paper-RBPN/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/17/paper-RBPN/</id>
+    <published>2019-04-17T06:03:07.000Z</published>
+    <updated>2019-04-22T14:45:54.126Z</updated>
+    
+    <content type="html"><![CDATA[<p>《Recurrent Back-Projection Network for Video Super-Resolution》是CVPR2019的作品，主要思想是：结合RNN和back-projection和encoder/decoder，对视频的每一帧都进行融合重建（事实上每一帧都进行了一个motion compensation，每一帧对最后需要重建的目标帧都有一定的贡献）。通过上图的网络结构，较好的捕捉帧间subtle motion和significant motion，不光适用于传统的VSR重建，更可以对较大运动、较多运动的数据集进行重建。<br><a id="more"></a><br>论文可<a href="/download/1903.10128v1.pdf">点击下载</a>,代码可<a href="https://github.com/alterzero/RBPN-PyTorch" target="_blank" rel="noopener">点击获取</a>.</p><h2 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h2><h3 id="1-motivation"><a href="#1-motivation" class="headerlink" title="1. motivation"></a>1. motivation</h3><p>其他用于SR的方法，包括SISR、MISR、VSR，都不同程度的存在问题，总结下来就是：</p><blockquote><p>stacking or wraping frames and pooling together导致很多细节不能精确重建<br>alignment的方法不能很好的捕捉inter-frame motion<br>为了更好的重建、通过估计帧间运动而不是对齐帧，迭代地对image 进行super resolve.</p></blockquote><h3 id="2-现有的几个方法"><a href="#2-现有的几个方法" class="headerlink" title="2. 现有的几个方法"></a>2. 现有的几个方法</h3><p>方法可以归结到三类，SISR、MISR、VSR。</p><h4 id="SISR"><a href="#SISR" class="headerlink" title="SISR"></a>SISR</h4><ul><li>只对某一帧进行重建，比如SRCNN，这样做浪费了其他帧可以提供的互补信息；<h4 id="MISR"><a href="#MISR" class="headerlink" title="MISR"></a>MISR</h4></li><li>结合其他帧的互补信息；</li><li>为了互补的提取丢失信息，帧之间需要隐式或显式的帧对齐，但是很难考虑到时间平滑（temporal smoothness）；<h4 id="VSR"><a href="#VSR" class="headerlink" title="VSR"></a>VSR</h4></li><li>考虑到了temporal smoothness；</li><li>有两种方法：frame concatenation和使用RNN。前者同时处理多帧造成训练困难；后者很难对subtle or significant changes进行描述（即使使用LSTM）</li></ul><h3 id="3-文中claim的contributions"><a href="#3-文中claim的contributions" class="headerlink" title="3. 文中claim的contributions"></a>3. 文中claim的contributions</h3><ul><li>Integrating SISR and MISR in a unified VSR framework：论文中详细解释了RBPN融合SISR和MISR，并融合encoder、decoder、back-projection等部件</li><li>Back-projection modules：帧之间的巨大时间差异用back-projection模块进行连接</li><li>Extended evaluation protocol：没有使用主流testing set</li></ul><h3 id="4-现有方法的弊端"><a href="#4-现有方法的弊端" class="headerlink" title="4.现有方法的弊端"></a>4.现有方法的弊端</h3><!-- ![compare](paper-RBPN/compare.png) --><img src="/2019/04/17/paper-RBPN/compare.png" title="compare"><p>上图是几种方法的示意图。<br>这篇论文讲了不少VSR的方法并且很详细，对他们的优势和劣势分析的非常到位，后面会好好研读并且做好笔记。</p><h2 id="二、Method"><a href="#二、Method" class="headerlink" title="二、Method"></a>二、Method</h2><h3 id="1-总体架构"><a href="#1-总体架构" class="headerlink" title="1.总体架构"></a>1.总体架构</h3><p>RBPN被分成三部分：initial feature extraction, multiple projections and reconstruction. 网络端到端。</p><h4 id="initial-feature-extraction"><a href="#initial-feature-extraction" class="headerlink" title="initial feature extraction"></a>initial feature extraction</h4><p>这个模块是特征表示模块。总的来说，输入由三部分组成，目标帧、目标帧之前的某一帧和上述两帧之间的motion flow tensor组成。正是由于加入motion flow tensor，使得每一帧都与目标帧发生关联，使其或多或少都对目标帧重建做出贡献.</p><h4 id="multiple-projections"><a href="#multiple-projections" class="headerlink" title="multiple projections"></a>multiple projections</h4><p>这个模块是核心，结合SISR和MISR，输入$L_{t-k-1}$和$M_{t-k}$，输出$H_{t-k}$，下图就是总的IPO。<br><img src="/2019/04/17/paper-RBPN/ED1.png" title="The proposed projection module"></p><h4 id="reconstrction"><a href="#reconstrction" class="headerlink" title="reconstrction"></a>reconstrction</h4><p>重建的所有帧是：所有在之前输出的HR帧，最后一起进行下式的操作：$\mathrm{SR}_{t}=f_{r e c}\left(\left[H_{t-1}, H_{t-2}, \dots, H_{t-n}\right]\right)$，在论文中$f_{r e c}$是单卷积层。</p><h3 id="核心模块解析"><a href="#核心模块解析" class="headerlink" title="核心模块解析"></a>核心模块解析</h3><h4 id="Multiple-Projection"><a href="#Multiple-Projection" class="headerlink" title="Multiple Projection"></a>Multiple Projection</h4><p>multiple projection stage of RBPN uses a recurrent chain of encoder-decoder modules。总的IPO可以见上图。输入由两个，输出有两个。</p><p>将大图拆分成小图后的视觉效果如下图所示<br><img src="/2019/04/17/paper-RBPN/1.png" width="1"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;《Recurrent Back-Projection Network for Video Super-Resolution》是CVPR2019的作品，主要思想是：结合RNN和back-projection和encoder/decoder，对视频的每一帧都进行融合重建（事实上每一帧都进行了一个motion compensation，每一帧对最后需要重建的目标帧都有一定的贡献）。通过上图的网络结构，较好的捕捉帧间subtle motion和significant motion，不光适用于传统的VSR重建，更可以对较大运动、较多运动的数据集进行重建。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="RNN" scheme="https://zeyuxiao1997.github.io/tags/RNN/"/>
+    
+      <category term="VSR" scheme="https://zeyuxiao1997.github.io/tags/VSR/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>How to Write an Essay</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/17/how_to_write_an_essay/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/17/how_to_write_an_essay/</id>
+    <published>2019-04-17T04:34:10.000Z</published>
+    <updated>2019-04-17T05:26:32.869Z</updated>
+    
+    <content type="html"><![CDATA[<p>摘自清华大学刘洋在第十届全国机器翻译研讨会上的报告：《机器翻译学术论文写作方法和技巧》，非常受用！<br><a id="more"></a><br>很多内容我已经删减了，留下的部分是最值得学习的部分，pdf版本可以从下面的链接获取并下载。<br><a href="/download/how_to_write_an_essay.pdf">点击下载</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;摘自清华大学刘洋在第十届全国机器翻译研讨会上的报告：《机器翻译学术论文写作方法和技巧》，非常受用！&lt;br&gt;
+    
+    </summary>
+    
+      <category term="learning notes" scheme="https://zeyuxiao1997.github.io/categories/learning-notes/"/>
+    
+    
+      <category term="write essay" scheme="https://zeyuxiao1997.github.io/tags/write-essay/"/>
+    
+  </entry>
+  
+</feed>

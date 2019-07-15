@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-money32.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-money16.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="来源知乎：https://www.zhihu.com/question/67938028">
+<meta name="keywords" content="denoise">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么深度学习去噪都采用高斯白噪声？">
+<meta property="og:url" content="https://zeyuxiao1997.github.io/2019/05/05/why-gaussian-noise/index.html">
+<meta property="og:site_name" content="ZeyuXiao @ USTC">
+<meta property="og:description" content="来源知乎：https://www.zhihu.com/question/67938028">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-05T02:29:36.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为什么深度学习去噪都采用高斯白噪声？">
+<meta name="twitter:description" content="来源知乎：https://www.zhihu.com/question/67938028">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZeyuXiao @ USTC" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://zeyuxiao1997.github.io/2019/05/05/why-gaussian-noise/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>为什么深度学习去噪都采用高斯白噪声？ | ZeyuXiao @ USTC</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZeyuXiao @ USTC</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Paper reading notes, code sharing platforms</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">25</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">6</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">25</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-resume-&-publications">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/resume/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>resume & publications</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/links/" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>links</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zeyuxiao1997.github.io/2019/05/05/why-gaussian-noise/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zeyuxiao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZeyuXiao @ USTC">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">为什么深度学习去噪都采用高斯白噪声？
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-05 10:05:24 / Modified: 10:29:36" itemprop="dateCreated datePublished" datetime="2019-05-05T10:05:24+08:00">2019-05-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Technical-guide/" itemprop="url" rel="index"><span itemprop="name">Technical guide</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+            <span id="/2019/05/05/why-gaussian-noise/" class="leancloud_visitors" data-flag-title="为什么深度学习去噪都采用高斯白噪声？">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Views: </span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">4 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>来源知乎：<a href="https://www.zhihu.com/question/67938028" target="_blank" rel="noopener">https://www.zhihu.com/question/67938028</a><br><a id="more"></a></p>
+<p>需要通过以下三个子问题来说明：</p>
+<ul>
+<li><p>为什么要做仿真噪音synthetic noise的实验？</p>
+</li>
+<li><p>在所有的synthetic noise里，为什么大家都用高斯白噪声，而不太常用其他distribution的噪声？</p>
+</li>
+<li><p>基于synthetic noise，比如高斯噪音的算法，可以适用于真实噪音吗？ </p>
+</li>
+</ul>
+<p>以下回答，我尽量不引用论文，不安利自己的工作，先说结论，后说论据，以方便阅读。</p>
+<h2 id="问题一：Why-synthetic-noise？"><a href="#问题一：Why-synthetic-noise？" class="headerlink" title="问题一：Why synthetic noise？"></a>问题一：Why synthetic noise？</h2><p>先说结论：相对于real noise，用synthetic noise的好处是便于分析问题/设计算法，便于量化和评价算法效果。</p>
+<p>便于对降噪问题的分析/算法的设计：降噪的本质是对数据本身的重建，以起到排除污染（corruption）的作用。这里面涉及到需要对(1)数据，(2)污染（噪音）的模型和分析。数据的模型就是我们一般常用的那些，比如稀疏表达(sparse coding），统计（probabilistic），低秩（low-rankness），collaborative filtering之类的。这些都是基于一定的数学假设。说穿了，事实上没不存在对数据100%精确的model，或者所谓的true model。再来说噪音模型，我们一般把noise这种污染定义为一个additive或者multiplicative的随机变量。那么这个随机变量的随机分布是什么？如果知道了这个，我们就可以设计出对应的合理的算法。</p>
+<p>那么如果是real noise，他是什么分布呢？没有人知道，因为real就意味着未知。噪音可以是unstructured的，也可以是structured的。real的数据里面的噪音，可以是consistent的，也可以是变动的。甚至一幅图，一个视频里的real noise在不同位置都是不一样的。那这种情况下的问题分析就是极难的，或者说这个问题本身就是untrackable的，not well defined的。</p>
+<p>所以科研或者工程设计里面，都会对这类问题做出合理的假设，比如这里的：噪音是高斯白噪声。基于这个假设再来分析问题。</p>
+<p>便于量化和评价算法效果：评价一个降噪算法的效果，需要采用一定的评价标准（metric）。我们一般把评价标准分为客观（objective）和主观（subjective）的：客观标准很好理解：给我一个数学计算方式，算出这个降噪过后的数据，到底有多好。这样做清晰明了，一般没有什么好争议的。常见的这样的metric有Peak Signal-to-Noise Ratio （PSNR），Mean Square Error（MSE），Structured Similarity（SSIM），等等。你经常可以在降噪论文里面看到这三个家伙的身影。他们这些metric的绝对数值的高低，直观地反应方法效果的好坏。</p>
+<p>虽然我知道也有一些工作，试着propose一些不需要ground truth的objective quality metric，但最常用的这类经典metric无一例外地需要图片的无噪音真实值（ground truth）作为参考。如果你是使用仿真噪音，你自然是有ground truth的。但如果是真实噪音，你确一般不知道ground truth是什么。</p>
+<p>所以一般对于真实噪音的降噪实验，我们都只好算法一些subjective的metric：让人眼来辨认降噪出来的图效果是否好。这不同的人，可能对图的喜好也会不一样，这样就经常会产生评价的个体差异，产生争议。就算想要组织一大批人来做测试，成本会很高，不利于科研的高效性。</p>
+<h2 id="问题二：Why-Gaussian-noise？"><a href="#问题二：Why-Gaussian-noise？" class="headerlink" title="问题二：Why Gaussian noise？"></a>问题二：Why Gaussian noise？</h2><p>先说结论：相比于其他的synthetic noise distribution，高斯噪音确实有他的合理性。在真实噪音的噪音源特别复杂的时候，高斯噪音可能算是最好的对真实噪音的模拟。</p>
+<p>其实不光是深度学习的降噪算法，传统方法（好吧，自从有了深度学习以后，什么sparse coding，GMM，low-rank，collaborative filtering都变成传统方法了…）也大多喜欢用高斯白噪声来做仿真实验。那么大家不约而同地都玩儿高斯噪音可能有背后的原因。我觉得这个可能才是题主最关心的问题。</p>
+<p>那这里的答案就是，采用高斯噪音，是为了更好地模拟未知的真实噪音：在真实环境中，噪音往往不是由单一源头造成的，而是很多不同来源的噪音复合体。假设，我们把真实噪音看成非常多不同概率分布的随机变量的加合，并且每一个随机变量都是独立的，那么根据Central Limit Theorem，他们的normalized sum就随着噪音源数量的上升，趋近于一个高斯分布。基于这种假设来看，采用合成的高斯噪音，是在处理这种复杂，且不知道噪音分布为何的情况下，一个既简单又不差的近似仿真。</p>
+<h2 id="问题三：Can-it-work-for-real-noise？"><a href="#问题三：Can-it-work-for-real-noise？" class="headerlink" title="问题三：Can it work for real noise？"></a>问题三：Can it work for real noise？</h2><p>先说结论：在高斯噪音试验下效果的算法，不一定在真实噪音下效果也同样地好。这个要看真实噪音具体长啥样，还要看算法本身的设计是否对噪音分布有一定的鲁棒性。</p>
+<p>在搞清楚了问题一和二之后，相信问题三应该就很好理解了：因为Gaussian noise只是对real noise的一个近似和仿真，没有任何的保证说，设计的算法在处理real noise的时候就一定要表现得同样得好。但由于问题二我们讲了，Gaussian noise test有一定的合理性，所以这类算法在real noise的情况下都会有一定的降噪功用。</p>
+<p>最近有一些新的数据库，包括了真实噪音图片以及他们捕捉到的ground truth。我认为这类数据库将会带来一波专注于真实噪音除去的工作。</p>
+<h2 id="deep-learning"><a href="#deep-learning" class="headerlink" title="deep learning"></a>deep learning</h2><p>最后再来说说深度学习，在降噪问题上的特殊性：深度学习之类算法，模型本身是高度data-driven，而不是rule-based的。换句话说，深度学习算法的设计，或者说网络结构的设计，并不强烈依赖于噪音的概率分布。这对于降噪算法的generalization是很好的。</p>
+<p>然而这并不是说，深度学习的降噪算法，是对所有噪音类型通吃的。深度学习算法一般需要supervised training。这样在训练数据上的选择，确实往往依赖于噪音的概率分布：如果我们要做Gaussian noise removal，那训练数据就应该是添加了Gaussian noise的结果。那么如果我们要做真实噪音的denoising，要怎么准备训练数据？你的训练数据的噪音分布，和你的测试数据是一样的吗？这些都没有保证，或者说不一定说是consistent的。</p>
+<p>但是我个人看法是，可能相对于传统方法而言，深度学习算法在从一种特定噪音的处理，generalize到未知噪音，鲁棒性应该会更高。虽然没有理论上的证明（深度学习上搞这种证明，臣妾确实办不到…），我们近期的工作也证实了这一点。这一段都是私货，如果有其他大神有对这个更好的看法，欢迎讨论。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/05/05/why-gaussian-noise/">为什么深度学习去噪都采用高斯白噪声？</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Zeyuxiao 的个人博客">Zeyuxiao</a></p>
+  <p><span>发布时间:</span>2019年05月05日 - 10:05</p>
+  <p><span>最后更新:</span>2019年05月05日 - 10:05</p>
+  <p><span>原始链接:</span><a href="/2019/05/05/why-gaussian-noise/" title="为什么深度学习去噪都采用高斯白噪声？">https://zeyuxiao1997.github.io/2019/05/05/why-gaussian-noise/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2019/05/05/why-gaussian-noise/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+    </div>
+
+
+
+
+    
+
+
+
+
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wec.png" alt="Zeyuxiao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/ali.png" alt="Zeyuxiao Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/denoise/" rel="tag">  <i class="fa fa-tag"></i>  denoise</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/05/paper-NLRN/" rel="next" title="paper-NLRN">
+                <i class="fa fa-chevron-left"></i> paper-NLRN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/05/paper-derain-CVPR2017/" rel="prev" title="paper-derain_CVPR2017">
+                paper-derain_CVPR2017 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zeyuxiao</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/zeyuxiao1997" title="GitHub &rarr; https://github.com/zeyuxiao1997" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:zeyuxiao1997@gmail.com" title="E-Mail &rarr; mailto:zeyuxiao1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/u/6325815857" title="Weibo &rarr; https://weibo.com/u/6325815857" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.jianshu.com/u/ae6389cc5ce9" title="Jianshu &rarr; https://www.jianshu.com/u/ae6389cc5ce9" rel="noopener" target="_blank"><i class="fa fa-fw fa-book"></i>Jianshu</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://en.ustc.edu.cn/" title="http://en.ustc.edu.cn/" rel="noopener" target="_blank">USTC official website</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://en.hfut.edu.cn/index.php" title="http://en.hfut.edu.cn/index.php" rel="noopener" target="_blank">HFUT official website</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://xc.hfut.edu.cn/" title="https://xc.hfut.edu.cn/" rel="noopener" target="_blank">HFUTxc official website</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题一：Why-synthetic-noise？"><span class="nav-number">1.</span> <span class="nav-text">问题一：Why synthetic noise？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题二：Why-Gaussian-noise？"><span class="nav-number">2.</span> <span class="nav-text">问题二：Why Gaussian noise？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题三：Can-it-work-for-real-noise？"><span class="nav-number">3.</span> <span class="nav-text">问题三：Can it work for real noise？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deep-learning"><span class="nav-number">4.</span> <span class="nav-text">deep learning</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zeyuxiao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">23k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">28 mins.</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'yg4XxdtX7BdTnUd6TVev9bVe-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'yg4XxdtX7BdTnUd6TVev9bVe-gzGzoHsz',
+                'X-LC-Key': 'KxH8toeOBo0RHkyVGcbo8Y2l',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

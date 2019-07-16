@@ -386,6 +386,33 @@
   </entry>
   
   <entry>
+    <title>光场入门</title>
+    <link href="https://zeyuxiao1997.github.io/2019/04/21/light-field/"/>
+    <id>https://zeyuxiao1997.github.io/2019/04/21/light-field/</id>
+    <published>2019-04-21T02:08:11.000Z</published>
+    <updated>2019-07-16T00:28:08.686Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Principles-of-Light-Field-Imaging"><a href="#Principles-of-Light-Field-Imaging" class="headerlink" title="Principles of Light Field Imaging"></a>Principles of Light Field Imaging</h2><h3 id="光场成像综述"><a href="#光场成像综述" class="headerlink" title="光场成像综述"></a>光场成像综述</h3><ul><li>光场相机设计者需要优化镜头系统用于收集从物平面产生的光并尽可能将其汇聚在像平面上，当可以准确收敛的光束越大，捕获过程变得越有效，可实现的光学分辨率越高。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Principles-of-Light-Field-Imaging&quot;&gt;&lt;a href=&quot;#Principles-of-Light-Field-Imaging&quot; class=&quot;headerlink&quot; title=&quot;Principles of Light Field 
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+      <category term="review" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/review/"/>
+    
+    
+      <category term="light field" scheme="https://zeyuxiao1997.github.io/tags/light-field/"/>
+    
+  </entry>
+  
+  <entry>
     <title>paper——Deep High-Resolution Representation Learning for Human Pose Estimation(HRnet)</title>
     <link href="https://zeyuxiao1997.github.io/2019/04/20/paper-HRnet/"/>
     <id>https://zeyuxiao1997.github.io/2019/04/20/paper-HRnet/</id>

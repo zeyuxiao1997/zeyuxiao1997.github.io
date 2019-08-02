@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-money32.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-money16.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Principles of Light Field Imaging光场成像综述 光场相机设计者需要优化镜头系统用于收集从物平面产生的光并尽可能将其汇聚在像平面上，当可以准确收敛的光束越大，捕获过程变得越有效，可实现的光学分辨率越高 相比于传统的光学相机的采集方式，光场相机并不需要将焦点引入像平面（导致焦平面的像清晰），光场相机捕捉全3D的场景信息 光场数据结构特殊，信息丰富（我的理解是全光函数中提">
+<meta name="keywords" content="light field">
+<meta property="og:type" content="article">
+<meta property="og:title" content="光场入门">
+<meta property="og:url" content="https://zeyuxiao1997.github.io/2019/07/16/light-field/index.html">
+<meta property="og:site_name" content="ZeyuXiao @ USTC">
+<meta property="og:description" content="Principles of Light Field Imaging光场成像综述 光场相机设计者需要优化镜头系统用于收集从物平面产生的光并尽可能将其汇聚在像平面上，当可以准确收敛的光束越大，捕获过程变得越有效，可实现的光学分辨率越高 相比于传统的光学相机的采集方式，光场相机并不需要将焦点引入像平面（导致焦平面的像清晰），光场相机捕捉全3D的场景信息 光场数据结构特殊，信息丰富（我的理解是全光函数中提">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/16/light-field/1.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/16/light-field/2.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/16/light-field/3.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/16/light-field/4.png">
+<meta property="og:updated_time" content="2019-07-17T13:53:37.896Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="光场入门">
+<meta name="twitter:description" content="Principles of Light Field Imaging光场成像综述 光场相机设计者需要优化镜头系统用于收集从物平面产生的光并尽可能将其汇聚在像平面上，当可以准确收敛的光束越大，捕获过程变得越有效，可实现的光学分辨率越高 相比于传统的光学相机的采集方式，光场相机并不需要将焦点引入像平面（导致焦平面的像清晰），光场相机捕捉全3D的场景信息 光场数据结构特殊，信息丰富（我的理解是全光函数中提">
+<meta name="twitter:image" content="https://zeyuxiao1997.github.io/2019/07/16/light-field/1.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZeyuXiao @ USTC" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://zeyuxiao1997.github.io/2019/07/16/light-field/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>光场入门 | ZeyuXiao @ USTC</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZeyuXiao @ USTC</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Paper reading notes, code sharing platforms</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">42</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">9</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">38</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-resume-&-publications">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/resume/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>resume & publications</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/links/" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>links</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zeyuxiao1997.github.io/2019/07/16/light-field/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zeyuxiao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZeyuXiao @ USTC">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">光场入门
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+                    
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-16 08:39:11" itemprop="dateCreated datePublished" datetime="2019-07-16T08:39:11+08:00">2019-07-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-17 21:53:37" itemprop="dateModified" datetime="2019-07-17T21:53:37+08:00">2019-07-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/paper-reading/" itemprop="url" rel="index"><span itemprop="name">paper reading</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/paper-reading/review/" itemprop="url" rel="index"><span itemprop="name">review</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+            <span id="/2019/07/16/light-field/" class="leancloud_visitors" data-flag-title="光场入门">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Views: </span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">2 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Principles-of-Light-Field-Imaging"><a href="#Principles-of-Light-Field-Imaging" class="headerlink" title="Principles of Light Field Imaging"></a><a href="/download/light_field_25_years.pdf">Principles of Light Field Imaging</a></h2><h3 id="光场成像综述"><a href="#光场成像综述" class="headerlink" title="光场成像综述"></a>光场成像综述</h3><ul>
+<li>光场相机设计者需要优化镜头系统用于收集从物平面产生的光并尽可能将其汇聚在像平面上，当可以准确收敛的光束越大，捕获过程变得越有效，可实现的光学分辨率越高</li>
+<li>相比于传统的光学相机的采集方式，光场相机并不需要将焦点引入像平面（导致焦平面的像清晰），光场相机捕捉全3D的场景信息</li>
+<li>光场数据结构特殊，信息丰富（我的理解是全光函数中提出的不同slice samples中信息是不同的）</li>
+<li>Depth-extraction和super-resolution技术增强了数据并减轻了通过采样两个额外维度引入的分辨率trade-off（不仅采集光的位置，还采集光的方向）</li>
+<li>文章的行文思路是： acquisition and processing chain from optical acquisition principles to the final rendered output image</li>
+</ul>
+<h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><h4 id="全光函数"><a href="#全光函数" class="headerlink" title="全光函数"></a>全光函数</h4><ul>
+<li>全光函数使用的是非物理、非模型的一个框架，采用了更高维的一个描述方法【最重要的一点是引入了光的空间位置和入射方向】</li>
+</ul>
+<h4 id="光场"><a href="#光场" class="headerlink" title="光场"></a>光场</h4><ul>
+<li><p>光场来源于全光函数及其限制：</p>
+<blockquote>
+<p>全光函数的时间维度通过积分消失<br>全光函数是单色的</p>
+</blockquote>
+</li>
+<li><p>光场是一个4D函数</p>
+</li>
+</ul>
+<h4 id="Calibration-and-preprocessing"><a href="#Calibration-and-preprocessing" class="headerlink" title="Calibration and preprocessing"></a>Calibration and preprocessing</h4><h2 id="光场成像原理"><a href="#光场成像原理" class="headerlink" title="光场成像原理"></a>光场成像原理</h2><h3 id="传统成像和光场成像"><a href="#传统成像和光场成像" class="headerlink" title="传统成像和光场成像"></a>传统成像和光场成像</h3><img src="/2019/07/16/light-field/1.png" width="1">
+<p>物点A向四面八方发出无数条光线，为了简洁，这里只取其中的三条来分析，发出的三条不同方向的光线在经过主透镜折射后在A’点相遇（费马原理）。这三束光线携带了A点不同方向的信息，但由于记录介质CCD只能记录三束光线干涉后叠加的振幅信息，所以会丢了A点的方向信息。简言之，传统成像方式只能记录光线所经过的位置信息，而丢失了与场景深度、目标几何形态、场景遮挡关系等光线角度信息，即三维信息。</p>
+<img src="/2019/07/16/light-field/2.png" width="2">
+<p>为了记录A点的方向信息，即从根本上解决光线角度信息的采集问题，在传统成像图中CCD所在平面处加一种特殊的光学元件——微透镜阵列，通过记录光辐射在传播过程中的位置和方向的信息，这样就构成了光场采样方式，如上图所示：物点A的三束光线折射后在A’点相遇，但由于没有接收像的介质所以没有发生干涉叠加，他们仨相见后匆匆离开，彼此不干涉彼此，向着自己原有的方向继续前进，最终到达A1,A2,A3的位置，并在此记录下了A点的这三个方向的信息。</p>
+<h3 id="四维光场函数模型与光场成像"><a href="#四维光场函数模型与光场成像" class="headerlink" title="四维光场函数模型与光场成像"></a>四维光场函数模型与光场成像</h3><img src="/2019/07/16/light-field/3.png" width="3">
+<p>我们常在很多论文中看到用全光函数模型分析光场，但鲜有将其与光场成像的关系讲清楚的，从而给我们造成误解。首先了解一下七维全光函数,如图3所示：我们用三维坐标(x, y, z)、任意传输方向(θ，φ)，以及光的波长(λ)和时间(t)描述一条光线。由于我们只关注光线的位置和传播方向，所以将其简化成四维光场函数（x, y, θ, φ），如图4所示：其中xy平面代表着光线的位置信息，θφ平面代表光线的方向信息，这样我们很容易将其与光场成像时的相关光学元件对应，即xy平面与微透镜阵所在列平面相对应，θφ平面与CCD所在平面相对应。这里一定要注意：初学者很容易将xy面和θφ平面与主透镜平面和微透镜阵列平面相对应</p>
+<h3 id="位置和角度分辨率"><a href="#位置和角度分辨率" class="headerlink" title="位置和角度分辨率"></a>位置和角度分辨率</h3><img src="/2019/07/16/light-field/4.png" width="4">
+<p>有一个严重的问题：受CCD感光元件分辨率的限制，所采集光场的角度分辨率和位置分辨率相互制约，满足：位置分辨率×角度分辨率=CCD像素个数。借助图5（竖直方向）更好理解这种制约关系：图中若CCD上的可接受的像素个数为12，位置分辨率由微透镜的个数确定，为4，那么角度分辨率则不能超过3。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/07/16/light-field/">光场入门</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Zeyuxiao 的个人博客">Zeyuxiao</a></p>
+  <p><span>发布时间:</span>2019年07月16日 - 08:07</p>
+  <p><span>最后更新:</span>2019年07月17日 - 21:07</p>
+  <p><span>原始链接:</span><a href="/2019/07/16/light-field/" title="光场入门">https://zeyuxiao1997.github.io/2019/07/16/light-field/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2019/07/16/light-field/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+    </div>
+
+
+
+
+    
+
+
+
+
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wec.png" alt="Zeyuxiao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/ali.png" alt="Zeyuxiao Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/light-field/" rel="tag">  <i class="fa fa-tag"></i>  light field</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/07/cvaa/" rel="next" title="<计算机视觉-算法与应用>学习笔记">
+                <i class="fa fa-chevron-left"></i> <计算机视觉-算法与应用>学习笔记
+              </计算机视觉-算法与应用></a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/18/knowledge/" rel="prev" title="研学过程中的零碎知识点">
+                研学过程中的零碎知识点 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zeyuxiao</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/zeyuxiao1997" title="GitHub &rarr; https://github.com/zeyuxiao1997" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:zeyuxiao1997@gmail.com" title="E-Mail &rarr; mailto:zeyuxiao1997@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://en.ustc.edu.cn/" title="http://en.ustc.edu.cn/" rel="noopener" target="_blank">USTC official website</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://en.hfut.edu.cn/index.php" title="http://en.hfut.edu.cn/index.php" rel="noopener" target="_blank">HFUT official website</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Principles-of-Light-Field-Imaging"><span class="nav-number">1.</span> <span class="nav-text">Principles of Light Field Imaging</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#光场成像综述"><span class="nav-number">1.1.</span> <span class="nav-text">光场成像综述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.2.</span> <span class="nav-text">背景介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全光函数"><span class="nav-number">1.2.1.</span> <span class="nav-text">全光函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#光场"><span class="nav-number">1.2.2.</span> <span class="nav-text">光场</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Calibration-and-preprocessing"><span class="nav-number">1.2.3.</span> <span class="nav-text">Calibration and preprocessing</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#光场成像原理"><span class="nav-number">2.</span> <span class="nav-text">光场成像原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统成像和光场成像"><span class="nav-number">2.1.</span> <span class="nav-text">传统成像和光场成像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四维光场函数模型与光场成像"><span class="nav-number">2.2.</span> <span class="nav-text">四维光场函数模型与光场成像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位置和角度分辨率"><span class="nav-number">2.3.</span> <span class="nav-text">位置和角度分辨率</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zeyuxiao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">35k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">44 mins.</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'yg4XxdtX7BdTnUd6TVev9bVe-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'yg4XxdtX7BdTnUd6TVev9bVe-gzGzoHsz',
+                'X-LC-Key': 'KxH8toeOBo0RHkyVGcbo8Y2l',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

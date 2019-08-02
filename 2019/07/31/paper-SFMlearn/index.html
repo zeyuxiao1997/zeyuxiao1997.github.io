@@ -103,18 +103,23 @@
 
 
 
-  <meta name="description" content="Principles of Light Field Imaging光场成像综述 光场相机设计者需要优化镜头系统用于收集从物平面产生的光并尽可能将其汇聚在像平面上，当可以准确收敛的光束越大，捕获过程变得越有效，可实现的光学分辨率越高。">
-<meta name="keywords" content="light field">
+  <meta name="description" content="CVPR2017年的工作。网上有几个很好的中文博客，梳理了这篇论文的工作。可以通过链接1和链接二访问。 文章是第一篇使用SFM(structure-from-motion)进行深度估计的，后来者在本文的工作上通过增加场景集合的约束、sourse数据的约束，进一步提高估计的准确性和鲁棒性。通俗来说，本文是从一段视频中恢复场景深度和相机pose的论文。 细节描述network structure su">
+<meta name="keywords" content="video,depth estimation,SFM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="光场入门">
-<meta property="og:url" content="https://zeyuxiao1997.github.io/2019/04/21/light-field/index.html">
+<meta property="og:title" content="paper-Unsupervised Learning of Depth and Ego-Motion from Video">
+<meta property="og:url" content="https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/index.html">
 <meta property="og:site_name" content="ZeyuXiao @ USTC">
-<meta property="og:description" content="Principles of Light Field Imaging光场成像综述 光场相机设计者需要优化镜头系统用于收集从物平面产生的光并尽可能将其汇聚在像平面上，当可以准确收敛的光束越大，捕获过程变得越有效，可实现的光学分辨率越高。">
+<meta property="og:description" content="CVPR2017年的工作。网上有几个很好的中文博客，梳理了这篇论文的工作。可以通过链接1和链接二访问。 文章是第一篇使用SFM(structure-from-motion)进行深度估计的，后来者在本文的工作上通过增加场景集合的约束、sourse数据的约束，进一步提高估计的准确性和鲁棒性。通俗来说，本文是从一段视频中恢复场景深度和相机pose的论文。 细节描述network structure su">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-07-16T00:28:08.686Z">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/1.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/2.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/3.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/4.png">
+<meta property="og:updated_time" content="2019-08-01T08:23:45.859Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="光场入门">
-<meta name="twitter:description" content="Principles of Light Field Imaging光场成像综述 光场相机设计者需要优化镜头系统用于收集从物平面产生的光并尽可能将其汇聚在像平面上，当可以准确收敛的光束越大，捕获过程变得越有效，可实现的光学分辨率越高。">
+<meta name="twitter:title" content="paper-Unsupervised Learning of Depth and Ego-Motion from Video">
+<meta name="twitter:description" content="CVPR2017年的工作。网上有几个很好的中文博客，梳理了这篇论文的工作。可以通过链接1和链接二访问。 文章是第一篇使用SFM(structure-from-motion)进行深度估计的，后来者在本文的工作上通过增加场景集合的约束、sourse数据的约束，进一步提高估计的准确性和鲁棒性。通俗来说，本文是从一段视频中恢复场景深度和相机pose的论文。 细节描述network structure su">
+<meta name="twitter:image" content="https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/1.png">
 
 
 
@@ -124,7 +129,7 @@
 
   
   
-  <link rel="canonical" href="https://zeyuxiao1997.github.io/2019/04/21/light-field/">
+  <link rel="canonical" href="https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/">
 
 
 
@@ -134,7 +139,7 @@
   };
 </script>
 
-  <title>光场入门 | ZeyuXiao @ USTC</title>
+  <title>paper-Unsupervised Learning of Depth and Ego-Motion from Video | ZeyuXiao @ USTC</title>
   
 
 
@@ -274,7 +279,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">28</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">42</span></a>
 
   </li>
         
@@ -293,7 +298,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">9</span></a>
 
   </li>
         
@@ -312,7 +317,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">27</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">38</span></a>
 
   </li>
         
@@ -402,7 +407,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zeyuxiao1997.github.io/2019/04/21/light-field/">
+    <link itemprop="mainEntityOfPage" href="https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zeyuxiao">
@@ -419,7 +424,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">光场入门
+          <h1 class="post-title" itemprop="name headline">paper-Unsupervised Learning of Depth and Ego-Motion from Video
 
               
             
@@ -427,6 +432,7 @@
         
 
         <div class="post-meta">
+                    
           <span class="post-time">
 
             
@@ -445,7 +451,7 @@
                 
               
 
-              <time title="Created: 2019-04-21 10:08:11" itemprop="dateCreated datePublished" datetime="2019-04-21T10:08:11+08:00">2019-04-21</time>
+              <time title="Created: 2019-07-31 19:30:19" itemprop="dateCreated datePublished" datetime="2019-07-31T19:30:19+08:00">2019-07-31</time>
             
 
             
@@ -462,7 +468,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-16 08:28:08" itemprop="dateModified" datetime="2019-07-16T08:28:08+08:00">2019-07-16</time>
+                <time title="Modified: 2019-08-01 16:23:45" itemprop="dateModified" datetime="2019-08-01T16:23:45+08:00">2019-08-01</time>
               
             
           </span>
@@ -483,13 +489,6 @@
 
                 
                 
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/paper-reading/review/" itemprop="url" rel="index"><span itemprop="name">review</span></a></span>
-
-                
-                
               
             </span>
           
@@ -501,7 +500,7 @@
 
           
           
-            <span id="/2019/04/21/light-field/" class="leancloud_visitors" data-flag-title="光场入门">
+            <span id="/2019/07/31/paper-SFMlearn/" class="leancloud_visitors" data-flag-title="paper-Unsupervised Learning of Depth and Ego-Motion from Video">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -526,7 +525,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">118</span>
+                <span title="Symbols count in article">1.5k</span>
               
 
               
@@ -540,7 +539,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">1 mins.</span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -560,8 +559,36 @@
       
 
       
-        <h2 id="Principles-of-Light-Field-Imaging"><a href="#Principles-of-Light-Field-Imaging" class="headerlink" title="Principles of Light Field Imaging"></a>Principles of Light Field Imaging</h2><h3 id="光场成像综述"><a href="#光场成像综述" class="headerlink" title="光场成像综述"></a>光场成像综述</h3><ul>
-<li>光场相机设计者需要优化镜头系统用于收集从物平面产生的光并尽可能将其汇聚在像平面上，当可以准确收敛的光束越大，捕获过程变得越有效，可实现的光学分辨率越高。</li>
+        <p>CVPR2017年的工作。网上有几个很好的中文博客，梳理了这篇论文的工作。可以通过<a href="https://blog.csdn.net/kevin_cc98/article/details/78957218" target="_blank" rel="noopener">链接1</a>和<a href="https://www.jianshu.com/p/7283ed894c84" target="_blank" rel="noopener">链接二</a>访问。</p>
+<p>文章是第一篇使用SFM(structure-from-motion)进行深度估计的，后来者在本文的工作上通过增加场景集合的约束、sourse数据的约束，进一步提高估计的准确性和鲁棒性。通俗来说，本文是<strong>从一段视频中恢复场景深度和相机pose的论文</strong>。</p>
+<h2 id="细节描述"><a href="#细节描述" class="headerlink" title="细节描述"></a>细节描述</h2><h3 id="network-structure"><a href="#network-structure" class="headerlink" title="network structure"></a>network structure</h3><img src="/2019/07/31/paper-SFMlearn/1.png" width="1">
+<h3 id="supervision-pipeline"><a href="#supervision-pipeline" class="headerlink" title="supervision pipeline"></a>supervision pipeline</h3><img src="/2019/07/31/paper-SFMlearn/2.png" width="2">
+<p>用depth和pose网络分别输出的predicted D和T，弄出一个Loss</p>
+<h3 id="双线性插值、warping"><a href="#双线性插值、warping" class="headerlink" title="双线性插值、warping"></a>双线性插值、warping</h3><img src="/2019/07/31/paper-SFMlearn/3.png" width="3">
+<p>对于target图中的某位置pt，用predicted D 和 T，算出该点对应到source图中是在ps这个位置（因为不一定是在整像素点，所以需要用双线性插值算出该ps点在source上的真实像素值）。对于所有target和source对，对于每个source中的每个像素点，计算像素值之差的和：</p>
+<script type="math/tex; mode=display">\mathcal{L}_{v s}=\sum_{s} \sum_{p}\left|I_{t}(p)-\hat{I}_{s}(p)\right|</script><ul>
+<li><p>考虑到环境不理想的情况（运动物体、相机运动模糊）,加一个置信参数：</p>
+<script type="math/tex; mode=display">\mathcal{L}_{v s}=\sum_{<I_{1}, \ldots, I_{N}>\in \mathcal{S}} \sum_{p} \hat{E}_{s}(p)\left|I_{t}(p)-\hat{I}_{s}(p)\right|</script><p>但这样的话minimize loss就直接让E为0就可以了。为了避免这种现象，最终的loss要加一个关于E的项，to encourage nonzero predictions by 最小化每个像素点与1之间的交叉熵损失。</p>
+</li>
+<li><script type="math/tex; mode=display">\mathcal{L}_{f i n a l}=\sum_{l} \mathcal{L}_{v s}^{l}+\lambda_{s} \mathcal{L}_{s m o o t h}^{l}+\lambda_{e} \sum_{s} \mathcal{L}_{r e g}\left(\hat{E}_{s}^{l}\right)</script></li>
+</ul>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><img src="/2019/07/31/paper-SFMlearn/4.png" width="4">
+<p>如图，可见该网络不如Godard的左右一致性检查一文的结果。作者认为原因可能是由于Godard所谓的左右一致性本质上是已知两帧之间的pose，而当前的深度预测是基于预测的不精确的pose。</p>
+<p>不过要想到，本文的深度其实是一个中间值（intermediate value），它的主要公用是用于pose估计。此外，作者提到他们的解释网络没有很好地表现，可能是因为测试集中图像大多是静态的图，中没有太多遮挡的情况（遮挡的情况大多3帧内就会消失)，但发现他们的解释网络具有良好的预测图像动态部分能力。</p>
+<p>作者最后认为当前还可以从以下几个方面进步：</p>
+<ul>
+<li><p>没有考虑实际环境中可能出现的物体移动和遮挡。当然作者提到可以借鉴 motion segmentation的工作成果。</p>
+</li>
+<li><p>目前还需要内参已知，如果利用往上随处可获得的video来估计（内参不知）？</p>
+</li>
+<li><p>用更加好的深度预测（我认为这也是pose估计一个很核心的任务。有了更好的三维点，就有更小的重投影误差），比如利用体素</p>
+</li>
+</ul>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ul>
+<li><p>一篇论文应该怎么思考？现在难道不是根据xxx场景想一堆idea，然后把idea变成loss或者是xx模块，然后测试不同网络、设计不同网络暴力让他收敛吗？？？？？</p>
+</li>
+<li><p>除了MPI和depth，还有什么好的描述3D场景的方式呢？体素会不会是一个好的出发点呢？</p>
+</li>
 </ul>
 
       
@@ -582,12 +609,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2019/04/21/light-field/">光场入门</a></p>
+  <p><span>本文标题:</span><a href="/2019/07/31/paper-SFMlearn/">paper-Unsupervised Learning of Depth and Ego-Motion from Video</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Zeyuxiao 的个人博客">Zeyuxiao</a></p>
-  <p><span>发布时间:</span>2019年04月21日 - 10:04</p>
-  <p><span>最后更新:</span>2019年07月16日 - 08:07</p>
-  <p><span>原始链接:</span><a href="/2019/04/21/light-field/" title="光场入门">https://zeyuxiao1997.github.io/2019/04/21/light-field/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2019/04/21/light-field/" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2019年07月31日 - 19:07</p>
+  <p><span>最后更新:</span>2019年08月01日 - 16:08</p>
+  <p><span>原始链接:</span><a href="/2019/07/31/paper-SFMlearn/" title="paper-Unsupervised Learning of Depth and Ego-Motion from Video">https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -661,7 +688,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/light-field/" rel="tag">  <i class="fa fa-tag"></i>  light field</a>
+            <a href="/tags/video/" rel="tag">  <i class="fa fa-tag"></i>  video</a>
+          
+            <a href="/tags/depth-estimation/" rel="tag">  <i class="fa fa-tag"></i>  depth estimation</a>
+          
+            <a href="/tags/SFM/" rel="tag">  <i class="fa fa-tag"></i>  SFM</a>
           
         </div>
       
@@ -674,8 +705,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/20/paper-HRnet/" rel="next" title="paper——Deep High-Resolution Representation Learning for Human Pose Estimation(HRnet)">
-                <i class="fa fa-chevron-left"></i> paper——Deep High-Resolution Representation Learning for Human Pose Estimation(HRnet)
+              <a href="/2019/07/31/paper-LKVOLearner/" rel="next" title="paper-Learning Depth from Monocular Videos using Direct Methods">
+                <i class="fa fa-chevron-left"></i> paper-Learning Depth from Monocular Videos using Direct Methods
               </a>
             
           </div>
@@ -684,8 +715,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/21/paper-CameraSR/" rel="prev" title="paper——Camera Lens Super-Resolution">
-                paper——Camera Lens Super-Resolution <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/01/paper-DRC/" rel="prev" title="paper：Multi-view Supervision for Single-view Reconstruction via Differentiable Ray Consistency">
+                paper：Multi-view Supervision for Single-view Reconstruction via Differentiable Ray Consistency <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -755,7 +786,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -788,7 +819,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -861,7 +894,35 @@
                     
                       
                     
-                    <span class="site-state-item-count">28</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -950,7 +1011,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Principles-of-Light-Field-Imaging"><span class="nav-number">1.</span> <span class="nav-text">Principles of Light Field Imaging</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#光场成像综述"><span class="nav-number">1.1.</span> <span class="nav-text">光场成像综述</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#细节描述"><span class="nav-number">1.</span> <span class="nav-text">细节描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#network-structure"><span class="nav-number">1.1.</span> <span class="nav-text">network structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#supervision-pipeline"><span class="nav-number">1.2.</span> <span class="nav-text">supervision pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双线性插值、warping"><span class="nav-number">1.3.</span> <span class="nav-text">双线性插值、warping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结果"><span class="nav-number">1.4.</span> <span class="nav-text">结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">2.</span> <span class="nav-text">思考</span></a></li></ol></div>
             
 
           </div>
@@ -983,7 +1044,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">26k</span>
+    <span title="Symbols count total">35k</span>
   
 
   
@@ -992,7 +1053,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">33 mins.</span>
+    <span title="Reading time total">44 mins.</span>
   
 </div>
 
@@ -1153,9 +1214,14 @@
               })
           } else {
             
-              var $element = $(document.getElementById(url));
-              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
-              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
             
           }
         })
@@ -1197,46 +1263,6 @@
   
   
 
-  
-    
-      <script type="text/x-mathjax-config">
-  
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
-        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
-      }
-    });
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
-    }
-  });
-</script>
-<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-    
   
 
 

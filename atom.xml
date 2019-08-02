@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zeyuxiao1997.github.io/"/>
-  <updated>2019-07-15T12:04:23.835Z</updated>
+  <updated>2019-08-01T03:05:56.960Z</updated>
   <id>https://zeyuxiao1997.github.io/</id>
   
   <author>
@@ -17,11 +17,337 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>paper：Multi-view Supervision for Single-view Reconstruction via Differentiable Ray Consistency</title>
+    <link href="https://zeyuxiao1997.github.io/2019/08/01/paper-DRC/"/>
+    <id>https://zeyuxiao1997.github.io/2019/08/01/paper-DRC/</id>
+    <published>2019-08-01T01:59:29.000Z</published>
+    <updated>2019-08-01T03:05:56.960Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2017的作品，又是tinghui zhou的杰作。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CVPR2017的作品，又是tinghui zhou的杰作。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="multi-view" scheme="https://zeyuxiao1997.github.io/tags/multi-view/"/>
+    
+      <category term="reconstruction" scheme="https://zeyuxiao1997.github.io/tags/reconstruction/"/>
+    
+      <category term="voxel" scheme="https://zeyuxiao1997.github.io/tags/voxel/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper-Unsupervised Learning of Depth and Ego-Motion from Video</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/31/paper-SFMlearn/</id>
+    <published>2019-07-31T11:30:19.000Z</published>
+    <updated>2019-08-01T08:23:45.859Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2017年的工作。网上有几个很好的中文博客，梳理了这篇论文的工作。可以通过<a href="https://blog.csdn.net/kevin_cc98/article/details/78957218" target="_blank" rel="noopener">链接1</a>和<a href="https://www.jianshu.com/p/7283ed894c84" target="_blank" rel="noopener">链接二</a>访问。</p><p>文章是第一篇使用SFM(structure-from-motion)进行深度估计的，后来者在本文的工作上通过增加场景集合的约束、sourse数据的约束，进一步提高估计的准确性和鲁棒性。通俗来说，本文是<strong>从一段视频中恢复场景深度和相机pose的论文</strong>。</p><h2 id="细节描述"><a href="#细节描述" class="headerlink" title="细节描述"></a>细节描述</h2><h3 id="network-structure"><a href="#network-structure" class="headerlink" title="network structure"></a>network structure</h3><img src="/2019/07/31/paper-SFMlearn/1.png" width="1"><h3 id="supervision-pipeline"><a href="#supervision-pipeline" class="headerlink" title="supervision pipeline"></a>supervision pipeline</h3><img src="/2019/07/31/paper-SFMlearn/2.png" width="2"><p>用depth和pose网络分别输出的predicted D和T，弄出一个Loss</p><h3 id="双线性插值、warping"><a href="#双线性插值、warping" class="headerlink" title="双线性插值、warping"></a>双线性插值、warping</h3><img src="/2019/07/31/paper-SFMlearn/3.png" width="3"><p>对于target图中的某位置pt，用predicted D 和 T，算出该点对应到source图中是在ps这个位置（因为不一定是在整像素点，所以需要用双线性插值算出该ps点在source上的真实像素值）。对于所有target和source对，对于每个source中的每个像素点，计算像素值之差的和：</p><script type="math/tex; mode=display">\mathcal{L}_{v s}=\sum_{s} \sum_{p}\left|I_{t}(p)-\hat{I}_{s}(p)\right|</script><ul><li><p>考虑到环境不理想的情况（运动物体、相机运动模糊）,加一个置信参数：</p><script type="math/tex; mode=display">\mathcal{L}_{v s}=\sum_{<I_{1}, \ldots, I_{N}>\in \mathcal{S}} \sum_{p} \hat{E}_{s}(p)\left|I_{t}(p)-\hat{I}_{s}(p)\right|</script><p>但这样的话minimize loss就直接让E为0就可以了。为了避免这种现象，最终的loss要加一个关于E的项，to encourage nonzero predictions by 最小化每个像素点与1之间的交叉熵损失。</p></li><li><script type="math/tex; mode=display">\mathcal{L}_{f i n a l}=\sum_{l} \mathcal{L}_{v s}^{l}+\lambda_{s} \mathcal{L}_{s m o o t h}^{l}+\lambda_{e} \sum_{s} \mathcal{L}_{r e g}\left(\hat{E}_{s}^{l}\right)</script></li></ul><h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><img src="/2019/07/31/paper-SFMlearn/4.png" width="4"><p>如图，可见该网络不如Godard的左右一致性检查一文的结果。作者认为原因可能是由于Godard所谓的左右一致性本质上是已知两帧之间的pose，而当前的深度预测是基于预测的不精确的pose。</p><p>不过要想到，本文的深度其实是一个中间值（intermediate value），它的主要公用是用于pose估计。此外，作者提到他们的解释网络没有很好地表现，可能是因为测试集中图像大多是静态的图，中没有太多遮挡的情况（遮挡的情况大多3帧内就会消失)，但发现他们的解释网络具有良好的预测图像动态部分能力。</p><p>作者最后认为当前还可以从以下几个方面进步：</p><ul><li><p>没有考虑实际环境中可能出现的物体移动和遮挡。当然作者提到可以借鉴 motion segmentation的工作成果。</p></li><li><p>目前还需要内参已知，如果利用往上随处可获得的video来估计（内参不知）？</p></li><li><p>用更加好的深度预测（我认为这也是pose估计一个很核心的任务。有了更好的三维点，就有更小的重投影误差），比如利用体素</p></li></ul><h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ul><li><p>一篇论文应该怎么思考？现在难道不是根据xxx场景想一堆idea，然后把idea变成loss或者是xx模块，然后测试不同网络、设计不同网络暴力让他收敛吗？？？？？</p></li><li><p>除了MPI和depth，还有什么好的描述3D场景的方式呢？体素会不会是一个好的出发点呢？</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CVPR2017年的工作。网上有几个很好的中文博客，梳理了这篇论文的工作。可以通过&lt;a href=&quot;https://blog.csdn.net/kevin_cc98/article/details/78957218&quot; target=&quot;_blank&quot; rel=&quot;noopene
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="video" scheme="https://zeyuxiao1997.github.io/tags/video/"/>
+    
+      <category term="depth estimation" scheme="https://zeyuxiao1997.github.io/tags/depth-estimation/"/>
+    
+      <category term="SFM" scheme="https://zeyuxiao1997.github.io/tags/SFM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper-Learning Depth from Monocular Videos using Direct Methods</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/31/paper-LKVOLearner/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/31/paper-LKVOLearner/</id>
+    <published>2019-07-31T07:50:14.000Z</published>
+    <updated>2019-08-01T08:23:49.342Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2018的作品，基于视频帧的深度估计；是unsupervised的，但是有预训练模型。</p><p>CSDN上有两个链接可以看到<a href="https://blog.csdn.net/xiao_lxl/article/details/90242005" target="_blank" rel="noopener">翻译</a>和<a href="https://blog.csdn.net/yueleileili/article/details/82946910" target="_blank" rel="noopener">讲解</a>，知乎上面也有对这篇论文的<a href="https://zhuanlan.zhihu.com/p/50351565" target="_blank" rel="noopener">讲解</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CVPR2018的作品，基于视频帧的深度估计；是unsupervised的，但是有预训练模型。&lt;/p&gt;
+&lt;p&gt;CSDN上有两个链接可以看到&lt;a href=&quot;https://blog.csdn.net/xiao_lxl/article/details/90242005&quot; ta
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="video" scheme="https://zeyuxiao1997.github.io/tags/video/"/>
+    
+      <category term="depth estimation" scheme="https://zeyuxiao1997.github.io/tags/depth-estimation/"/>
+    
+      <category term="monocular" scheme="https://zeyuxiao1997.github.io/tags/monocular/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper-Learning to Synthesize a 4D RGBD Light Field from a Single Image</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/31/paper-RGBD2LF/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/31/paper-RGBD2LF/</id>
+    <published>2019-07-31T01:24:09.000Z</published>
+    <updated>2019-07-31T03:38:51.159Z</updated>
+    
+    <content type="html"><![CDATA[<p>ICCV2017的作品，oral视频在网上可以找到，(<a href="http://www.sohu.com/a/258551424_715754)[http://www.sohu.com/a/258551424_715754]，这篇文章提出一种机器学习算法，将2D" target="_blank" rel="noopener">http://www.sohu.com/a/258551424_715754)[http://www.sohu.com/a/258551424_715754]，这篇文章提出一种机器学习算法，将2D</a> RGB图像作为输入合成4D RGBD光场（每个光线方向上包含场景的颜色和深度）。</p><h2 id="细节描述"><a href="#细节描述" class="headerlink" title="细节描述"></a>细节描述</h2><p>文章的核心思想是通过一个RGB图片，提取图片中的深度信息，用这些深度信息合成光场。由于存在遮挡和非朗伯平面的问题，作者使用two-step的方法合成光场，这个two-step可以看做是先使用深度信息合成一个粗光场，再通过残差的方式refine之前的粗光场，用公式表示是这样的：</p><script type="math/tex; mode=display">\begin{aligned} D(\mathbf{x}, \mathbf{u}) &=d(L(\mathbf{x}, \mathbf{0})) \\ L_{r}(\mathbf{x}, \mathbf{u}) &=r(L(\mathbf{x}, \mathbf{0}), D(\mathbf{x}, \mathbf{u})) \\ \hat{L}(\mathbf{x}, \mathbf{u}) &=o\left(L_{r}(\mathbf{x}, \mathbf{u}), D(\mathbf{x}, \mathbf{u})\right) \end{aligned}</script><p>论文的pipeline如下图所示。<br><img src="/2019/07/31/paper-RGBD2LF/1.png" width="1"></p><h3 id="dataset"><a href="#dataset" class="headerlink" title="dataset"></a>dataset</h3><p>自己采集的花花草草的光场数据集，然后用central view作为input，我觉得意义并不大，应该是使用external信息进行暴力学习，使网络过拟合，从而提高泛化性。这一点文中提到了一句：网络只能用于相机baseline的光场合成。</p><h3 id="depth-estimation"><a href="#depth-estimation" class="headerlink" title="depth estimation"></a>depth estimation</h3><p>深度估计是这个文章的重点。文中将深度信息的表示转换成<strong>光线的深度</strong>，并使用“深度一致性”的概念进行loss的设计，还是很有新意的；包括里面用到了TV-loss，都是让人眼前一亮的。</p><h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ul><li><p>关于refine的过程是不是可以不用resblock进行操作，而改用类似于DRCN网络中的递归结构呢？</p></li><li><p>新view的合成有两个途径，一个是copy from existed pixels，另一个是imagine/generate new pixels，既然我是有监督的LF，能不能使用GAN，设计一个生成模型去产生光场呢？</p></li><li><p>如果没有ground truth时，有什么办法去生成一个光场；或者说是怎么样从单帧生成多帧；或者是怎样从single view to multi view呢？</p></li><li><p>本文使用深度一致性进行scene representation，除了之前看的MPI之外，还有什么场景表征的方法呢？</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ICCV2017的作品，oral视频在网上可以找到，(&lt;a href=&quot;http://www.sohu.com/a/258551424_715754)[http://www.sohu.com/a/258551424_715754]，这篇文章提出一种机器学习算法，将2D&quot; t
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="light field" scheme="https://zeyuxiao1997.github.io/tags/light-field/"/>
+    
+      <category term="synthesis" scheme="https://zeyuxiao1997.github.io/tags/synthesis/"/>
+    
+      <category term="RGBD" scheme="https://zeyuxiao1997.github.io/tags/RGBD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper-Stereo Magnification：Learning view synthesis using multiplane images</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/30/paper-MPI/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/30/paper-MPI/</id>
+    <published>2019-07-30T06:00:08.000Z</published>
+    <updated>2019-07-30T13:56:55.853Z</updated>
+    
+    <content type="html"><![CDATA[<p>SIGGRAPH2018的作品。可以将文章的task理解为，双目立体放大，即通过已知相机位置和其他参数的两幅stereo图片外插生成更大baseline的视图。使用深度神经网络学习并构建双目立体相机拍摄的两幅图像的多平面图像表示（multiplane images），然后基于此合成立体感更明显的立体图像。</p><p>立体放大技术即将基线距较近的双目相机拍摄的两幅图像，转换成看来起是基线距较远的双目相机拍摄的图像，也就是如下图所示的效果。<br><img src="/2019/07/30/paper-MPI/1.png" width="1"></p><h2 id="细节描述"><a href="#细节描述" class="headerlink" title="细节描述"></a>细节描述</h2><p>我觉得文章有三个大的创新点：</p><ul><li><p>提出MPI（multiplane images），通过MPI将图片展示的场景拆分成可以统一建模的以多个深度和透明度为代表的plane。</p></li><li><p>使用VGG loss(perceptual loss)进行loss function的学习。</p></li><li><p>将YouTube上面的视频通过SLAM的方法标记成适合本文所用的datasets。</p></li></ul><p>关于MPI，理解可以见下图：<br><img src="/2019/07/30/paper-MPI/2.png" width="2"></p><p>pipeline不是很难理解，放一张图片就好了。<br><img src="/2019/07/30/paper-MPI/3.png" width="3"></p><h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ul><li><p>文章在最后提出两点他认为可以改进的地方：第一是有强透明和强反光的场景难以进行合成；第二是当边界像素变化特别多时，会产生stacks。见下图。</p><img src="/2019/07/30/paper-MPI/4.png" width="4"></li><li><p>是否还有其他进行scene representation的方法？比如文中一笔带过的layered depth images (LDIs)，是不是可以用在光场外插或者是Video2LF呢？</p></li><li><p>MPI是否可以代替disparity(或者是隐式或者是xx方式)进行几何结构的建模？正好cvpr2019有一篇也是MPI进行view插值，看完之后来回答这个问题</p></li></ul><h2 id="2019-07-30-21-52-08更新"><a href="#2019-07-30-21-52-08更新" class="headerlink" title="2019-07-30 21:52:08更新"></a>2019-07-30 21:52:08更新</h2><p>CVPR2019的论文《Pushing the Boundaries of View Extrapolation with Multiplane Images》是同一个团队里面的人写的，分析采样的思路和SIGGRAPH的一模一样。<br>文中的主要工作是对MPI文章的优化，有下面的三个创新点比较好：</p><ul><li><p>思路清奇，将生成MPI和view合成问题看成inpainting模型【是不是可以往inpainting上靠一靠？？】</p></li><li><p>优化MIP（使用了two-step的优化方法优化MPI）</p></li><li><p>新颖的metric（意义不大，task-oriented）</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;SIGGRAPH2018的作品。可以将文章的task理解为，双目立体放大，即通过已知相机位置和其他参数的两幅stereo图片外插生成更大baseline的视图。使用深度神经网络学习并构建双目立体相机拍摄的两幅图像的多平面图像表示（multiplane images），然后基
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="view synthesis" scheme="https://zeyuxiao1997.github.io/tags/view-synthesis/"/>
+    
+      <category term="stereo" scheme="https://zeyuxiao1997.github.io/tags/stereo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper-Light Field Video Capture Using a Learning-Based Hybrid Imaging System</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/29/paper-sig2019/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/29/paper-sig2019/</id>
+    <published>2019-07-29T12:19:59.000Z</published>
+    <updated>2019-07-31T04:12:54.993Z</updated>
+    
+    <content type="html"><![CDATA[<p>SIGGRAPH2017的文章，作者是来自UCB和UCSD的大佬。文章讲了什么不重要，在组会上我已经汇报过了，文章重点和脉络可见<a href="/download/xzy_20190729.pdf">pdf</a>。</p><p>重点来了：刘老师从这篇工作中启发我去如何思考一个问题是不是solid、task是不是有意义、工作需不需要去follow</p><h2 id="该如何评估一个工作的价值和是不是值得被follow"><a href="#该如何评估一个工作的价值和是不是值得被follow" class="headerlink" title="该如何评估一个工作的价值和是不是值得被follow"></a>该如何评估一个工作的价值和是不是值得被follow</h2><p>首先能发表在SIGGRAPH上的文章一定是有一定贡献并且有一定创新点的好文章。SIGGRAPH上发表的文章（尤其是前几年，最近两年还好）大多数是做了一个复杂的系统，因此follow与否需要评估是不是值得被follow。本文由于缺乏数据集，因此自己搭建了一套hybrid的系统进行光场视频的采集，从搭建、配准、参数获取，再到网络设计、训练和得出结果，都耗费了大量的精力。并且这个工作从2017年至今都没有人follow，是因为这个课题没有意义还是因为follow成本太高了呢？可想而知。</p><p>换句话说，如果我follow了这篇工作后，通过研究可以发5篇SIGGRAPH，那就是有意义的、可以follow的工作；如果只能发一篇SIGGRAPH，那就不值得follow。</p><h2 id="怎么样去思考一个task是不是好？"><a href="#怎么样去思考一个task是不是好？" class="headerlink" title="怎么样去思考一个task是不是好？"></a>怎么样去思考一个task是不是好？</h2><ul><li><p><strong>首先，这个问题是不是真实存在的、并且解决真的很有意义的？</strong>光场相机因为硬件问题，确实拍摄不了高帧率的视频，并且光场视频在VR中有巨大应用，因此“光场视频生成”是一个很好的task。</p></li><li><p><strong>然后需要明确，follow可能性有多大，是否实用？</strong>见上文。</p></li><li><p><strong>然后看难度是不是大？</strong>光场视频最难的在于数据集，硬件的标定更是头疼，因此并没有必要非做光场视频不可。</p></li></ul><h2 id="怎么样去思考一个idea？"><a href="#怎么样去思考一个idea？" class="headerlink" title="怎么样去思考一个idea？"></a>怎么样去思考一个idea？</h2><p>以光场为例，讲述怎么样去思考idea？</p><p>首先一个好的idea一定是从很高的视角去思考一个领域的，这一点靠看论文是不可能获得的，因此需要多交流、多思考。让我们回顾3D的发展脉络，在3D发展的初期，分化出两个阵营，一个是light field，另一个是point cloud。light field在appearance上有得天独厚的优势，但是具有隐藏的几何信息；相反，点云具有直观的几何信息，但是appearance显示的很差【思考为什么需要两个阵营】。</p><p>在图形学中，render需要极致的appearance，所以我们需要光场去提供丰富的纹理、细节信息。</p><p>在思考一个问题的时候需要明确，还有什么问题没有被解决？然后去思考是否可以follow或者是否可以transfer。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;SIGGRAPH2017的文章，作者是来自UCB和UCSD的大佬。文章讲了什么不重要，在组会上我已经汇报过了，文章重点和脉络可见&lt;a href=&quot;/download/xzy_20190729.pdf&quot;&gt;pdf&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;重点来了：刘老师从这篇工作中启发我去如何
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="light field" scheme="https://zeyuxiao1997.github.io/tags/light-field/"/>
+    
+      <category term="hybrid system" scheme="https://zeyuxiao1997.github.io/tags/hybrid-system/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——View Synthesis by Appearance Flow</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/28/paper-appearanceFlow/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/28/paper-appearanceFlow/</id>
+    <published>2019-07-28T13:06:58.000Z</published>
+    <updated>2019-07-28T13:35:31.803Z</updated>
+    
+    <content type="html"><![CDATA[<p>ECCV2016的作品，以一个独特的视角看待新视图(新场景)的合成问题—即，所有的新视图都可以在给定的老视图里面找到对应的原pixel。因此本文提出一个Appearance Flow的东西，用于新视图的合成，本质上是【2-D coordinate vectors specifying which pixels in the input view could be used to reconstruct the target view】。</p><h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>视图合成的效果是这样的。<br><img src="/2019/07/28/paper-appearanceFlow/1.png" width="1"></p><p>重要的表示如下：<br><img src="/2019/07/28/paper-appearanceFlow/2.png" width="2"></p><p>网络结构是两个encoder加一个decoder。<br><img src="/2019/07/28/paper-appearanceFlow/3.png" width="3"></p><p>文章的一个创新在于：可使用多视图输入进行合成，它本质上就是在上面的网络上加了confidence mask，并对其取平均数，得到新的视图。<br><img src="/2019/07/28/paper-appearanceFlow/4.png" width="4"></p><h2 id="灵感"><a href="#灵感" class="headerlink" title="灵感"></a>灵感</h2><ul><li><p>颜色只能是出现在图中的已有颜色，是否可以生成已知图片中没有的颜色，但是在真实图片中是实际存在的颜色呢？</p></li><li><p>数据集有限，并且知道了类别；是否可以在不知道类别的情况下进行合成。</p></li><li><p><strong>借用appearance flow是否能和现在光场视频中合成问题相结合？？？？？</strong>（需仔细思考一下。。。。。。）</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ECCV2016的作品，以一个独特的视角看待新视图(新场景)的合成问题—即，所有的新视图都可以在给定的老视图里面找到对应的原pixel。因此本文提出一个Appearance Flow的东西，用于新视图的合成，本质上是【2-D coordinate vectors speci
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="view synthesis" scheme="https://zeyuxiao1997.github.io/tags/view-synthesis/"/>
+    
+      <category term="video" scheme="https://zeyuxiao1997.github.io/tags/video/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Important network structure——Dilated Convolutions(空洞卷积)</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/26/class-unet/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/26/class-unet/</id>
+    <published>2019-07-26T05:53:04.000Z</published>
+    <updated>2019-08-01T01:43:39.533Z</updated>
+    
+    <content type="html"><![CDATA[<p>在view synthesis中和light field重建过程中遇到很多次Dilated conv，但是对其原理不是很明白，不知道它为什么可以用于特征提取和表示。因此本文将记录我对空洞卷积的学习和理解。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在view synthesis中和light field重建过程中遇到很多次Dilated conv，但是对其原理不是很明白，不知道它为什么可以用于特征提取和表示。因此本文将记录我对空洞卷积的学习和理解。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="Important network structure" scheme="https://zeyuxiao1997.github.io/categories/Important-network-structure/"/>
+    
+    
+      <category term="CNN" scheme="https://zeyuxiao1997.github.io/tags/CNN/"/>
+    
+      <category term="Dilated Convolutions" scheme="https://zeyuxiao1997.github.io/tags/Dilated-Convolutions/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Learning-Based View Synthesis for Light Field Cameras</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/24/paper-VSLF/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/24/paper-VSLF/</id>
+    <published>2019-07-24T02:11:38.000Z</published>
+    <updated>2019-07-28T06:33:34.590Z</updated>
+    
+    <content type="html"><![CDATA[<p>TOG2016的工作。近两年大量的文献均指出这一篇文章的弊端（包括但不限于深度估计模块和颜色估计模块并不能很好的挖掘光场的结构信息），故读之。<br><a id="more"></a></p><p>这篇文章主要讲述利用机器学习来合成光场中的虚拟视点。</p><p>输入为光场相机的四个角落的视点，合成新的视点。方法在细节方面保持不错。</p><p>主要步骤如下：<br><img src="/2019/07/24/paper-VSLF/1.png" width="1"><br>先提取图像特征，利用这些特征来计算DISPARITY, 将其disparity和原始image 一起输入新的网络，来合成新的视点。</p><img src="/2019/07/24/paper-VSLF/2.png" width="2"><p>网络结构相对而言比较简单。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;TOG2016的工作。近两年大量的文献均指出这一篇文章的弊端（包括但不限于深度估计模块和颜色估计模块并不能很好的挖掘光场的结构信息），故读之。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="light field" scheme="https://zeyuxiao1997.github.io/tags/light-field/"/>
+    
+      <category term="Angular SR" scheme="https://zeyuxiao1997.github.io/tags/Angular-SR/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>paper——Light Field Reconstruction Using Deep Convolutional Network on EPI</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/24/paper-cnnEPI/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/24/paper-cnnEPI/</id>
+    <published>2019-07-24T01:41:57.000Z</published>
+    <updated>2019-07-25T05:53:22.598Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2017的工作。近两年大量的文献均指出这一篇文章的弊端（包括但不限于blur-restoration-deblur反复使用增加计算成本、2D的EPI减少了光场的信息维度等），故读之。<br><a id="more"></a><br>文章的重点在于重建以EPI为代表的角分辨率，因此所有的重建是针对EPI的(虽然是2D slices，但是在两年前已经是很好的结果了)。角分辨率和空间分辨率的不一致性导致直接进行angular SR会有很大的伪影，视觉效果不连续【angular resolution不行，但是spatial resolution保持正常】；为了平衡这种angular和spatial的不一致性，需要降低spatial的分辨率。</p><h2 id="文章工作"><a href="#文章工作" class="headerlink" title="文章工作"></a>文章工作</h2><p>文章发现直接对EPI进行upsampling会出现不好的情况，需要使用blur去除高频率信息，然后使用angular SR方法然后再deblur。方法见图。<br><img src="/2019/07/24/paper-cnnEPI/1.png" title="network"><br>使用bicubic插值将已经模糊的EPI插值成角空间中理想的resolution，然后使用残差卷积进行细致特征的提取，然后再使用deblur的方法去模糊。</p><p>想法不难，但是我需要更进一步了解，EPI和angular的关系。</p><h2 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h2><ul><li><p>文中提出的blur-deblur的原因是什么？（需要再深入阅读）blur-deblur模式是不是只适用于EPI的2D slices，能否进行维度扩展，方向扩展等，比如结合voxel进行操作？</p></li><li><p>文中提出的高低频部分不是很明白，光场的高低频信息是否可以进一步引导angular SR或spatial SR甚至是其他的low-level的问题？</p></li><li><p>只用亮度信息真的不会损失任何有效信息吗，其他通道该怎么样加以利用？</p></li><li><p>换用更新的denoise方法会不会单纯在本文的结果上增加结果？</p></li><li><p>大家似乎都是用的内插，外插行吗？</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CVPR2017的工作。近两年大量的文献均指出这一篇文章的弊端（包括但不限于blur-restoration-deblur反复使用增加计算成本、2D的EPI减少了光场的信息维度等），故读之。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="light field" scheme="https://zeyuxiao1997.github.io/tags/light-field/"/>
+    
+      <category term="Angular SR" scheme="https://zeyuxiao1997.github.io/tags/Angular-SR/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>研学过程中的零碎知识点</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/18/knowledge/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/18/knowledge/</id>
+    <published>2019-07-18T00:43:58.000Z</published>
+    <updated>2019-08-02T01:22:23.223Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="什么是图像的高频信息和低频信息？"><a href="#什么是图像的高频信息和低频信息？" class="headerlink" title="什么是图像的高频信息和低频信息？"></a>什么是图像的高频信息和低频信息？</h2><p>低频信号和高频信号也叫低频分量和高频分量。图像中的高频分量，指的是图像强度（亮度/灰度）变化剧烈的地方，也就是我们常说的边缘（轮廓）；图像中的低频分量，指的是图像强度（亮度/灰度）变换平缓的地方，也就是大片色块的地方。人眼对图像中的高频信号更为敏感，举个例子，在一张白纸上有一行字，那么我们肯定直接聚焦在文字上，而不会太在意白纸本身，这里文字就是高频信号，而白纸就是低频信号。</p><p>图像的高低频是对图像各个位置之间强度变化的一种度量方法。低频分量：主要对整副图像的强度的综合度量。高频分量：主要是对图像边缘和轮廓的度量。如果一副图像的各个位置的强度大小相等，则图像只存在低频分量,从图像的频谱图上看,只有一个主峰，且位于频率为零的位置。 如果一副图像的各个位置的强度变化剧烈，则图像不仅存在低频分量，同时也存在多种高频分量，从图像的频谱上看，不仅有一个主峰，同时也存在多个旁峰。</p><p>图像边缘的灰度值变化快，就对应着频率高，即高频显示图像边缘。图像的细节处也就是属于灰度值急剧变化的区域，正是因为灰度值的急剧变化，才会出现细节。另外<strong>噪声（即噪点）</strong>也是这样，在一个像素所在的位置，之所以是噪点，是因为它与正常的点颜色不一样了，也就是说该像素点灰度值明显不一样，当然也就是灰度有快速地变化了，所以是高频部分，因此有噪声在高频这一说。</p><p><strong>其实归根结底，是因为我们人眼识别物体就是这样的，假如你穿一个红衣服在红色背景布前拍照，你能很好地识别么？</strong>不能，因为衣服与背景融为一体，没有变化，所以看不出，除非有灯光从某角度照在人物身上，这样边缘处会出现高亮和阴影，这样我们就能看到一些轮廓线，这些就是颜色（即灰度）很不一样的地方。</p><h2 id="depth-of-field景深"><a href="#depth-of-field景深" class="headerlink" title="depth-of-field景深"></a>depth-of-field景深</h2><p>指相机对焦点前后相对清晰的成像范围。<br><a href="http://www3.xitek.com/xuetang/optics/depthoffield.htm" target="_blank" rel="noopener">参考链接</a></p><h2 id="LSTM的原理及其应用"><a href="#LSTM的原理及其应用" class="headerlink" title="LSTM的原理及其应用"></a>LSTM的原理及其应用</h2><h2 id="TV-loss及其实现"><a href="#TV-loss及其实现" class="headerlink" title="TV loss及其实现"></a>TV loss及其实现</h2><h2 id="什么是superpixel-超像素"><a href="#什么是superpixel-超像素" class="headerlink" title="什么是superpixel(超像素)"></a>什么是superpixel(超像素)</h2><p>知乎<a href="https://www.zhihu.com/question/27623988" target="_blank" rel="noopener">链接</a></p><h3 id="超像素"><a href="#超像素" class="headerlink" title="超像素"></a>超像素</h3><p>首先一张图片由一个个像素组成（可以看成网格），每个像素可以有一个灰度值（标量）或RGB值（三维向量）。首先一张图片由一个个像素组成（可以看成网格），每个像素可以有一个灰度值（标量）或RGB值（三维向量）。现今一张图片动辄1000<em>1000=100w像素，因此对于图像处理来说，是非常大的维度。超像素最大的功能之一，便是作为图像处理其他算法的预处理，在不牺牲太大精确度的情况下<em>*降维</em></em>！<br><img src="/2019/07/18/knowledge/1.png" width="1"></p><h3 id="超像素算法"><a href="#超像素算法" class="headerlink" title="超像素算法"></a>超像素算法</h3><p>超像素最直观的解释，便是把一些具有相似特性的像素“聚合”起来，形成一个更具有代表性的大“元素”。而这个新的元素，将作为其他图像处理算法的基本单位。一来大大降低了维度；二来可以剔除一些异常像素点。至于根据什么特性把一个个像素点聚集起来，可以是颜色、纹理、类别等。<br><img src="/2019/07/18/knowledge/2.png" width="2"></p><p>理论上，任何图像分割算法的过度分割(over-segmentation)，即可生成超像素。下面是一个图像分割算法的例子（举此例还因为这里分割标准是依据纹理）。<br><img src="/2019/07/18/knowledge/3.png" width="3"></p><h3 id="超像素算法判别条件"><a href="#超像素算法判别条件" class="headerlink" title="超像素算法判别条件"></a>超像素算法判别条件</h3><ul><li>Undersegmentation Error</li></ul><p>下图，白色是原图的一个物体，红线是一个个超像素的轮廓，而粉红色的区域就是undersegmentation的区域。显然，这部分区域越大就越不好。<br><img src="/2019/07/18/knowledge/4.png" width="4"></p><ul><li><p>Boundary Recall<br>下图，黑色虚线以及实现是原图物体的轮廓，红线是超像素的边界。一个好的超像素算法，应该覆盖原图物体的轮廓。在给予一定缓冲（粉红色区域）的情况下，超像素的边缘可以覆盖原图物体边缘的越多（黑色实线），该算法就越好。</p><img src="/2019/07/18/knowledge/5.png" width="5"></li><li><p>Compactness score<br>这个指标衡量了一个超像素是否“紧实”。</p><img src="/2019/07/18/knowledge/6.png" width="6"></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;什么是图像的高频信息和低频信息？&quot;&gt;&lt;a href=&quot;#什么是图像的高频信息和低频信息？&quot; class=&quot;headerlink&quot; title=&quot;什么是图像的高频信息和低频信息？&quot;&gt;&lt;/a&gt;什么是图像的高频信息和低频信息？&lt;/h2&gt;&lt;p&gt;低频信号和高频信号也叫低频分
+      
+    
+    </summary>
+    
+      <category term="Knowledge Points" scheme="https://zeyuxiao1997.github.io/categories/Knowledge-Points/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>光场入门</title>
+    <link href="https://zeyuxiao1997.github.io/2019/07/16/light-field/"/>
+    <id>https://zeyuxiao1997.github.io/2019/07/16/light-field/</id>
+    <published>2019-07-16T00:39:11.000Z</published>
+    <updated>2019-07-17T13:53:37.896Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Principles-of-Light-Field-Imaging"><a href="#Principles-of-Light-Field-Imaging" class="headerlink" title="Principles of Light Field Imaging"></a><a href="/download/light_field_25_years.pdf">Principles of Light Field Imaging</a></h2><h3 id="光场成像综述"><a href="#光场成像综述" class="headerlink" title="光场成像综述"></a>光场成像综述</h3><ul><li>光场相机设计者需要优化镜头系统用于收集从物平面产生的光并尽可能将其汇聚在像平面上，当可以准确收敛的光束越大，捕获过程变得越有效，可实现的光学分辨率越高</li><li>相比于传统的光学相机的采集方式，光场相机并不需要将焦点引入像平面（导致焦平面的像清晰），光场相机捕捉全3D的场景信息</li><li>光场数据结构特殊，信息丰富（我的理解是全光函数中提出的不同slice samples中信息是不同的）</li><li>Depth-extraction和super-resolution技术增强了数据并减轻了通过采样两个额外维度引入的分辨率trade-off（不仅采集光的位置，还采集光的方向）</li><li>文章的行文思路是： acquisition and processing chain from optical acquisition principles to the final rendered output image</li></ul><h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><h4 id="全光函数"><a href="#全光函数" class="headerlink" title="全光函数"></a>全光函数</h4><ul><li>全光函数使用的是非物理、非模型的一个框架，采用了更高维的一个描述方法【最重要的一点是引入了光的空间位置和入射方向】</li></ul><h4 id="光场"><a href="#光场" class="headerlink" title="光场"></a>光场</h4><ul><li><p>光场来源于全光函数及其限制：</p><blockquote><p>全光函数的时间维度通过积分消失<br>全光函数是单色的</p></blockquote></li><li><p>光场是一个4D函数</p></li></ul><h4 id="Calibration-and-preprocessing"><a href="#Calibration-and-preprocessing" class="headerlink" title="Calibration and preprocessing"></a>Calibration and preprocessing</h4><h2 id="光场成像原理"><a href="#光场成像原理" class="headerlink" title="光场成像原理"></a>光场成像原理</h2><h3 id="传统成像和光场成像"><a href="#传统成像和光场成像" class="headerlink" title="传统成像和光场成像"></a>传统成像和光场成像</h3><img src="/2019/07/16/light-field/1.png" width="1"><p>物点A向四面八方发出无数条光线，为了简洁，这里只取其中的三条来分析，发出的三条不同方向的光线在经过主透镜折射后在A’点相遇（费马原理）。这三束光线携带了A点不同方向的信息，但由于记录介质CCD只能记录三束光线干涉后叠加的振幅信息，所以会丢了A点的方向信息。简言之，传统成像方式只能记录光线所经过的位置信息，而丢失了与场景深度、目标几何形态、场景遮挡关系等光线角度信息，即三维信息。</p><img src="/2019/07/16/light-field/2.png" width="2"><p>为了记录A点的方向信息，即从根本上解决光线角度信息的采集问题，在传统成像图中CCD所在平面处加一种特殊的光学元件——微透镜阵列，通过记录光辐射在传播过程中的位置和方向的信息，这样就构成了光场采样方式，如上图所示：物点A的三束光线折射后在A’点相遇，但由于没有接收像的介质所以没有发生干涉叠加，他们仨相见后匆匆离开，彼此不干涉彼此，向着自己原有的方向继续前进，最终到达A1,A2,A3的位置，并在此记录下了A点的这三个方向的信息。</p><h3 id="四维光场函数模型与光场成像"><a href="#四维光场函数模型与光场成像" class="headerlink" title="四维光场函数模型与光场成像"></a>四维光场函数模型与光场成像</h3><img src="/2019/07/16/light-field/3.png" width="3"><p>我们常在很多论文中看到用全光函数模型分析光场，但鲜有将其与光场成像的关系讲清楚的，从而给我们造成误解。首先了解一下七维全光函数,如图3所示：我们用三维坐标(x, y, z)、任意传输方向(θ，φ)，以及光的波长(λ)和时间(t)描述一条光线。由于我们只关注光线的位置和传播方向，所以将其简化成四维光场函数（x, y, θ, φ），如图4所示：其中xy平面代表着光线的位置信息，θφ平面代表光线的方向信息，这样我们很容易将其与光场成像时的相关光学元件对应，即xy平面与微透镜阵所在列平面相对应，θφ平面与CCD所在平面相对应。这里一定要注意：初学者很容易将xy面和θφ平面与主透镜平面和微透镜阵列平面相对应</p><h3 id="位置和角度分辨率"><a href="#位置和角度分辨率" class="headerlink" title="位置和角度分辨率"></a>位置和角度分辨率</h3><img src="/2019/07/16/light-field/4.png" width="4"><p>有一个严重的问题：受CCD感光元件分辨率的限制，所采集光场的角度分辨率和位置分辨率相互制约，满足：位置分辨率×角度分辨率=CCD像素个数。借助图5（竖直方向）更好理解这种制约关系：图中若CCD上的可接受的像素个数为12，位置分辨率由微透镜的个数确定，为4，那么角度分辨率则不能超过3。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Principles-of-Light-Field-Imaging&quot;&gt;&lt;a href=&quot;#Principles-of-Light-Field-Imaging&quot; class=&quot;headerlink&quot; title=&quot;Principles of Light Field 
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+      <category term="review" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/review/"/>
+    
+    
+      <category term="light field" scheme="https://zeyuxiao1997.github.io/tags/light-field/"/>
+    
+  </entry>
+  
+  <entry>
     <title>&lt;计算机视觉-算法与应用&gt;学习笔记</title>
     <link href="https://zeyuxiao1997.github.io/2019/07/07/cvaa/"/>
     <id>https://zeyuxiao1997.github.io/2019/07/07/cvaa/</id>
     <published>2019-07-07T01:54:37.000Z</published>
-    <updated>2019-07-15T12:04:23.835Z</updated>
+    <updated>2019-07-17T13:36:07.584Z</updated>
     
     <content type="html"><![CDATA[<p>计划在研究生入学前的暑假将这本书中与我相关的部分【前五章、第八章和第十章】阅读完，在入学前构建一套与我有关的知识体系。</p><p>【flag在2019年7月7日立下，长期有效】。阅读的主力是英文，在PDF中做的笔记同样是英文，部分有困惑的地方查询中文版的实体书。为了锻炼英语写话水平，本文的笔记部分将全部采用英文进行记录。在记笔记的时候如果遇到零碎的点，我将挑出重要的进行记录；如果是一个成熟的算法，我将在自己理解的基础上进行摘录。<br><a id="more"></a></p><h2 id="chapter1—Book-Review"><a href="#chapter1—Book-Review" class="headerlink" title="chapter1—Book Review"></a>chapter1—Book Review</h2><ul><li><p><strong>Computer vision involves going from images to a structural description of the scene (and computer graphics the converse)</strong>：reveal the difference between computer vision and computer graphics. Seen literally, CV is image—&gt;scene description while CG is scene description—&gt;image. My own understanding is THE DIFFERENCE between <strong>understanding and creation</strong>, CV means “I give you an image, and you tell me what is included in it” and CG means “I tell you my needs and things conclude in the image, you draw it”.</p></li><li><p>Computer vision tasks can be divided into 3 categories, namely Images, Geometry and Photometry.</p></li><li><p>Here I excerpt a significant point of view — <strong>The exercises can be used to build up your own personal library of selftested and validated vision algorithms, which is more worthwhile in the long term (assuming you have the time) than simply pulling algorithms out of a library whose performance you do not really understand</strong>, which emphasize the necessity of implementing algorithm.</p></li></ul><h2 id="chapter2—Image-Formation"><a href="#chapter2—Image-Formation" class="headerlink" title="chapter2—Image Formation"></a>chapter2—Image Formation</h2><p>Image formation process should be given following prerequisites—&gt;lighting conditions, scene geometry, surface properties, and camera optics.</p><h3 id="Geometric-primitives-and-transformations"><a href="#Geometric-primitives-and-transformations" class="headerlink" title="Geometric primitives and transformations"></a>Geometric primitives and transformations</h3><h4 id="Geometric-primitives"><a href="#Geometric-primitives" class="headerlink" title="Geometric primitives"></a>Geometric primitives</h4><ul><li><p>points, lines, planes</p></li><li><p>2D points:</p><blockquote><p>normal form: $\boldsymbol{x}=(x, y) \in \mathcal{R}^{2}$ or $\boldsymbol{x}=\left[\begin{array}{l}{x} \ {y}\end{array}\right]$<br>homogeneous coordinates: $\tilde{\boldsymbol{x}}=(\tilde{x}, \tilde{y}, \tilde{w}) \in \mathcal{P}^{2}$<br>2D projective space: $P^{2}=\mathcal{R}^{3}-(0,0,0)$<br>$\tilde{\boldsymbol{x}}=(\tilde{x}, \tilde{y}, \tilde{w})=\tilde{w}(x, y, 1)=\tilde{w} \overline{\boldsymbol{x}}$</p></blockquote></li><li><p>2D lines:</p><blockquote><p>homogeneous coordinates(使用齐次坐标表示): $\tilde{\boldsymbol{l}}=(a, b, c)$<br>corresponing line equation: $\overline{\boldsymbol{x}} \cdot \tilde{\boldsymbol{l}}=a x+b y+c=0$<br>normalize the line equation vector: $l=\left(\hat{n}_{x}, \hat{n}_{y}, d\right)=(\hat{\boldsymbol{n}}, d)$<br>calculate intersection of two lines: $\tilde{\boldsymbol{x}}=\tilde{\boldsymbol{l}}_{1} \times \tilde{\boldsymbol{l}}_{2}$<br>line joining two points: $\tilde{\boldsymbol{l}}=\tilde{\boldsymbol{x}}_{1} \times \tilde{\boldsymbol{x}}_{2}$</p></blockquote></li><li><p>2D conics(圆锥曲线)</p><blockquote><p>$\tilde{x}^{T} Q \tilde{x}=0$</p></blockquote></li><li><p>3D points</p><blockquote><p>inhomogeneous coordinates: $\boldsymbol{x}=(x, y, z) \in \mathcal{R}^{3}$<br>homogeneous coordinates: $\tilde{\boldsymbol{x}}=(\tilde{x}, \tilde{y}, \tilde{z}, \tilde{w}) \in \mathcal{P}^{3}$<br>augmented vector: $\tilde{\boldsymbol{x}}=\tilde{w} \overline{\boldsymbol{x}}$, where $\overline{\boldsymbol{x}}=(x, y, z, 1)$</p></blockquote></li><li><p>3D planes</p><blockquote><p>homogeneous coordinates: $\tilde{\boldsymbol{m}}=(a, b, c, d)$<br>$\overline{\boldsymbol{x}} \cdot \tilde{\boldsymbol{m}}=a x+b y+c z+d=0$<br>$\boldsymbol{m}=\left(\hat{n}_{x}, \hat{n}_{y}, \hat{n}_{z}, d\right)=(\hat{\boldsymbol{n}}, d)$, where $\hat{\boldsymbol{n}}=(\cos \theta \cos \phi, \sin \theta \cos \phi, \sin \phi)$ (<strong>spherical coordinates</strong>)</p></blockquote></li></ul>]]></content>
     
@@ -258,9 +584,9 @@
     <link href="https://zeyuxiao1997.github.io/2019/04/25/pytorch-learn/"/>
     <id>https://zeyuxiao1997.github.io/2019/04/25/pytorch-learn/</id>
     <published>2019-04-25T08:13:25.000Z</published>
-    <updated>2019-04-25T08:23:13.881Z</updated>
+    <updated>2019-07-30T14:04:58.993Z</updated>
     
-    <content type="html"><![CDATA[<p>pytorch的相关学习记录、困惑、学习笔记等，持续更新。<br><a id="more"></a></p><h2 id="查看网络参数总量"><a href="#查看网络参数总量" class="headerlink" title="查看网络参数总量"></a>查看网络参数总量</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">netG = Generator(UPSCALE_FACTOR)</span><br><span class="line"><span class="comment"># here is generator network, which generate a super-resolved image</span></span><br><span class="line">print(<span class="string">'# generator parameters:'</span>, <span class="built_in">sum</span>(<span class="built_in">param</span>.numel() <span class="keyword">for</span> <span class="built_in">param</span> <span class="keyword">in</span> netG.parameters()))</span><br><span class="line">netD = Discriminator()</span><br><span class="line"><span class="comment"># here is discriminator network, which decide whether the image is the real one or the super-resolved one</span></span><br><span class="line">print(<span class="string">'# discriminator parameters:'</span>, <span class="built_in">sum</span>(<span class="built_in">param</span>.numel() <span class="keyword">for</span> <span class="built_in">param</span> <span class="keyword">in</span> netD.parameters()))</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>pytorch的相关学习记录、困惑、学习笔记等，持续更新。<br><a id="more"></a></p><h2 id="查看网络参数总量"><a href="#查看网络参数总量" class="headerlink" title="查看网络参数总量"></a>查看网络参数总量</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">netG = Generator(UPSCALE_FACTOR)</span><br><span class="line"><span class="comment"># here is generator network, which generate a super-resolved image</span></span><br><span class="line">print(<span class="string">'# generator parameters:'</span>, <span class="built_in">sum</span>(<span class="built_in">param</span>.numel() <span class="keyword">for</span> <span class="built_in">param</span> <span class="keyword">in</span> netG.parameters()))</span><br><span class="line">netD = Discriminator()</span><br><span class="line"><span class="comment"># here is discriminator network, which decide whether the image is the real one or the super-resolved one</span></span><br><span class="line">print(<span class="string">'# discriminator parameters:'</span>, <span class="built_in">sum</span>(<span class="built_in">param</span>.numel() <span class="keyword">for</span> <span class="built_in">param</span> <span class="keyword">in</span> netD.parameters()))</span><br></pre></td></tr></table></figure><h2 id="关于pytorch的dataloader和dataset"><a href="#关于pytorch的dataloader和dataset" class="headerlink" title="关于pytorch的dataloader和dataset"></a>关于pytorch的dataloader和dataset</h2><p><a href="https://blog.csdn.net/qq_36556893/article/details/86505934" target="_blank" rel="noopener">参考网站</a></p><h2 id="自动求导"><a href="#自动求导" class="headerlink" title="自动求导"></a>自动求导</h2><p>只有浮点类型才可以对Tensor设置自动求导，如果是Int类型的话，会报如下错误：<img src="/2019/04/25/pytorch-learn/1.png" width="1">，所以一定要使用float进行自动求导。</p>]]></content>
     
     <summary type="html">
     
@@ -382,33 +708,6 @@
     
     
       <category term="SR" scheme="https://zeyuxiao1997.github.io/tags/SR/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>光场入门</title>
-    <link href="https://zeyuxiao1997.github.io/2019/04/21/light-field/"/>
-    <id>https://zeyuxiao1997.github.io/2019/04/21/light-field/</id>
-    <published>2019-04-21T02:08:11.000Z</published>
-    <updated>2019-07-16T00:28:08.686Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Principles-of-Light-Field-Imaging"><a href="#Principles-of-Light-Field-Imaging" class="headerlink" title="Principles of Light Field Imaging"></a>Principles of Light Field Imaging</h2><h3 id="光场成像综述"><a href="#光场成像综述" class="headerlink" title="光场成像综述"></a>光场成像综述</h3><ul><li>光场相机设计者需要优化镜头系统用于收集从物平面产生的光并尽可能将其汇聚在像平面上，当可以准确收敛的光束越大，捕获过程变得越有效，可实现的光学分辨率越高。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;Principles-of-Light-Field-Imaging&quot;&gt;&lt;a href=&quot;#Principles-of-Light-Field-Imaging&quot; class=&quot;headerlink&quot; title=&quot;Principles of Light Field 
-      
-    
-    </summary>
-    
-      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
-    
-      <category term="review" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/review/"/>
-    
-    
-      <category term="light field" scheme="https://zeyuxiao1997.github.io/tags/light-field/"/>
     
   </entry>
   
@@ -579,7 +878,7 @@
     <link href="https://zeyuxiao1997.github.io/2019/04/17/paper-RBPN/"/>
     <id>https://zeyuxiao1997.github.io/2019/04/17/paper-RBPN/</id>
     <published>2019-04-17T06:03:07.000Z</published>
-    <updated>2019-04-22T14:45:54.126Z</updated>
+    <updated>2019-07-30T10:07:27.757Z</updated>
     
     <content type="html"><![CDATA[<p>《Recurrent Back-Projection Network for Video Super-Resolution》是CVPR2019的作品，主要思想是：结合RNN和back-projection和encoder/decoder，对视频的每一帧都进行融合重建（事实上每一帧都进行了一个motion compensation，每一帧对最后需要重建的目标帧都有一定的贡献）。通过上图的网络结构，较好的捕捉帧间subtle motion和significant motion，不光适用于传统的VSR重建，更可以对较大运动、较多运动的数据集进行重建。<br><a id="more"></a><br>论文可<a href="/download/1903.10128v1.pdf">点击下载</a>,代码可<a href="https://github.com/alterzero/RBPN-PyTorch" target="_blank" rel="noopener">点击获取</a>.</p><h2 id="一、Introduction"><a href="#一、Introduction" class="headerlink" title="一、Introduction"></a>一、Introduction</h2><h3 id="1-motivation"><a href="#1-motivation" class="headerlink" title="1. motivation"></a>1. motivation</h3><p>其他用于SR的方法，包括SISR、MISR、VSR，都不同程度的存在问题，总结下来就是：</p><blockquote><p>stacking or wraping frames and pooling together导致很多细节不能精确重建<br>alignment的方法不能很好的捕捉inter-frame motion<br>为了更好的重建、通过估计帧间运动而不是对齐帧，迭代地对image 进行super resolve.</p></blockquote><h3 id="2-现有的几个方法"><a href="#2-现有的几个方法" class="headerlink" title="2. 现有的几个方法"></a>2. 现有的几个方法</h3><p>方法可以归结到三类，SISR、MISR、VSR。</p><h4 id="SISR"><a href="#SISR" class="headerlink" title="SISR"></a>SISR</h4><ul><li>只对某一帧进行重建，比如SRCNN，这样做浪费了其他帧可以提供的互补信息；<h4 id="MISR"><a href="#MISR" class="headerlink" title="MISR"></a>MISR</h4></li><li>结合其他帧的互补信息；</li><li>为了互补的提取丢失信息，帧之间需要隐式或显式的帧对齐，但是很难考虑到时间平滑（temporal smoothness）；<h4 id="VSR"><a href="#VSR" class="headerlink" title="VSR"></a>VSR</h4></li><li>考虑到了temporal smoothness；</li><li>有两种方法：frame concatenation和使用RNN。前者同时处理多帧造成训练困难；后者很难对subtle or significant changes进行描述（即使使用LSTM）</li></ul><h3 id="3-文中claim的contributions"><a href="#3-文中claim的contributions" class="headerlink" title="3. 文中claim的contributions"></a>3. 文中claim的contributions</h3><ul><li>Integrating SISR and MISR in a unified VSR framework：论文中详细解释了RBPN融合SISR和MISR，并融合encoder、decoder、back-projection等部件</li><li>Back-projection modules：帧之间的巨大时间差异用back-projection模块进行连接</li><li>Extended evaluation protocol：没有使用主流testing set</li></ul><h3 id="4-现有方法的弊端"><a href="#4-现有方法的弊端" class="headerlink" title="4.现有方法的弊端"></a>4.现有方法的弊端</h3><!-- ![compare](paper-RBPN/compare.png) --><img src="/2019/04/17/paper-RBPN/compare.png" title="compare"><p>上图是几种方法的示意图。<br>这篇论文讲了不少VSR的方法并且很详细，对他们的优势和劣势分析的非常到位，后面会好好研读并且做好笔记。</p><h2 id="二、Method"><a href="#二、Method" class="headerlink" title="二、Method"></a>二、Method</h2><h3 id="1-总体架构"><a href="#1-总体架构" class="headerlink" title="1.总体架构"></a>1.总体架构</h3><p>RBPN被分成三部分：initial feature extraction, multiple projections and reconstruction. 网络端到端。</p><h4 id="initial-feature-extraction"><a href="#initial-feature-extraction" class="headerlink" title="initial feature extraction"></a>initial feature extraction</h4><p>这个模块是特征表示模块。总的来说，输入由三部分组成，目标帧、目标帧之前的某一帧和上述两帧之间的motion flow tensor组成。正是由于加入motion flow tensor，使得每一帧都与目标帧发生关联，使其或多或少都对目标帧重建做出贡献.</p><h4 id="multiple-projections"><a href="#multiple-projections" class="headerlink" title="multiple projections"></a>multiple projections</h4><p>这个模块是核心，结合SISR和MISR，输入$L_{t-k-1}$和$M_{t-k}$，输出$H_{t-k}$，下图就是总的IPO。<br><img src="/2019/04/17/paper-RBPN/ED1.png" title="The proposed projection module"></p><h4 id="reconstrction"><a href="#reconstrction" class="headerlink" title="reconstrction"></a>reconstrction</h4><p>重建的所有帧是：所有在之前输出的HR帧，最后一起进行下式的操作：$\mathrm{SR}_{t}=f_{r e c}\left(\left[H_{t-1}, H_{t-2}, \dots, H_{t-n}\right]\right)$，在论文中$f_{r e c}$是单卷积层。</p><h3 id="核心模块解析"><a href="#核心模块解析" class="headerlink" title="核心模块解析"></a>核心模块解析</h3><h4 id="Multiple-Projection"><a href="#Multiple-Projection" class="headerlink" title="Multiple Projection"></a>Multiple Projection</h4><p>multiple projection stage of RBPN uses a recurrent chain of encoder-decoder modules。总的IPO可以见上图。输入由两个，输出有两个。</p><p>将大图拆分成小图后的视觉效果如下图所示<br><img src="/2019/04/17/paper-RBPN/1.png" width="1"></p>]]></content>
     

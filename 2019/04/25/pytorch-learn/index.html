@@ -111,10 +111,12 @@
 <meta property="og:site_name" content="ZeyuXiao @ USTC">
 <meta property="og:description" content="pytorch的相关学习记录、困惑、学习笔记等，持续更新。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-04-25T08:23:13.881Z">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/04/25/pytorch-learn/1.png">
+<meta property="og:updated_time" content="2019-07-30T14:04:58.993Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytorch的一些学习记录&#x2F;困惑&#x2F;笔记等(持续更新)">
 <meta name="twitter:description" content="pytorch的相关学习记录、困惑、学习笔记等，持续更新。">
+<meta name="twitter:image" content="https://zeyuxiao1997.github.io/2019/04/25/pytorch-learn/1.png">
 
 
 
@@ -274,7 +276,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">28</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">42</span></a>
 
   </li>
         
@@ -293,7 +295,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">9</span></a>
 
   </li>
         
@@ -312,7 +314,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">27</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">38</span></a>
 
   </li>
         
@@ -427,6 +429,13 @@
         
 
         <div class="post-meta">
+            
+                <span class="post-meta-item-icon">
+                    <i class="fa fa-thumb-tack"></i>
+                </span>
+                <font color="red">置顶</font>
+                <span class="post-meta-divider">|</span>
+                    
           <span class="post-time">
 
             
@@ -445,12 +454,24 @@
                 
               
 
-              <time title="Created: 2019-04-25 16:13:25 / Modified: 16:23:13" itemprop="dateCreated datePublished" datetime="2019-04-25T16:13:25+08:00">2019-04-25</time>
+              <time title="Created: 2019-04-25 16:13:25" itemprop="dateCreated datePublished" datetime="2019-04-25T16:13:25+08:00">2019-04-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-07-30 22:04:58" itemprop="dateModified" datetime="2019-07-30T22:04:58+08:00">2019-07-30</time>
               
             
           </span>
@@ -507,7 +528,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">440</span>
+                <span title="Symbols count in article">539</span>
               
 
               
@@ -543,6 +564,8 @@
       
         <p>pytorch的相关学习记录、困惑、学习笔记等，持续更新。<br><a id="more"></a></p>
 <h2 id="查看网络参数总量"><a href="#查看网络参数总量" class="headerlink" title="查看网络参数总量"></a>查看网络参数总量</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">netG = Generator(UPSCALE_FACTOR)</span><br><span class="line"><span class="comment"># here is generator network, which generate a super-resolved image</span></span><br><span class="line">print(<span class="string">'# generator parameters:'</span>, <span class="built_in">sum</span>(<span class="built_in">param</span>.numel() <span class="keyword">for</span> <span class="built_in">param</span> <span class="keyword">in</span> netG.parameters()))</span><br><span class="line">netD = Discriminator()</span><br><span class="line"><span class="comment"># here is discriminator network, which decide whether the image is the real one or the super-resolved one</span></span><br><span class="line">print(<span class="string">'# discriminator parameters:'</span>, <span class="built_in">sum</span>(<span class="built_in">param</span>.numel() <span class="keyword">for</span> <span class="built_in">param</span> <span class="keyword">in</span> netD.parameters()))</span><br></pre></td></tr></table></figure>
+<h2 id="关于pytorch的dataloader和dataset"><a href="#关于pytorch的dataloader和dataset" class="headerlink" title="关于pytorch的dataloader和dataset"></a>关于pytorch的dataloader和dataset</h2><p><a href="https://blog.csdn.net/qq_36556893/article/details/86505934" target="_blank" rel="noopener">参考网站</a></p>
+<h2 id="自动求导"><a href="#自动求导" class="headerlink" title="自动求导"></a>自动求导</h2><p>只有浮点类型才可以对Tensor设置自动求导，如果是Int类型的话，会报如下错误：<img src="/2019/04/25/pytorch-learn/1.png" width="1">，所以一定要使用float进行自动求导。</p>
 
       
     </div>
@@ -565,7 +588,7 @@
   <p><span>本文标题:</span><a href="/2019/04/25/pytorch-learn/">pytorch的一些学习记录/困惑/笔记等(持续更新)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Zeyuxiao 的个人博客">Zeyuxiao</a></p>
   <p><span>发布时间:</span>2019年04月25日 - 16:04</p>
-  <p><span>最后更新:</span>2019年04月25日 - 16:04</p>
+  <p><span>最后更新:</span>2019年07月30日 - 22:07</p>
   <p><span>原始链接:</span><a href="/2019/04/25/pytorch-learn/" title="pytorch的一些学习记录/困惑/笔记等(持续更新)">https://zeyuxiao1997.github.io/2019/04/25/pytorch-learn/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2019/04/25/pytorch-learn/" aria-label="复制成功！"></i></span>
   </p>
@@ -735,7 +758,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -768,7 +791,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -841,7 +866,35 @@
                     
                       
                     
-                    <span class="site-state-item-count">28</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -930,7 +983,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看网络参数总量"><span class="nav-number">1.</span> <span class="nav-text">查看网络参数总量</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看网络参数总量"><span class="nav-number">1.</span> <span class="nav-text">查看网络参数总量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于pytorch的dataloader和dataset"><span class="nav-number">2.</span> <span class="nav-text">关于pytorch的dataloader和dataset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动求导"><span class="nav-number">3.</span> <span class="nav-text">自动求导</span></a></li></ol></div>
             
 
           </div>
@@ -963,7 +1016,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">26k</span>
+    <span title="Symbols count total">35k</span>
   
 
   
@@ -972,7 +1025,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">33 mins.</span>
+    <span title="Reading time total">44 mins.</span>
   
 </div>
 
@@ -1133,9 +1186,14 @@
               })
           } else {
             
-              var $element = $(document.getElementById(url));
-              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
-              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
             
           }
         })

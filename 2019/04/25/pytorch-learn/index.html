@@ -112,7 +112,7 @@
 <meta property="og:description" content="pytorch的相关学习记录、困惑、学习笔记等，持续更新。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://zeyuxiao1997.github.io/2019/04/25/pytorch-learn/1.png">
-<meta property="og:updated_time" content="2019-07-30T14:04:58.993Z">
+<meta property="og:updated_time" content="2019-08-04T14:38:52.668Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytorch的一些学习记录&#x2F;困惑&#x2F;笔记等(持续更新)">
 <meta name="twitter:description" content="pytorch的相关学习记录、困惑、学习笔记等，持续更新。">
@@ -276,7 +276,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">42</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">43</span></a>
 
   </li>
         
@@ -295,7 +295,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">9</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">10</span></a>
 
   </li>
         
@@ -314,7 +314,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">38</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">41</span></a>
 
   </li>
         
@@ -471,7 +471,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-30 22:04:58" itemprop="dateModified" datetime="2019-07-30T22:04:58+08:00">2019-07-30</time>
+                <time title="Modified: 2019-08-04 22:38:52" itemprop="dateModified" datetime="2019-08-04T22:38:52+08:00">2019-08-04</time>
               
             
           </span>
@@ -535,7 +535,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">539</span>
+                <span title="Symbols count in article">3.9k</span>
               
 
               
@@ -549,7 +549,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">1 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -573,6 +573,17 @@
 <h2 id="查看网络参数总量"><a href="#查看网络参数总量" class="headerlink" title="查看网络参数总量"></a>查看网络参数总量</h2><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">netG = Generator(UPSCALE_FACTOR)</span><br><span class="line"><span class="comment"># here is generator network, which generate a super-resolved image</span></span><br><span class="line">print(<span class="string">'# generator parameters:'</span>, <span class="built_in">sum</span>(<span class="built_in">param</span>.numel() <span class="keyword">for</span> <span class="built_in">param</span> <span class="keyword">in</span> netG.parameters()))</span><br><span class="line">netD = Discriminator()</span><br><span class="line"><span class="comment"># here is discriminator network, which decide whether the image is the real one or the super-resolved one</span></span><br><span class="line">print(<span class="string">'# discriminator parameters:'</span>, <span class="built_in">sum</span>(<span class="built_in">param</span>.numel() <span class="keyword">for</span> <span class="built_in">param</span> <span class="keyword">in</span> netD.parameters()))</span><br></pre></td></tr></table></figure>
 <h2 id="关于pytorch的dataloader和dataset"><a href="#关于pytorch的dataloader和dataset" class="headerlink" title="关于pytorch的dataloader和dataset"></a>关于pytorch的dataloader和dataset</h2><p><a href="https://blog.csdn.net/qq_36556893/article/details/86505934" target="_blank" rel="noopener">参考网站</a></p>
 <h2 id="自动求导"><a href="#自动求导" class="headerlink" title="自动求导"></a>自动求导</h2><p>只有浮点类型才可以对Tensor设置自动求导，如果是Int类型的话，会报如下错误：<img src="/2019/04/25/pytorch-learn/1.png" width="1">，所以一定要使用float进行自动求导。</p>
+<h2 id="关于net-parameters"><a href="#关于net-parameters" class="headerlink" title="关于net.parameters()"></a>关于net.parameters()</h2><p>可以通过Module.parameters()获取网络的参数，也就是构建好神经网络后，网络的参数都保存在parameters()函数当中</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">print</span><span class="params">(net.parameters()</span></span>)</span><br><span class="line"></span><br><span class="line">para = list(net.parameters())</span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(para)</span></span></span><br><span class="line">#len返回列表项个数</span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(len(para)</span></span>)</span><br></pre></td></tr></table></figure>
+<p>可以使用enumerate函数实现逐列表项输出列表元素和index，也就是：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">num</span>,temp <span class="keyword">in</span> enumerate(para):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'number:'</span>,<span class="built_in">num</span>)</span><br><span class="line">    <span class="built_in">print</span>(temp)</span><br></pre></td></tr></table></figure></p>
+<h2 id="optimizer-step-和scheduler-step-的区别"><a href="#optimizer-step-和scheduler-step-的区别" class="headerlink" title="optimizer.step()和scheduler.step()的区别"></a>optimizer.step()和scheduler.step()的区别</h2><p>optimizer.step()通常用在每个mini-batch之中，而scheduler.step()通常用在epoch里面,但是不绝对，可以根据具体的需求来做。只有用了optimizer.step()，模型才会更新，而scheduler.step()是对lr进行调整。通常我们有<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">optimizer = optim.SGD(model.parameters(), lr = 0.01, momentum = 0.9)</span><br><span class="line">scheduler = lr_scheduler.StepLR(optimizer, step_size = 100, gamma = 0.1)</span><br><span class="line">model = net.train(model, loss_function, optimizer, scheduler, num_epochs = 100)</span><br></pre></td></tr></table></figure></p>
+<p>在scheduler的step_size表示scheduler.step()每调用step_size次，对应的学习率就会按照策略调整一次。所以如果scheduler.step()是放在mini-batch里面，那么step_size指的是经过这么多次迭代，学习率改变一次。</p>
+<h2 id="dataloader使用"><a href="#dataloader使用" class="headerlink" title="dataloader使用"></a>dataloader使用</h2><p>来源<a href="https://www.jianshu.com/p/8ea7fba72673" target="_blank" rel="noopener">简书</a></p>
+<h3 id="加载头文件"><a href="#加载头文件" class="headerlink" title="加载头文件"></a>加载头文件</h3><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from torch.utils.<span class="keyword">data</span> <span class="keyword">import</span> DataLoader, Sampler</span><br><span class="line">from torchvision <span class="keyword">import</span> datasets, transforms</span><br></pre></td></tr></table></figure>
+<p><strong>transforms</strong>表示对图片的预处理方式<br><figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">data_transform=&#123;'<span class="attribute">train'</span>:transforms<span class="variable">.Compose</span>([</span><br><span class="line">                    # transforms<span class="variable">.RandomResizedCrop</span>(image_size),</span><br><span class="line">                    # transforms<span class="variable">.Resize</span>(224),</span><br><span class="line">                    transforms<span class="variable">.RandomResizedCrop</span>(int(image_size*1.2)),</span><br><span class="line">                    # transforms<span class="variable">.ToPILImage</span>(),</span><br><span class="line">                    transforms<span class="variable">.RandomAffine</span>(15),</span><br><span class="line">                    # transforms<span class="variable">.RandomHorizontalFlip</span>(),</span><br><span class="line">                    transforms<span class="variable">.RandomVerticalFlip</span>(),</span><br><span class="line">                    transforms<span class="variable">.RandomRotation</span>(10),</span><br><span class="line">                    transforms<span class="variable">.ColorJitter</span>(brightness=0.1, contrast=0.1, saturation=0.1, hue=0.1),</span><br><span class="line">                    transforms<span class="variable">.RandomGrayscale</span>(),</span><br><span class="line">                    transforms<span class="variable">.TenCrop</span>(image_size),</span><br><span class="line">                    transforms<span class="variable">.Lambda</span>(lambda crops: torch<span class="variable">.stack</span>([transforms<span class="variable">.ToTensor</span>()(crop) for crop in crops])),</span><br><span class="line">                    transforms<span class="variable">.Lambda</span>(lambda crops: torch<span class="variable">.stack</span>([transforms<span class="variable">.Normalize</span>([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])(crop) for crop in crops])),</span><br><span class="line">                    # transforms<span class="variable">.FiveCop</span>(image_size),</span><br><span class="line">                    # Lambda(lambda crops: torch<span class="variable">.stack</span>([transfoms<span class="variable">.ToTensor</span>()(crop) for crop in crops])),</span><br><span class="line">                    # transforms<span class="variable">.ToTensor</span>(),</span><br><span class="line">                    # transforms<span class="variable">.Normalize</span>([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])</span><br><span class="line">                    ]),</span><br><span class="line">                "val":transforms<span class="variable">.Compose</span>([</span><br><span class="line">                    transforms<span class="variable">.Resize</span>(image_size),</span><br><span class="line">                    transforms<span class="variable">.CenterCrop</span>(image_size),</span><br><span class="line">                    transforms<span class="variable">.ToTensor</span>(),</span><br><span class="line">                    transforms<span class="variable">.Normalize</span>([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])</span><br><span class="line">                ]),</span><br><span class="line">                "test":transforms<span class="variable">.Compose</span>([</span><br><span class="line">                    transforms<span class="variable">.Resize</span>(image_size),</span><br><span class="line">                    transforms<span class="variable">.CenterCrop</span>(image_size),</span><br><span class="line">                    transforms<span class="variable">.ToTensor</span>(),</span><br><span class="line">                    transforms<span class="variable">.Normalize</span>([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])</span><br><span class="line">                ])&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用<strong>datasets.ImageFolder</strong>加载图片数据<br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">image_datasets=&#123;<span class="built_in">name</span>:datasets.ImageFolder(os.path.<span class="built_in">join</span>(rootpath,<span class="built_in">name</span>),data_transform[<span class="built_in">name</span>]) <span class="keyword">for</span> <span class="built_in">name</span> <span class="built_in">in</span> [<span class="string">'train'</span>,<span class="string">'val'</span>,<span class="string">'test'</span>]&#125;</span><br></pre></td></tr></table></figure></p>
+<p>生成<strong>dataloader</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataloaders=&#123;name : torch<span class="selector-class">.utils</span><span class="selector-class">.data</span><span class="selector-class">.DataLoader</span>(image_datasets[name],batch_size=batch_size,shuffle=True) <span class="keyword">for</span> name <span class="keyword">in</span> [<span class="string">'train'</span>,<span class="string">'val'</span>]&#125;</span><br><span class="line">testDataloader=torch<span class="selector-class">.utils</span><span class="selector-class">.data</span><span class="selector-class">.DataLoader</span>(image_datasets[<span class="string">'test'</span>],batch_size=<span class="number">1</span>,shuffle=False)</span><br></pre></td></tr></table></figure></p>
+<p>每次读出一个batch_size的数据。<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="keyword">index</span>,item <span class="keyword">in</span> enumerate(dataloaders[<span class="string">'train'</span>])</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -595,7 +606,7 @@
   <p><span>本文标题:</span><a href="/2019/04/25/pytorch-learn/">pytorch的一些学习记录/困惑/笔记等(持续更新)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Zeyuxiao 的个人博客">Zeyuxiao</a></p>
   <p><span>发布时间:</span>2019年04月25日 - 16:04</p>
-  <p><span>最后更新:</span>2019年07月30日 - 22:07</p>
+  <p><span>最后更新:</span>2019年08月04日 - 22:08</p>
   <p><span>原始链接:</span><a href="/2019/04/25/pytorch-learn/" title="pytorch的一些学习记录/困惑/笔记等(持续更新)">https://zeyuxiao1997.github.io/2019/04/25/pytorch-learn/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2019/04/25/pytorch-learn/" aria-label="复制成功！"></i></span>
   </p>
@@ -765,7 +776,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-count">41</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -800,7 +811,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -901,7 +914,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">42</span>
+                      
+                    
+                    <span class="site-state-item-count">43</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -990,7 +1005,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看网络参数总量"><span class="nav-number">1.</span> <span class="nav-text">查看网络参数总量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于pytorch的dataloader和dataset"><span class="nav-number">2.</span> <span class="nav-text">关于pytorch的dataloader和dataset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动求导"><span class="nav-number">3.</span> <span class="nav-text">自动求导</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看网络参数总量"><span class="nav-number">1.</span> <span class="nav-text">查看网络参数总量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于pytorch的dataloader和dataset"><span class="nav-number">2.</span> <span class="nav-text">关于pytorch的dataloader和dataset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动求导"><span class="nav-number">3.</span> <span class="nav-text">自动求导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于net-parameters"><span class="nav-number">4.</span> <span class="nav-text">关于net.parameters()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#optimizer-step-和scheduler-step-的区别"><span class="nav-number">5.</span> <span class="nav-text">optimizer.step()和scheduler.step()的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dataloader使用"><span class="nav-number">6.</span> <span class="nav-text">dataloader使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载头文件"><span class="nav-number">6.1.</span> <span class="nav-text">加载头文件</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1023,7 +1038,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">35k</span>
+    <span title="Symbols count total">40k</span>
   
 
   
@@ -1032,7 +1047,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">44 mins.</span>
+    <span title="Reading time total">50 mins.</span>
   
 </div>
 

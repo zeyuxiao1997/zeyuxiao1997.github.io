@@ -117,7 +117,8 @@
 <meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/18/knowledge/5.png">
 <meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/18/knowledge/6.png">
 <meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/18/knowledge/7.png">
-<meta property="og:updated_time" content="2019-08-05T02:27:42.899Z">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/07/18/knowledge/8.png">
+<meta property="og:updated_time" content="2019-08-06T12:48:54.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="研学过程中的零碎知识点">
 <meta name="twitter:description" content="什么是图像的高频信息和低频信息？低频信号和高频信号也叫低频分量和高频分量。图像中的高频分量，指的是图像强度（亮度/灰度）变化剧烈的地方，也就是我们常说的边缘（轮廓）；图像中的低频分量，指的是图像强度（亮度/灰度）变换平缓的地方，也就是大片色块的地方。人眼对图像中的高频信号更为敏感，举个例子，在一张白纸上有一行字，那么我们肯定直接聚焦在文字上，而不会太在意白纸本身，这里文字就是高频信号，而白纸就是低">
@@ -300,7 +301,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">10</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">11</span></a>
 
   </li>
         
@@ -319,7 +320,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">41</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">43</span></a>
 
   </li>
         
@@ -476,7 +477,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-05 10:27:42" itemprop="dateModified" datetime="2019-08-05T10:27:42+08:00">2019-08-05</time>
+                <time title="Modified: 2019-08-06 20:48:54" itemprop="dateModified" datetime="2019-08-06T20:48:54+08:00">2019-08-06</time>
               
             
           </span>
@@ -540,7 +541,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1.8k</span>
+                <span title="Symbols count in article">2.1k</span>
               
 
               
@@ -554,7 +555,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">2 mins.</span>
+                <span title="Reading time">3 mins.</span>
               
             </div>
           
@@ -597,7 +598,13 @@
 </ul>
 <h2 id="极线约束-epipolar-constraint"><a href="#极线约束-epipolar-constraint" class="headerlink" title="极线约束(epipolar constraint)"></a>极线约束(epipolar constraint)</h2><p>三维空间中一点p，投影到两个不同的平面I1、I2，投影点分别为p1，p2。p、p1、p2在三维空间内构成一个平面S。S与面I1的交线L1过p1点，称之为对应于p2的极线。同理S与I2交线称之为对应于p1的极线（对应于左边图像点的极线在右边图像上，右边与之相同）。如图：<br><img src="/2019/07/18/knowledge/7.png" width="7"></p>
 <p>所谓极线约束就是说同一个点在两幅图像上的映射，已知左图映射点p1，那么右图映射点p2一定在相对于p1的极线上，这样可以减少待匹配的点数量。</p>
-<h2 id="结构张量"><a href="#结构张量" class="headerlink" title="结构张量"></a>结构张量</h2><h3 id="什么是结构张量"><a href="#什么是结构张量" class="headerlink" title="什么是结构张量"></a>什么是结构张量</h3><p>结构张量技术可以很好地将结构信息突出的部分和结构信息微弱的部分进行区分， 例如区分图像中边缘轮廓等细节与平坦光滑的部分，这样可以大大地方便类似医学图像等对边缘保留要求比较高的图像去噪</p>
+<!-- ## 结构张量
+
+### 什么是结构张量
+
+结构张量技术可以很好地将结构信息突出的部分和结构信息微弱的部分进行区分， 例如区分图像中边缘轮廓等细节与平坦光滑的部分，这样可以大大地方便类似医学图像等对边缘保留要求比较高的图像去噪 -->
+<h2 id="隐变量"><a href="#隐变量" class="headerlink" title="隐变量"></a>隐变量</h2><p>加入我们有X，Y两个随机变量，他们的概率分布如下。要直接用一个函数还表示这个分布是比较困难的。<br><img src="/2019/07/18/knowledge/8.png" width="8"><br>但我们发现这个分布可以分成三个聚类。如果我们给每个聚类编号为$z \in\{1,2,3\}$，那么$p(x ; z)$就是简单的高斯函数了。这里z就是隐变量。加入latent variable的意义在于，能够把复杂的问题变成多个简单的问题的和。</p>
+<p>另外一种理解是，x是我们观察的值。这些观测值只是表面现象，但真正影响这些现象的是背后的一些latent variable。如果知道这些latent的取值，分布就会简单很多。这也是为什么概率inference里面也要研究latent variable。latent variable的问题，本身是个聚类的问题。也是找到系统的结构的问题。比如在求$p(x | \theta)$的分布时，如果引入一个latent variable，就可以用EM进行迭代求解。</p>
 
       
     </div>
@@ -620,7 +627,7 @@
   <p><span>本文标题:</span><a href="/2019/07/18/knowledge/">研学过程中的零碎知识点</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Zeyuxiao 的个人博客">Zeyuxiao</a></p>
   <p><span>发布时间:</span>2019年07月18日 - 08:07</p>
-  <p><span>最后更新:</span>2019年08月05日 - 10:08</p>
+  <p><span>最后更新:</span>2019年08月06日 - 20:08</p>
   <p><span>原始链接:</span><a href="/2019/07/18/knowledge/" title="研学过程中的零碎知识点">https://zeyuxiao1997.github.io/2019/07/18/knowledge/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2019/07/18/knowledge/" aria-label="复制成功！"></i></span>
   </p>
@@ -784,7 +791,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-count">43</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -821,7 +828,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">10</span>
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -1013,7 +1022,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是图像的高频信息和低频信息？"><span class="nav-number">1.</span> <span class="nav-text">什么是图像的高频信息和低频信息？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#depth-of-field景深"><span class="nav-number">2.</span> <span class="nav-text">depth-of-field景深</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSTM的原理及其应用"><span class="nav-number">3.</span> <span class="nav-text">LSTM的原理及其应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TV-loss及其实现"><span class="nav-number">4.</span> <span class="nav-text">TV loss及其实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是superpixel-超像素"><span class="nav-number">5.</span> <span class="nav-text">什么是superpixel(超像素)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#超像素"><span class="nav-number">5.1.</span> <span class="nav-text">超像素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超像素算法"><span class="nav-number">5.2.</span> <span class="nav-text">超像素算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超像素算法判别条件"><span class="nav-number">5.3.</span> <span class="nav-text">超像素算法判别条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#极线约束-epipolar-constraint"><span class="nav-number">6.</span> <span class="nav-text">极线约束(epipolar constraint)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构张量"><span class="nav-number">7.</span> <span class="nav-text">结构张量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是结构张量"><span class="nav-number">7.1.</span> <span class="nav-text">什么是结构张量</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是图像的高频信息和低频信息？"><span class="nav-number">1.</span> <span class="nav-text">什么是图像的高频信息和低频信息？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#depth-of-field景深"><span class="nav-number">2.</span> <span class="nav-text">depth-of-field景深</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSTM的原理及其应用"><span class="nav-number">3.</span> <span class="nav-text">LSTM的原理及其应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TV-loss及其实现"><span class="nav-number">4.</span> <span class="nav-text">TV loss及其实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是superpixel-超像素"><span class="nav-number">5.</span> <span class="nav-text">什么是superpixel(超像素)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#超像素"><span class="nav-number">5.1.</span> <span class="nav-text">超像素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超像素算法"><span class="nav-number">5.2.</span> <span class="nav-text">超像素算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#超像素算法判别条件"><span class="nav-number">5.3.</span> <span class="nav-text">超像素算法判别条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#极线约束-epipolar-constraint"><span class="nav-number">6.</span> <span class="nav-text">极线约束(epipolar constraint)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐变量"><span class="nav-number">7.</span> <span class="nav-text">隐变量</span></a></li></ol></div>
             
 
           </div>
@@ -1046,7 +1055,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">40k</span>
+    <span title="Symbols count total">52k</span>
   
 
   
@@ -1055,7 +1064,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">50 mins.</span>
+    <span title="Reading time total">1:05</span>
   
 </div>
 

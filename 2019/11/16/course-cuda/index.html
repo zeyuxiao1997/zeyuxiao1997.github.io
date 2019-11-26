@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-money32.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-money16.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="中科大《GPU并行计算和CUDA程序开发及优化》课程笔记，授课教师：谭立湘。">
+<meta name="keywords" content="GPU programming,cuda">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【课程笔记】GPU编程(cuda)">
+<meta property="og:url" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/index.html">
+<meta property="og:site_name" content="ZeyuXiao @ USTC">
+<meta property="og:description" content="中科大《GPU并行计算和CUDA程序开发及优化》课程笔记，授课教师：谭立湘。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/1.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/2.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/3.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/4.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/5.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/6.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/7.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/8.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/9.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/10.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/11.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/12.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/13.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/14.png">
+<meta property="og:updated_time" content="2019-11-26T02:43:31.381Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【课程笔记】GPU编程(cuda)">
+<meta name="twitter:description" content="中科大《GPU并行计算和CUDA程序开发及优化》课程笔记，授课教师：谭立湘。">
+<meta name="twitter:image" content="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/1.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="ZeyuXiao @ USTC" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>【课程笔记】GPU编程(cuda) | ZeyuXiao @ USTC</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ZeyuXiao @ USTC</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Paper reading notes, code sharing platforms</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">9</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">3</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">11</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-resume-&-publications">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/resume/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>resume & publications</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-links">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/links/" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>links</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zeyuxiao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZeyuXiao @ USTC">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【课程笔记】GPU编程(cuda)
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+                    
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-16 14:15:23" itemprop="dateCreated datePublished" datetime="2019-11-16T14:15:23+08:00">2019-11-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-26 10:43:31" itemprop="dateModified" datetime="2019-11-26T10:43:31+08:00">2019-11-26</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/course-note/" itemprop="url" rel="index"><span itemprop="name">course note</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+            <span id="/2019/11/16/course-cuda/" class="leancloud_visitors" data-flag-title="【课程笔记】GPU编程(cuda)">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Views: </span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">5.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">7 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>中科大《GPU并行计算和CUDA程序开发及优化》课程笔记，授课教师：谭立湘。<br><a id="more"></a></p>
+<h1 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h1><p>GPU计算强控制弱，更多的资源用于数据计算；CPU强控制弱计算，更多的资源用于缓存。在使用GPU计算前，CPU必须先将数据传到GPU显存中；在GPU计算完成后，GPU再将结果数据返回给主机内存。CPU和GPU的通信尤其重要！！</p>
+<h1 id="并行计算基础"><a href="#并行计算基础" class="headerlink" title="并行计算基础"></a>并行计算基础</h1><h2 id="并行计算"><a href="#并行计算" class="headerlink" title="并行计算"></a>并行计算</h2><ul>
+<li><p>时间上并行（流水线）+空间上并行（矩阵分块） </p>
+</li>
+<li><p>并行计算的三个基本条件</p>
+<ul>
+<li>并行机（包含多个处理器核心+通过特定硬件相互连接、相互通信）</li>
+<li>问题具有并行度，可以分解为多个可以并行执行的子任务</li>
+<li>并行编程</li>
+</ul>
+</li>
+</ul>
+<h2 id="PCAM设计方法"><a href="#PCAM设计方法" class="headerlink" title="PCAM设计方法"></a>PCAM设计方法</h2><ul>
+<li><p>设计并行算法的四个阶段：</p>
+<ul>
+<li>划分(Partitioning)；分解成小的任务，开拓并发性<ul>
+<li>又分为域分解和功能分解</li>
+<li>域分解的对象是数据，如果一个任务需要别的任务中的数据， 则会产生任务间的通讯</li>
+<li>功能分解划分的对象是计算，将计算划分为不同的任务；划分后研究不同任务所需的数据，数据应当不相交</li>
+</ul>
+</li>
+<li>通讯(Communication)：确定诸任务间的数据交换，检测划分的合理性<ul>
+<li>划分产生的多个任务不能完全独立执行，需要在任务间进行数据交流； 功能分解确定了任务之间的数据流</li>
+<li>分为局部/全局通讯、结构化/非结构化通讯、静态/动态通讯、同步/异步通讯</li>
+</ul>
+</li>
+<li>组合(Agglomeration)：依据任务的局部性，组合成更大的任务<ul>
+<li>组合是由抽象到具体的过程，是将组合的任务能在一类并行机上有效的执行</li>
+<li>合并小尺寸任务，减少任务数。如果任务数恰好等于处理器数，则也完成了映射过程</li>
+<li>通过增加任务的粒度和重复计算，可以减少通讯成本</li>
+</ul>
+</li>
+<li>映射(Mapping)：将每个任务分配到处理器上，提高算法的性能<ul>
+<li>每个任务要映射到具体的处理器，定位到运行机器上</li>
+<li>任务数大于处理器数时，存在负载平衡和任务调度问题</li>
+<li>映射的目标：减少算法的执行时间<img src="/2019/11/16/course-cuda/1.png" width="1">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>原则<br>先尽量开发算法的并发性和扩展性，其次考虑通信成本和局部性，再次利用局部性相互组合减少通信成本，最后将组合后的任务分配到各个处理器</p>
+</li>
+<li><p>并行算法复杂性度量</p>
+<ul>
+<li>指标<ul>
+<li>运行时间t(n): 包含计算时间和通讯时间，分别用计算时间步和选路时间步作单位。n为问题实例的输入规模。 </li>
+<li>处理器数p(n) </li>
+<li>并行算法成本c(n): c(n)=t(n)p(n) </li>
+<li>总运算量W(n): 并行算法求解问题时所完成的总的操作步数</li>
+</ul>
+</li>
+<li>设计并行算法时应尽可能地将每个时间步的工作量均匀地分摊给p台处理器，使各处理器处于活跃状态—-<font color="red"> 负载均衡 </font></li>
+<li>三层并行计算模型  <img src="/2019/11/16/course-cuda/2.png" width="2">
+  <img src="/2019/11/16/course-cuda/3.png" width="3">
+</li>
+</ul>
+</li>
+<li><p>并行算法设计<br>  。。。不写了，和本科学的操作系统有关</p>
+</li>
+<li><p>并行层次和代码粒度</p>
+  <img src="/2019/11/16/course-cuda/4.png" width="4">
+</li>
+</ul>
+<h1 id="OpenMP并行编程"><a href="#OpenMP并行编程" class="headerlink" title="OpenMP并行编程"></a>OpenMP并行编程</h1><ul>
+<li><p>OpenMP并行编程模型</p>
+<p>  程序开始时只有一个主线程，程序中的串行部分都是由主线程执行；并行的部分是通过派生其它线程来执行。但是如果并行部分没有结束时是不会执行串行部分的。</p>
+  <img src="/2019/11/16/course-cuda/5.png" width="5">
+</li>
+</ul>
+<h1 id="GPU-硬件架构"><a href="#GPU-硬件架构" class="headerlink" title="GPU 硬件架构"></a>GPU 硬件架构</h1><ul>
+<li><p>GPU体系结构相关术语</p>
+<ul>
+<li>SP（Streaming Processor）:流处理器是GPU运算的最基本计算单元。</li>
+<li>SFU（Special Function Unit）:特殊函数单元  用来执行超越函数指令，比如正弦、余弦、平方根等函数。</li>
+<li>Shader core（渲染核/着色器），SP的另一个名称，又称为CUDA core，始于Fermi架构</li>
+<li>DP （双精度浮点运算单元）</li>
+<li>SM（Streaming Multiprocessors）:流式多处理器是GPU架构中的基本计算单元，也是GPU性能的源泉，由SP、DP、SFU等运算单元组成。这是一个典型的阵列机，其执行方式为SIMT（单指令多线程），区别于传统的   SIMD（单指令流多数据流），能够保证多线程的同时执行<br>SMX: Kepler架构中的SM</li>
+<li>SMM: Maxwell架构中的SM</li>
+<li>TPC（Thread Processing Cluster）线程处理器簇：由SM和L1 Cache组成，存在于Tesla架构中。</li>
+<li>TPC（Texture Processing Cluster）纹理处理器簇：出现在Pascal架构中。</li>
+<li>GPC（Graph Processing Cluster）图形处理器簇：类似于TPC，是介于整个GPU和SM间的硬件单元，始于Fermi构架。</li>
+<li>SPA（Scalable streaming Processor Array）可扩展的流处理器阵列：所有处理核心和高速缓存的总和，包含所有的SM、TPC、GPC。与存储器系统共同组成GPU构架。</li>
+<li>MMC（MeMory Controller）存储控制器：控制存储访问的单元，合并访存。每个存储控制器可以支持一定位宽的数据合并访存。</li>
+<li>ROP（raster operation processors）光栅操作单元</li>
+<li>LD/ST（Load/Store Unit）存储单元</li>
+</ul>
+</li>
+<li><p>GPU计算能力<br>  需要区分计算能力和运算性能两个概念：</p>
+<ul>
+<li>运算性能包括整数运算性能、单精度浮点运算性能和双精度浮点运算性能等，表示GPU处理算术运算的能力，也是衡量GPU好坏的关键指标之一</li>
+<li>计算能力是指GPU架构或GPU支持的功能，而与GPU的浮点运算性能无关</li>
+</ul>
+</li>
+</ul>
+<h2 id="几种架构"><a href="#几种架构" class="headerlink" title="几种架构"></a>几种架构</h2><ul>
+<li>几种典型架构<ul>
+<li>Tesla架构的SM<br>由8个SP、2个SF和一个执行双精度运算的DP组成，同时还包含了寄存器、共享存储、常量存储等单元<img src="/2019/11/16/course-cuda/6.png" width="6"></li>
+<li>Tesla架构的TPC<br>2~3个SM配合L1 Cache构成TPC，Tesla架构主要核心型号有G80和GT200.每个TPC均由一个SM控制器进行统一控制<img src="/2019/11/16/course-cuda/7.png" width="7"></li>
+<li>Tesla架构的G80<img src="/2019/11/16/course-cuda/8.png" width="8"></li>
+<li>Tesla架构的GT200<img src="/2019/11/16/course-cuda/9.png" width="9">
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>后面讲的全是GPU体系结构，感觉挺枯燥的，也不想做老本行了，算了就不看了叭</li>
+</ul>
+<h1 id="GPU-软件体系及CUDA编程模型"><a href="#GPU-软件体系及CUDA编程模型" class="headerlink" title="GPU 软件体系及CUDA编程模型"></a>GPU 软件体系及CUDA编程模型</h1><h2 id="GPU软件体系"><a href="#GPU软件体系" class="headerlink" title="GPU软件体系"></a>GPU软件体系</h2><ul>
+<li>编译器<ul>
+<li><font color="red">NVCC(NVIDIA CUDA Compiler)</font></li>
+</ul>
+</li>
+<li>编程模型<ul>
+<li>CUDA (CUDA C、CUDA Python、CUDA Java、CUDA C++、CUDA.NET)</li>
+<li>OpenCL</li>
+<li>OpenACC</li>
+</ul>
+</li>
+<li>数学库函数<ul>
+<li>包括但不限于：线性代数库CUBLAS、快速傅里叶变换CUFFT、深度学习CUDNN、FFmpeg</li>
+</ul>
+</li>
+<li>性能分析工具<ul>
+<li>NVIDIA Visual Profiler</li>
+</ul>
+</li>
+<li><p>程序调试工具</p>
+</li>
+<li><p>管理软件</p>
+<ul>
+<li>nvidia-smi</li>
+</ul>
+</li>
+<li>代码实例及使用文档</li>
+</ul>
+<h2 id="CUDA软件"><a href="#CUDA软件" class="headerlink" title="CUDA软件"></a>CUDA软件</h2><p>CUDA(Compute Unified Device Architecture，统一计算设备架构)是由 NVIDIA 推出的通用并行计算架构，该架构使 GPU 能够解决复杂的计算问题。 它包含了 CUDA 指令集架构（ISA）以及 GPU 内部的并行计算引擎。CUDA 是一个全新的软硬件架构，可将 GPU 视为一个并行数据计算的设备，对所进行的计算进行分配和管理，无需将其映射到图形 API</p>
+<p>CUDA的基本思想是支持大量的线程级并行，并在硬件中动态地调度和执行这些线程。<font color="blue">GPU与CPU协同工作，GPU只有在计算高密度数据并行任务时才发挥作用!!</font><br><img src="/2019/11/16/course-cuda/10.png" width="10"></p>
+<ul>
+<li><p>GPU软件体系<br>分为三层结构：CUDA函数库、CUDA运行时API、CUDA驱动API</p>
+<img src="/2019/11/16/course-cuda/11.png" width="11">
+</li>
+<li><p>宿主代码和设备代码<br>基于 CUDA 开发的程序代码在实际执行中分为两种，<font color="red">一种是运行在CPU上的宿主代码（Host Code），一种是运行在GPU上的设备代码（Device Code）。</font>不同类型的代码由于其运行的物理位置不同，能够访问到的资源不同，因此对应的运行期组件也分为公共组件、宿主组件和设备组件三个部分，基本上囊括了所有在 GPU 开发中所需要的功能和能够使用到的资源接口，开发人员可以通过运行期环境的编程接口实现各种类型的计算。CUDA 所提供的运行期环境是通过驱动来实现各种功能的。 </p>
+</li>
+<li><p>CUDA软件环境<br>CUDA最主要的包含两个方面： ISA指令集架构与硬件计算引擎；实际上是硬件和指令集。见下图中的绿色部分，CUDA 架构的组件组成是： </p>
+<ul>
+<li>NVIDIA GPU中的并行计算引擎； </li>
+<li>对硬件初始化、配置的OS内核级支持； </li>
+<li>用户模式的驱动，为开发者提供设备级的API； </li>
+<li>用于并行计算 kernel函数 的PTX 指令集架构(ISA，Instruction set architecture) <img src="/2019/11/16/course-cuda/12.png" width="12">
+</li>
+</ul>
+</li>
+<li><p>CUDA编程术语</p>
+<ul>
+<li><p>kernel函数<br><font color="blue">Kernel函数是指为GPU设备编译的一个函数。也就是一个编译好的、在GPU上并行运行的计算函数。Kernel在GPU上以多个线程的方式被执行 </font>。一个完整的CUDA程序是由<font color="red">一系列的设备端kernel函数并行部分和主机端的串行处理部分</font>共同组成的。这些处理步骤会按照程序中相应语句的顺序依次执行，满足顺序一致性。 </p>
+</li>
+<li><p>Host，宿主，CPU、系统的CPU<br>负责启动应用程序，运行程序的串行部分，将程序的并行、计算密集的部分offload到GPU上运行，并最终返回程序的运行结果。</p>
+</li>
+<li><p>Device，设备，GPU，CPU的协处理<br>负责程序的并行、计算密集部分的处理，并将处理结果返回给Host。</p>
+</li>
+<li><p>Host Memory：宿主内存<br>是指安装GPU产品的主机的主板板载内存</p>
+</li>
+<li><p>device Memory：设备内存<br>GPU设备的板载内存（显卡的显存），是高性能的 GDDR5 内存，支持DMA访问</p>
+</li>
+<li><p>Block：线程块<br>执行Kernel的一组线程组成一个线程块。一个线程块<font color="red">最多可包含1024个</font><font color="green">并行执行</font>的线程，线程之间通过共享内存有效地共享数据，并实现线程的通信和栅栏同步。</p>
+</li>
+<li><p>线程ID：线程在线程块中的线程号（唯一标识）<br>基于线程ID的复杂寻址，应用程序可以将线程块指定为任意大小的二维或三维数组，并使用2个或3个索引来标识每个线程。</p>
+<ul>
+<li>对于大小是（Dx，Dy）的二维线程块，索引为（x，y）的线程的线程ID为（x+y*Dx）</li>
+<li>对于大小为（Dx，Dy，Dz）的三维线程块，索引为（x，y，z）的线程的线程ID为：（x+y<em>Dx+z</em>Dx*Dy）</li>
+<li><font color="blue">类似于C语言二维数组、三维数组中通过元素下标计算元素位置的方法</font>
+</li>
+</ul>
+</li>
+<li><p>Grid：线程块组成的线程网格（最多2^32 个blocks）<br>执行相同Kernel、具有相同维数和大小的线程块可以组合到一个网格中。这样单个Kernel调用中启动的线程数就可以很大。同一网格中的不同线程块中的线程不能互相通信和同步。Grid 是一个线程块阵列，执行相同的内核，从全局内存读取输入数据，将计算结果写入全局内存。 </p>
+</li>
+<li><p>Block ID：线程块ID<br>线程块ID是线程块在Grid中的块号。实现基于块ID的复杂寻址，应用程序可以将Grid指定为任意大小的二维数组，并用2个索引来标识每个线程块。对于大小为（Dx，Dy）的二维线程块，索引为（x，y）的线程块的ID为（x+y*Dx）。现已支持三维</p>
+</li>
+<li><p>Wrap：线程束<br>一个线程块中连续的固定数量（32）的线程组。将线程块中的线程划分成wrap的方式是：每个wrap包含线程ID连续递增的32个线程，从线程0开始递增到线程31。 </p>
+</li>
+<li><p>Stream：CUDA的一个Stream表示一个按特定顺序执行的GPU操作序列。诸如kernel启动、内存拷贝、事件启动和停止等操作可以排序放置到一个Stream中。一个Stream包含了一系列Grids，并且可以多个Stream并行执行。</p>
+<p>下图很形象的展示了CPU、GPU以及GPU内部grid、block、thread的层次关系</p>
+<img src="/2019/11/16/course-cuda/13.png" width="13">
+</li>
+</ul>
+</li>
+<li><p>Grid、block 和 thread 的关系<br>  在 CUDA 架构下，GPU芯片执行时的最小单位是thread。若干个thread可以组成一个线程块（block）。<font color="red">一个block中的thread能存取同一块共享内存，可以快速进行同步和通信操作</font>。 每一个 block 所能包含的 thread 数目是有限的。执行相同程序的 block，可以组成grid。不同 block 中的 thread 无法存取同一共享内存，因此无法直接通信或进行同步。<font color="red">不同的 grid可以执行不同的程序（kernel）</font>。</p>
+<p>  Grid是由线程块组成的网格。每个线程都执行该kernel，应用程序指定了Grid和线程块的维数，Grid的布局可以是一维、二维或三维的。每个线程块有一个唯一的线程块ID，线程块中的每个线程具有唯一的线程ID。同一个线程块中的线程可以协同访问共享内存，实现线程之间的通信和同步。每个线程块最多可以包含的线程的个数为1024个，线程块中的线程以32个线程为一组的Wrap的方式进行分时调度。<font color="red">每个线程在数据的不同部分并行地执行相同的操作。</font> </p>
+</li>
+<li><p>CUDA处理流程<br>  一个程序分为两个部份：Host 端和 Device 端。Host 端是指在 CPU 上执行的部份，而 Device 端则是在GPU上执行的部份。Device端的程序又称为kernel函数。通常 Host 端程序会将数据准备好后，复制到GPU的内存中，再由GPU执行 Device 端程序，完成后再由 Host 端程序将结果从GPU的内存中取回。CPU 存取 GPU 内存时只能通过 PCI-E 接口，速度有限。</p>
+<ul>
+<li>从系统内存中复制数据到GPU内存 </li>
+<li>CPU指令驱动GPU运行； </li>
+<li>GPU 的每个CUDA核心并行处理 </li>
+<li>GPU 将CUDA处理的最终结果返回到系统的内存<img src="/2019/11/16/course-cuda/14.png" width="14">
+</li>
+</ul>
+</li>
+<li><p>CUDA程序执行的基本流程</p>
+<ul>
+<li>分配内存空间和显存空间 </li>
+<li>初始化内存空间 </li>
+<li>将要计算的数据从Host内存上复制到GPU内存上 </li>
+<li>执行kernel计算 </li>
+<li>将计算后GPU内存上的数据复制到Host内存上 </li>
+<li>处理复制到Host内存上的数据 </li>
+</ul>
+</li>
+<li><p>CUDA编程模型<br>完整的CUDA程序包括主机端和设备端两部分代码，主机端代码在CPU上执行。设备端代码（kernel函数）运行在GPU上。其中一个kernel函数对应一个grid，每个grid根据需要配置不同的block数量和thread数量。</p>
+<ul>
+<li>CPU作为主机端只能有一个+GPU作为设备端可以有多个+CPU主要负责逻辑处理+GPU负责密集型的并行计算</li>
+<li>CUDA包含两个并行逻辑层：block层和thread层。在执行时，block映射到SM、thread映射到SP(Core)</li>
+<li><font color="blue">如何在实际应用程序中高效地开发这两个层次的并行是CUDA编程与优化的关键之一</font></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/11/16/course-cuda/">【课程笔记】GPU编程(cuda)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Zeyuxiao 的个人博客">Zeyuxiao</a></p>
+  <p><span>发布时间:</span>2019年11月16日 - 14:11</p>
+  <p><span>最后更新:</span>2019年11月26日 - 10:11</p>
+  <p><span>原始链接:</span><a href="/2019/11/16/course-cuda/" title="【课程笔记】GPU编程(cuda)">https://zeyuxiao1997.github.io/2019/11/16/course-cuda/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2019/11/16/course-cuda/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+    </div>
+
+
+
+
+    
+
+
+
+
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wec.png" alt="Zeyuxiao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/ali.png" alt="Zeyuxiao Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GPU-programming/" rel="tag">  <i class="fa fa-tag"></i>  GPU programming</a>
+          
+            <a href="/tags/cuda/" rel="tag">  <i class="fa fa-tag"></i>  cuda</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/16/VDMV/" rel="next" title="【论文阅读】A Video Deblurring Algorithm Based on Motion Vector and An Encorder-Decoder Network(IEEE.Access2019)">
+                <i class="fa fa-chevron-left"></i> 【论文阅读】A Video Deblurring Algorithm Based on Motion Vector and An Encorder-Decoder Network(IEEE.Access2019)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/16/FVD3DFP/" rel="prev" title="【论文阅读】Face Video Deblurring using 3D Facial Priors(ICCV2019)">
+                【论文阅读】Face Video Deblurring using 3D Facial Priors(ICCV2019) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zeyuxiao</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/zeyuxiao1997" title="GitHub &rarr; https://github.com/zeyuxiao1997" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:zeyuxiao1997@163.com" title="E-Mail &rarr; mailto:zeyuxiao1997@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://en.ustc.edu.cn/" title="http://en.ustc.edu.cn/" rel="noopener" target="_blank">USTC official website</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://en.hfut.edu.cn/index.php" title="http://en.hfut.edu.cn/index.php" rel="noopener" target="_blank">HFUT official website</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#绪论"><span class="nav-number">1.</span> <span class="nav-text">绪论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#并行计算基础"><span class="nav-number">2.</span> <span class="nav-text">并行计算基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#并行计算"><span class="nav-number">2.1.</span> <span class="nav-text">并行计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCAM设计方法"><span class="nav-number">2.2.</span> <span class="nav-text">PCAM设计方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OpenMP并行编程"><span class="nav-number">3.</span> <span class="nav-text">OpenMP并行编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GPU-硬件架构"><span class="nav-number">4.</span> <span class="nav-text">GPU 硬件架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#几种架构"><span class="nav-number">4.1.</span> <span class="nav-text">几种架构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GPU-软件体系及CUDA编程模型"><span class="nav-number">5.</span> <span class="nav-text">GPU 软件体系及CUDA编程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GPU软件体系"><span class="nav-number">5.1.</span> <span class="nav-text">GPU软件体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CUDA软件"><span class="nav-number">5.2.</span> <span class="nav-text">CUDA软件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zeyuxiao</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">7k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">9 mins.</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'yg4XxdtX7BdTnUd6TVev9bVe-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'yg4XxdtX7BdTnUd6TVev9bVe-gzGzoHsz',
+                'X-LC-Key': 'KxH8toeOBo0RHkyVGcbo8Y2l',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

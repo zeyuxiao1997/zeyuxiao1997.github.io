@@ -103,13 +103,20 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="ZeyuXiao @ USTC">
-<meta property="og:url" content="https://zeyuxiao1997.github.io/tags/object-segmentation/index.html">
+  <meta name="description" content="arxiv上一篇关于unpair数据低光照增强的论文，看格式应该是投稿CVPR。 文章使用非成对图像做无监督的图像增强，实现低照域图像转换，不仅解决成对数据收集难的问题，还实现了不同场景低光照图像对应参考图像亮度不一致的问题。结构图如下所示:如上所示，网络整体是一个UNet的结构。对于一张图，一般希望增强其亮度暗的区域，所以这里将输入图提取亮度分量I，然后1-I并将其resize到对应的featu">
+<meta name="keywords" content="image,enhancement,GAN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【论文阅读】EnlightenGAN：Deep Light Enhancement without Paired Supervision(Arxiv201906)">
+<meta property="og:url" content="https://zeyuxiao1997.github.io/2020/01/06/VDMV/index.html">
 <meta property="og:site_name" content="ZeyuXiao @ USTC">
+<meta property="og:description" content="arxiv上一篇关于unpair数据低光照增强的论文，看格式应该是投稿CVPR。 文章使用非成对图像做无监督的图像增强，实现低照域图像转换，不仅解决成对数据收集难的问题，还实现了不同场景低光照图像对应参考图像亮度不一致的问题。结构图如下所示:如上所示，网络整体是一个UNet的结构。对于一张图，一般希望增强其亮度暗的区域，所以这里将输入图提取亮度分量I，然后1-I并将其resize到对应的featu">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2020/01/06/VDMV/1.png">
+<meta property="og:updated_time" content="2020-01-06T03:53:06.671Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ZeyuXiao @ USTC">
+<meta name="twitter:title" content="【论文阅读】EnlightenGAN：Deep Light Enhancement without Paired Supervision(Arxiv201906)">
+<meta name="twitter:description" content="arxiv上一篇关于unpair数据低光照增强的论文，看格式应该是投稿CVPR。 文章使用非成对图像做无监督的图像增强，实现低照域图像转换，不仅解决成对数据收集难的问题，还实现了不同场景低光照图像对应参考图像亮度不一致的问题。结构图如下所示:如上所示，网络整体是一个UNet的结构。对于一张图，一般希望增强其亮度暗的区域，所以这里将输入图提取亮度分量I，然后1-I并将其resize到对应的featu">
+<meta name="twitter:image" content="https://zeyuxiao1997.github.io/2020/01/06/VDMV/1.png">
 
 
 
@@ -119,7 +126,7 @@
 
   
   
-  <link rel="canonical" href="https://zeyuxiao1997.github.io/tags/object-segmentation/">
+  <link rel="canonical" href="https://zeyuxiao1997.github.io/2020/01/06/VDMV/">
 
 
 
@@ -129,7 +136,7 @@
   };
 </script>
 
-  <title>Tag: object segmentation | ZeyuXiao @ USTC</title>
+  <title>【论文阅读】EnlightenGAN：Deep Light Enhancement without Paired Supervision(Arxiv201906) | ZeyuXiao @ USTC</title>
   
 
 
@@ -177,7 +184,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -257,7 +264,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -357,34 +364,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -409,57 +388,324 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>object segmentation<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://zeyuxiao1997.github.io/2020/01/06/VDMV/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zeyuxiao">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ZeyuXiao @ USTC">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/11/15/VOSVMS/" itemprop="url">
-            
-              <span itemprop="name">【论文阅读】Automatic Video Object Segmentation Based on Visual and Motion Saliency(TMM2019)</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">【论文阅读】EnlightenGAN：Deep Light Enhancement without Paired Supervision(Arxiv201906)
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-11-15T10:12:38+08:00" content="2019-11-15">
-          11-15
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+                    
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-06 11:02:24 / Modified: 11:53:06" itemprop="dateCreated datePublished" datetime="2020-01-06T11:02:24+08:00">2020-01-06</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/paper-reading/" itemprop="url" rel="index"><span itemprop="name">paper reading</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+            <span id="/2020/01/06/VDMV/" class="leancloud_visitors" data-flag-title="【论文阅读】EnlightenGAN：Deep Light Enhancement without Paired Supervision(Arxiv201906)">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Views: </span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">482</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">1 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>arxiv上一篇关于unpair数据低光照增强的论文，看格式应该是投稿CVPR。</p>
+<p>文章使用非成对图像做无监督的图像增强，实现低照域图像转换，不仅解决成对数据收集难的问题，还实现了不同场景低光照图像对应参考图像亮度不一致的问题。结构图如下所示:<br><img src="/2020/01/06/VDMV/1.png" width="1"><br>如上所示，网络整体是一个UNet的结构。对于一张图，一般希望增强其亮度暗的区域，所以这里将输入图提取亮度分量I，然后1-I并将其resize到对应的feature大小，和UNet转换中各部分的feature相乘，如上图所示。上采样使用的是resize加卷积的方式去除棋盘效应。Loss部分，包括，一个全局的GAN loss，判别器输入是生成图和目标域的整张图像，一个局部的GAN loss，输出是五个上述两者的patch，两个部分分别做全局和局部的约束，这里的GAN使用了LSGAN。此外，论文还使用了特征保留loss，即生成图和输入图内容要有一致性，这里使用的是VGG特征，同样也分为全局和局部两个部分。</p>
+<p>增强常使用attention map、UNet等方法。这个方法是否可以用于video enhancement呢？</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/01/06/VDMV/">【论文阅读】EnlightenGAN：Deep Light Enhancement without Paired Supervision(Arxiv201906)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Zeyuxiao 的个人博客">Zeyuxiao</a></p>
+  <p><span>发布时间:</span>2020年01月06日 - 11:01</p>
+  <p><span>最后更新:</span>2020年01月06日 - 11:01</p>
+  <p><span>原始链接:</span><a href="/2020/01/06/VDMV/" title="【论文阅读】EnlightenGAN：Deep Light Enhancement without Paired Supervision(Arxiv201906)">https://zeyuxiao1997.github.io/2020/01/06/VDMV/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2020/01/06/VDMV/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+      
+    </div>
+
+
+
+
+    
+
+
+
+
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wec.png" alt="Zeyuxiao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/ali.png" alt="Zeyuxiao Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/image/" rel="tag">  <i class="fa fa-tag"></i>  image</a>
+          
+            <a href="/tags/enhancement/" rel="tag">  <i class="fa fa-tag"></i>  enhancement</a>
+          
+            <a href="/tags/GAN/" rel="tag">  <i class="fa fa-tag"></i>  GAN</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/16/FVD3DFP/" rel="next" title="【论文阅读】Face Video Deblurring using 3D Facial Priors(ICCV2019)">
+                <i class="fa fa-chevron-left"></i> 【论文阅读】Face Video Deblurring using 3D Facial Priors(ICCV2019)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/06/attribute-hallucination/" rel="prev" title="【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination">
+                【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -806,6 +1052,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
 
   
 
@@ -822,6 +1072,8 @@
   
 
 
+  
+
 
   
 
@@ -832,38 +1084,37 @@
   
   <script>
     
-    function showTime(Counter) {
-      var entries = [];
+    function addCount(Counter) {
       var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
 
-      $visitors.each(function() {
-        entries.push( $(this).attr('id').trim() );
-      });
-
-      Counter('get', '/classes/Counter', { where: JSON.stringify({ url: { '$in': entries } }) })
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
         .done(function({ results }) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.url;
-            var time = item.time;
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for (var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if (countSpan.text() == '') {
-              countSpan.text(0);
-            }
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              Counter('post', '/classes/Counter', JSON.stringify({ title: title, url: url, time: 1 }))
+                .done(function() {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(1);
+                })
+                .fail(function() {
+                  console.log('Failed to create');
+                });
+            
           }
         })
         .fail(function ({ responseJSON }) {
@@ -888,9 +1139,7 @@
             });
           };
           
-            if ($('.post-title-link').length >= 1) {
-              showTime(Counter);
-            }
+            addCount(Counter);
           
         });
     });
@@ -906,6 +1155,46 @@
   
   
 
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') { next = next.nextSibling }
+        if (next && next.nodeName.toLowerCase() === 'br') { next.parentNode.removeChild(next) }
+      }
+    });
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      document.getElementById(all[i].inputID + '-Frame').parentNode.className += ' has-jax';
+    }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    
   
 
 

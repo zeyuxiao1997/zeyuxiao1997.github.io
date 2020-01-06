@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zeyuxiao1997.github.io/"/>
-  <updated>2019-11-20T02:46:49.330Z</updated>
+  <updated>2020-01-06T04:12:23.419Z</updated>
   <id>https://zeyuxiao1997.github.io/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination</title>
+    <link href="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/"/>
+    <id>https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/</id>
+    <published>2020-01-06T04:11:28.000Z</published>
+    <updated>2020-01-06T04:12:23.419Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="GAN" scheme="https://zeyuxiao1997.github.io/tags/GAN/"/>
+    
+      <category term="manipulation" scheme="https://zeyuxiao1997.github.io/tags/manipulation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】EnlightenGAN：Deep Light Enhancement without Paired Supervision(Arxiv201906)</title>
+    <link href="https://zeyuxiao1997.github.io/2020/01/06/VDMV/"/>
+    <id>https://zeyuxiao1997.github.io/2020/01/06/VDMV/</id>
+    <published>2020-01-06T03:02:24.000Z</published>
+    <updated>2020-01-06T03:53:06.671Z</updated>
+    
+    <content type="html"><![CDATA[<p>arxiv上一篇关于unpair数据低光照增强的论文，看格式应该是投稿CVPR。</p><p>文章使用非成对图像做无监督的图像增强，实现低照域图像转换，不仅解决成对数据收集难的问题，还实现了不同场景低光照图像对应参考图像亮度不一致的问题。结构图如下所示:<br><img src="/2020/01/06/VDMV/1.png" width="1"><br>如上所示，网络整体是一个UNet的结构。对于一张图，一般希望增强其亮度暗的区域，所以这里将输入图提取亮度分量I，然后1-I并将其resize到对应的feature大小，和UNet转换中各部分的feature相乘，如上图所示。上采样使用的是resize加卷积的方式去除棋盘效应。Loss部分，包括，一个全局的GAN loss，判别器输入是生成图和目标域的整张图像，一个局部的GAN loss，输出是五个上述两者的patch，两个部分分别做全局和局部的约束，这里的GAN使用了LSGAN。此外，论文还使用了特征保留loss，即生成图和输入图内容要有一致性，这里使用的是VGG特征，同样也分为全局和局部两个部分。</p><p>增强常使用attention map、UNet等方法。这个方法是否可以用于video enhancement呢？</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;arxiv上一篇关于unpair数据低光照增强的论文，看格式应该是投稿CVPR。&lt;/p&gt;
+&lt;p&gt;文章使用非成对图像做无监督的图像增强，实现低照域图像转换，不仅解决成对数据收集难的问题，还实现了不同场景低光照图像对应参考图像亮度不一致的问题。结构图如下所示:&lt;br&gt;&lt;img 
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="enhancement" scheme="https://zeyuxiao1997.github.io/tags/enhancement/"/>
+    
+      <category term="GAN" scheme="https://zeyuxiao1997.github.io/tags/GAN/"/>
+    
+  </entry>
   
   <entry>
     <title>【论文阅读】Face Video Deblurring using 3D Facial Priors(ICCV2019)</title>
@@ -71,28 +123,6 @@
   </entry>
   
   <entry>
-    <title>【论文阅读】A Video Deblurring Algorithm Based on Motion Vector and An Encorder-Decoder Network(IEEE.Access2019)</title>
-    <link href="https://zeyuxiao1997.github.io/2019/11/16/VDMV/"/>
-    <id>https://zeyuxiao1997.github.io/2019/11/16/VDMV/</id>
-    <published>2019-11-16T06:06:24.000Z</published>
-    <updated>2019-11-16T06:13:00.769Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
-    
-    
-      <category term="video" scheme="https://zeyuxiao1997.github.io/tags/video/"/>
-    
-      <category term="deblurring" scheme="https://zeyuxiao1997.github.io/tags/deblurring/"/>
-    
-      <category term="saliency" scheme="https://zeyuxiao1997.github.io/tags/saliency/"/>
-    
-  </entry>
-  
-  <entry>
     <title>【论文阅读】Automatic Video Object Segmentation Based on Visual and Motion Saliency(TMM2019)</title>
     <link href="https://zeyuxiao1997.github.io/2019/11/15/VOSVMS/"/>
     <id>https://zeyuxiao1997.github.io/2019/11/15/VOSVMS/</id>
@@ -116,164 +146,30 @@
     
       <category term="video" scheme="https://zeyuxiao1997.github.io/tags/video/"/>
     
-      <category term="saliency" scheme="https://zeyuxiao1997.github.io/tags/saliency/"/>
-    
       <category term="object segmentation" scheme="https://zeyuxiao1997.github.io/tags/object-segmentation/"/>
     
-  </entry>
-  
-  <entry>
-    <title>journal论文笔记汇总</title>
-    <link href="https://zeyuxiao1997.github.io/2019/11/15/journal/"/>
-    <id>https://zeyuxiao1997.github.io/2019/11/15/journal/</id>
-    <published>2019-11-15T01:53:42.000Z</published>
-    <updated>2019-11-20T03:05:03.149Z</updated>
-    
-    <content type="html"><![CDATA[<div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>A Video Deblurring Algorithm Based on Motion Vector and An Encorder-Decoder Network</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>IEEE Access 2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;div class=&quot;table-container&quot;&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;论文标题&lt;/th&gt;
-&lt;th&gt;链接&lt;/th&gt;
-&lt;th&gt;备注&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;A Video Deblurring 
-      
-    
-    </summary>
-    
-      <category term="quick search" scheme="https://zeyuxiao1997.github.io/categories/quick-search/"/>
-    
-    
-      <category term="journal" scheme="https://zeyuxiao1997.github.io/tags/journal/"/>
+      <category term="saliency" scheme="https://zeyuxiao1997.github.io/tags/saliency/"/>
     
   </entry>
   
   <entry>
-    <title>Arxiv论文笔记汇总</title>
-    <link href="https://zeyuxiao1997.github.io/2019/11/15/Arxiv/"/>
-    <id>https://zeyuxiao1997.github.io/2019/11/15/Arxiv/</id>
-    <published>2019-11-15T01:52:47.000Z</published>
-    <updated>2019-11-15T01:57:37.095Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="quick search" scheme="https://zeyuxiao1997.github.io/categories/quick-search/"/>
-    
-    
-      <category term="conference" scheme="https://zeyuxiao1997.github.io/tags/conference/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>AAAI论文笔记汇总</title>
-    <link href="https://zeyuxiao1997.github.io/2019/11/15/AAAI/"/>
-    <id>https://zeyuxiao1997.github.io/2019/11/15/AAAI/</id>
-    <published>2019-11-15T01:52:29.000Z</published>
-    <updated>2019-11-15T01:58:05.385Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="quick search" scheme="https://zeyuxiao1997.github.io/categories/quick-search/"/>
-    
-    
-      <category term="conference" scheme="https://zeyuxiao1997.github.io/tags/conference/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ECCV论文笔记汇总</title>
-    <link href="https://zeyuxiao1997.github.io/2019/11/15/ECCV/"/>
-    <id>https://zeyuxiao1997.github.io/2019/11/15/ECCV/</id>
+    <title>论文笔记汇总</title>
+    <link href="https://zeyuxiao1997.github.io/2019/11/15/index/"/>
+    <id>https://zeyuxiao1997.github.io/2019/11/15/index/</id>
     <published>2019-11-15T01:52:15.000Z</published>
-    <updated>2019-11-15T01:57:05.832Z</updated>
+    <updated>2020-01-06T04:12:39.935Z</updated>
     
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="quick search" scheme="https://zeyuxiao1997.github.io/categories/quick-search/"/>
-    
-    
-      <category term="conference" scheme="https://zeyuxiao1997.github.io/tags/conference/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ICCV论文笔记汇总</title>
-    <link href="https://zeyuxiao1997.github.io/2019/11/15/ICCV/"/>
-    <id>https://zeyuxiao1997.github.io/2019/11/15/ICCV/</id>
-    <published>2019-11-15T01:52:10.000Z</published>
-    <updated>2019-11-20T02:55:15.364Z</updated>
-    
-    <content type="html"><![CDATA[<div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Face Video Deblurring using 3D Facial Priors</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>ICCV2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div>]]></content>
+    <content type="html"><![CDATA[<h1 id="SIGGRAPH"><a href="#SIGGRAPH" class="headerlink" title="SIGGRAPH"></a>SIGGRAPH</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Manipulating Atributes of Natural Scenes via Hallucination</td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="CVPR"><a href="#CVPR" class="headerlink" title="CVPR"></a>CVPR</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ECCV"><a href="#ECCV" class="headerlink" title="ECCV"></a>ECCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ICCV"><a href="#ICCV" class="headerlink" title="ICCV"></a>ICCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Face Video Deblurring using 3D Facial Priors</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>ICCV2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="NIPS"><a href="#NIPS" class="headerlink" title="NIPS"></a>NIPS</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="JOURNAL"><a href="#JOURNAL" class="headerlink" title="JOURNAL"></a>JOURNAL</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>A Video Deblurring Algorithm Based on Motion Vector and An Encorder-Decoder Network</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>IEEE Access 2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ARXIV"><a href="#ARXIV" class="headerlink" title="ARXIV"></a>ARXIV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>EnlightenGAN：Deep Light Enhancement without Paired Supervision</td><td></td><td>arxiv201906</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;div class=&quot;table-container&quot;&gt;
+        &lt;h1 id=&quot;SIGGRAPH&quot;&gt;&lt;a href=&quot;#SIGGRAPH&quot; class=&quot;headerlink&quot; title=&quot;SIGGRAPH&quot;&gt;&lt;/a&gt;SIGGRAPH&lt;/h1&gt;&lt;div class=&quot;table-container&quot;&gt;
 &lt;table&gt;
 &lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;论文标题&lt;/th&gt;
-&lt;th&gt;链接&lt;/th&gt;
-&lt;th&gt;备注&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Face Video Deblurri
+&lt;tr
       
-    
-    </summary>
-    
-      <category term="quick search" scheme="https://zeyuxiao1997.github.io/categories/quick-search/"/>
-    
-    
-      <category term="conference" scheme="https://zeyuxiao1997.github.io/tags/conference/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CVPR论文笔记汇总</title>
-    <link href="https://zeyuxiao1997.github.io/2019/11/15/CVPR/"/>
-    <id>https://zeyuxiao1997.github.io/2019/11/15/CVPR/</id>
-    <published>2019-11-15T01:51:50.000Z</published>
-    <updated>2019-11-15T01:57:20.247Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-      <category term="quick search" scheme="https://zeyuxiao1997.github.io/categories/quick-search/"/>
-    
-    
-      <category term="conference" scheme="https://zeyuxiao1997.github.io/tags/conference/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NIPS论文笔记汇总</title>
-    <link href="https://zeyuxiao1997.github.io/2019/09/23/NIPS/"/>
-    <id>https://zeyuxiao1997.github.io/2019/09/23/NIPS/</id>
-    <published>2019-09-23T02:50:25.000Z</published>
-    <updated>2019-11-15T01:55:14.670Z</updated>
-    
-    <summary type="html">
     
     </summary>
     

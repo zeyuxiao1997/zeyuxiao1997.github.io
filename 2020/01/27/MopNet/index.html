@@ -103,18 +103,24 @@
 
 
 
-  <meta name="description" content="Siggraph Asia2019的工作，">
-<meta name="keywords" content="image,GAN,manipulation">
+  <meta name="description" content="ICCV2019的论文。算是比较新的一篇用于demoire的论文。论文对摩尔纹的三种不同特性进行分析，并针对性的使用网络进行处理，把demoire的热度又炒了起来。 moire多样复杂，形状呈空间变化的条纹、曲线或波纹。 波纹图案还会将颜色变化叠加到图像上，从而大大降低图像的视觉质量。因此用传统的image restoration方法并不能很好的进行demoire，所以论文详细分析了moire的特">
+<meta name="keywords" content="image,low-level,demoire">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination">
-<meta property="og:url" content="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/index.html">
+<meta property="og:title" content="【论文阅读】Mop Moire Patterns Using MopNet(ICCV2019)">
+<meta property="og:url" content="https://zeyuxiao1997.github.io/2020/01/27/MopNet/index.html">
 <meta property="og:site_name" content="ZeyuXiao @ USTC">
-<meta property="og:description" content="Siggraph Asia2019的工作，">
+<meta property="og:description" content="ICCV2019的论文。算是比较新的一篇用于demoire的论文。论文对摩尔纹的三种不同特性进行分析，并针对性的使用网络进行处理，把demoire的热度又炒了起来。 moire多样复杂，形状呈空间变化的条纹、曲线或波纹。 波纹图案还会将颜色变化叠加到图像上，从而大大降低图像的视觉质量。因此用传统的image restoration方法并不能很好的进行demoire，所以论文详细分析了moire的特">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-06T04:30:22.155Z">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2020/01/27/MopNet/1.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2020/01/27/MopNet/2.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2020/01/27/MopNet/22.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2020/01/27/MopNet/3.png">
+<meta property="og:image" content="https://zeyuxiao1997.github.io/2020/01/27/MopNet/4.png">
+<meta property="og:updated_time" content="2020-01-27T08:42:38.777Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination">
-<meta name="twitter:description" content="Siggraph Asia2019的工作，">
+<meta name="twitter:title" content="【论文阅读】Mop Moire Patterns Using MopNet(ICCV2019)">
+<meta name="twitter:description" content="ICCV2019的论文。算是比较新的一篇用于demoire的论文。论文对摩尔纹的三种不同特性进行分析，并针对性的使用网络进行处理，把demoire的热度又炒了起来。 moire多样复杂，形状呈空间变化的条纹、曲线或波纹。 波纹图案还会将颜色变化叠加到图像上，从而大大降低图像的视觉质量。因此用传统的image restoration方法并不能很好的进行demoire，所以论文详细分析了moire的特">
+<meta name="twitter:image" content="https://zeyuxiao1997.github.io/2020/01/27/MopNet/1.png">
 
 
 
@@ -124,7 +130,7 @@
 
   
   
-  <link rel="canonical" href="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/">
+  <link rel="canonical" href="https://zeyuxiao1997.github.io/2020/01/27/MopNet/">
 
 
 
@@ -134,7 +140,7 @@
   };
 </script>
 
-  <title>【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination | ZeyuXiao @ USTC</title>
+  <title>【论文阅读】Mop Moire Patterns Using MopNet(ICCV2019) | ZeyuXiao @ USTC</title>
   
 
 
@@ -402,7 +408,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/">
+    <link itemprop="mainEntityOfPage" href="https://zeyuxiao1997.github.io/2020/01/27/MopNet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zeyuxiao">
@@ -419,7 +425,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination
+          <h1 class="post-title" itemprop="name headline">【论文阅读】Mop Moire Patterns Using MopNet(ICCV2019)
 
               
             
@@ -446,7 +452,7 @@
                 
               
 
-              <time title="Created: 2020-01-06 12:11:28 / Modified: 12:30:22" itemprop="dateCreated datePublished" datetime="2020-01-06T12:11:28+08:00">2020-01-06</time>
+              <time title="Created: 2020-01-27 12:14:38 / Modified: 16:42:38" itemprop="dateCreated datePublished" datetime="2020-01-27T12:14:38+08:00">2020-01-27</time>
             
 
             
@@ -483,7 +489,7 @@
 
           
           
-            <span id="/2020/01/06/attribute-hallucination/" class="leancloud_visitors" data-flag-title="【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination">
+            <span id="/2020/01/27/MopNet/" class="leancloud_visitors" data-flag-title="【论文阅读】Mop Moire Patterns Using MopNet(ICCV2019)">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -515,7 +521,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">22</span>
+                <span title="Symbols count in article">886</span>
               
 
               
@@ -549,7 +555,19 @@
       
 
       
-        <p>Siggraph Asia2019的工作，</p>
+        <p>ICCV2019的论文。算是比较新的一篇用于demoire的论文。论文对摩尔纹的三种不同特性进行分析，并针对性的使用网络进行处理，把demoire的热度又炒了起来。</p>
+<p>moire多样复杂，形状呈空间变化的条纹、曲线或波纹。 波纹图案还会将颜色变化叠加到图像上，从而大大降低图像的视觉质量。因此用传统的image restoration方法并不能很好的进行demoire，所以论文详细分析了moire的特性和机理，从以下三个方面进行demoire：</p>
+<ul>
+<li>Multi-scale feature aggregation</li>
+<li>Channel-wise target edge predictor</li>
+<li>Attributes-aware moire pattern classifier<br>为此分别设计了下面的网络结构进行demoire。<img src="/2020/01/27/MopNet/1.png" width="1">
+</li>
+</ul>
+<h2 id="Multi-scale-feature-aggregation"><a href="#Multi-scale-feature-aggregation" class="headerlink" title="Multi-scale feature aggregation"></a>Multi-scale feature aggregation</h2><p>摩尔纹出现在低频区域，和图片相互重合，很难去除。因此使用多尺度feature extractor进行特征提取，并使用SENet对features进行不同权重的组合。网络结构如图<br><img src="/2020/01/27/MopNet/2.png" width="2"></p>
+<h2 id="Channel-wise-target-edge-predictor"><a href="#Channel-wise-target-edge-predictor" class="headerlink" title="Channel-wise target edge predictor"></a>Channel-wise target edge predictor</h2><p>moire形成具有明显边缘幅度的曲线和条纹，在RGB上的表现是不同的，见下图。<br><img src="/2020/01/27/MopNet/22.png" width="2"><br>因此设计了下图的网络进行channel-wise的颜色特征的边缘提取网络，注意：该部分需要先进行训练以便初始化。<br><img src="/2020/01/27/MopNet/3.png" width="3"></p>
+<h2 id="Attributes-aware-moire-pattern-classifier"><a href="#Attributes-aware-moire-pattern-classifier" class="headerlink" title="Attributes-aware moire pattern classifier"></a>Attributes-aware moire pattern classifier</h2><p>Moire的形状不同，这里作者对不同类别的pattern进行标注，并pretrain了一个classifier，结构如下：<br><img src="/2020/01/27/MopNet/4.png" width="4"></p>
+<h2 id="loss"><a href="#loss" class="headerlink" title="loss"></a>loss</h2><p>使用边缘loss+reconstruction loss+perceptual loss</p>
+<p>论文针对数据集的外在表现，进行三种不同模块的设计。可能并没有涉及到成像原理或者是更加本质的东西，这个可能是现在demoire网络的通病，是否可以针对传统算法进行网络化处理，或者是针对更加本质的数据特征进行demoire重建，都是可能深入研究的重点。</p>
 
       
     </div>
@@ -569,12 +587,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2020/01/06/attribute-hallucination/">【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination</a></p>
+  <p><span>本文标题:</span><a href="/2020/01/27/MopNet/">【论文阅读】Mop Moire Patterns Using MopNet(ICCV2019)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Zeyuxiao 的个人博客">Zeyuxiao</a></p>
-  <p><span>发布时间:</span>2020年01月06日 - 12:01</p>
-  <p><span>最后更新:</span>2020年01月06日 - 12:01</p>
-  <p><span>原始链接:</span><a href="/2020/01/06/attribute-hallucination/" title="【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination">https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/</a>
-    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/" aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2020年01月27日 - 12:01</p>
+  <p><span>最后更新:</span>2020年01月27日 - 16:01</p>
+  <p><span>原始链接:</span><a href="/2020/01/27/MopNet/" title="【论文阅读】Mop Moire Patterns Using MopNet(ICCV2019)">https://zeyuxiao1997.github.io/2020/01/27/MopNet/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2020/01/27/MopNet/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -650,9 +668,9 @@
           
             <a href="/tags/image/" rel="tag">  <i class="fa fa-tag"></i>  image</a>
           
-            <a href="/tags/GAN/" rel="tag">  <i class="fa fa-tag"></i>  GAN</a>
+            <a href="/tags/low-level/" rel="tag">  <i class="fa fa-tag"></i>  low-level</a>
           
-            <a href="/tags/manipulation/" rel="tag">  <i class="fa fa-tag"></i>  manipulation</a>
+            <a href="/tags/demoire/" rel="tag">  <i class="fa fa-tag"></i>  demoire</a>
           
         </div>
       
@@ -665,8 +683,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/06/VDMV/" rel="next" title="【论文阅读】EnlightenGAN：Deep Light Enhancement without Paired Supervision(Arxiv201906)">
-                <i class="fa fa-chevron-left"></i> 【论文阅读】EnlightenGAN：Deep Light Enhancement without Paired Supervision(Arxiv201906)
+              <a href="/2020/01/06/attribute-hallucination/" rel="next" title="【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination">
+                <i class="fa fa-chevron-left"></i> 【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination
               </a>
             
           </div>
@@ -675,8 +693,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/01/27/MopNet/" rel="prev" title="【论文阅读】Mop Moire Patterns Using MopNet(ICCV2019)">
-                【论文阅读】Mop Moire Patterns Using MopNet(ICCV2019) <i class="fa fa-chevron-right"></i>
+              <a href="/2020/01/27/HRDN/" rel="prev" title="【论文阅读】HIGH RESOLUTION DEMOIRE NETWORK(submit to ICIP?)">
+                【论文阅读】HIGH RESOLUTION DEMOIRE NETWORK(submit to ICIP?) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -721,8 +739,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -883,6 +910,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-scale-feature-aggregation"><span class="nav-number">1.</span> <span class="nav-text">Multi-scale feature aggregation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Channel-wise-target-edge-predictor"><span class="nav-number">2.</span> <span class="nav-text">Channel-wise target edge predictor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Attributes-aware-moire-pattern-classifier"><span class="nav-number">3.</span> <span class="nav-text">Attributes-aware moire pattern classifier</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loss"><span class="nav-number">4.</span> <span class="nav-text">loss</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       

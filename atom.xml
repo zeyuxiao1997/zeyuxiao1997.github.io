@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zeyuxiao1997.github.io/"/>
-  <updated>2020-01-06T04:12:23.419Z</updated>
+  <updated>2020-01-28T08:46:15.513Z</updated>
   <id>https://zeyuxiao1997.github.io/</id>
   
   <author>
@@ -17,13 +17,81 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>【论文阅读】HIGH RESOLUTION DEMOIRE NETWORK(submit to ICIP?)</title>
+    <link href="https://zeyuxiao1997.github.io/2020/01/27/HRDN/"/>
+    <id>https://zeyuxiao1997.github.io/2020/01/27/HRDN/</id>
+    <published>2020-01-27T07:30:38.000Z</published>
+    <updated>2020-01-28T08:46:15.513Z</updated>
+    
+    <content type="html"><![CDATA[<p>这篇文章是在github上看到的，作者开源了代码，看文章样式，应该是投稿ICIP的.</p><p>文中没有深入分析moire的建模方式，或者是其他什么高深的理论，只使用HRNet作为backbone进行parallel multi scale上的demoire，文章一般。<br><img src="/2020/01/27/HRDN/1.png" width="1"><br><img src="/2020/01/27/HRDN/2.png" width="2"></p><p>论文使用L1 Charbonnier Loss 和 L1 Sobel Loss。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这篇文章是在github上看到的，作者开源了代码，看文章样式，应该是投稿ICIP的.&lt;/p&gt;
+&lt;p&gt;文中没有深入分析moire的建模方式，或者是其他什么高深的理论，只使用HRNet作为backbone进行parallel multi scale上的demoire，文章一般。
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+      <category term="demoire" scheme="https://zeyuxiao1997.github.io/tags/demoire/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】Mop Moire Patterns Using MopNet(ICCV2019)</title>
+    <link href="https://zeyuxiao1997.github.io/2020/01/27/MopNet/"/>
+    <id>https://zeyuxiao1997.github.io/2020/01/27/MopNet/</id>
+    <published>2020-01-27T04:14:38.000Z</published>
+    <updated>2020-01-27T08:42:38.777Z</updated>
+    
+    <content type="html"><![CDATA[<p>ICCV2019的论文。算是比较新的一篇用于demoire的论文。论文对摩尔纹的三种不同特性进行分析，并针对性的使用网络进行处理，把demoire的热度又炒了起来。</p><p>moire多样复杂，形状呈空间变化的条纹、曲线或波纹。 波纹图案还会将颜色变化叠加到图像上，从而大大降低图像的视觉质量。因此用传统的image restoration方法并不能很好的进行demoire，所以论文详细分析了moire的特性和机理，从以下三个方面进行demoire：</p><ul><li>Multi-scale feature aggregation</li><li>Channel-wise target edge predictor</li><li>Attributes-aware moire pattern classifier<br>为此分别设计了下面的网络结构进行demoire。<img src="/2020/01/27/MopNet/1.png" width="1"></li></ul><h2 id="Multi-scale-feature-aggregation"><a href="#Multi-scale-feature-aggregation" class="headerlink" title="Multi-scale feature aggregation"></a>Multi-scale feature aggregation</h2><p>摩尔纹出现在低频区域，和图片相互重合，很难去除。因此使用多尺度feature extractor进行特征提取，并使用SENet对features进行不同权重的组合。网络结构如图<br><img src="/2020/01/27/MopNet/2.png" width="2"></p><h2 id="Channel-wise-target-edge-predictor"><a href="#Channel-wise-target-edge-predictor" class="headerlink" title="Channel-wise target edge predictor"></a>Channel-wise target edge predictor</h2><p>moire形成具有明显边缘幅度的曲线和条纹，在RGB上的表现是不同的，见下图。<br><img src="/2020/01/27/MopNet/22.png" width="2"><br>因此设计了下图的网络进行channel-wise的颜色特征的边缘提取网络，注意：该部分需要先进行训练以便初始化。<br><img src="/2020/01/27/MopNet/3.png" width="3"></p><h2 id="Attributes-aware-moire-pattern-classifier"><a href="#Attributes-aware-moire-pattern-classifier" class="headerlink" title="Attributes-aware moire pattern classifier"></a>Attributes-aware moire pattern classifier</h2><p>Moire的形状不同，这里作者对不同类别的pattern进行标注，并pretrain了一个classifier，结构如下：<br><img src="/2020/01/27/MopNet/4.png" width="4"></p><h2 id="loss"><a href="#loss" class="headerlink" title="loss"></a>loss</h2><p>使用边缘loss+reconstruction loss+perceptual loss</p><p>论文针对数据集的外在表现，进行三种不同模块的设计。可能并没有涉及到成像原理或者是更加本质的东西，这个可能是现在demoire网络的通病，是否可以针对传统算法进行网络化处理，或者是针对更加本质的数据特征进行demoire重建，都是可能深入研究的重点。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ICCV2019的论文。算是比较新的一篇用于demoire的论文。论文对摩尔纹的三种不同特性进行分析，并针对性的使用网络进行处理，把demoire的热度又炒了起来。&lt;/p&gt;
+&lt;p&gt;moire多样复杂，形状呈空间变化的条纹、曲线或波纹。 波纹图案还会将颜色变化叠加到图像上，从
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+      <category term="demoire" scheme="https://zeyuxiao1997.github.io/tags/demoire/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【论文阅读】Manipulating Attributes of Natural Scenes via Hallucination</title>
     <link href="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/"/>
     <id>https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/</id>
     <published>2020-01-06T04:11:28.000Z</published>
-    <updated>2020-01-06T04:12:23.419Z</updated>
+    <updated>2020-01-06T04:30:22.155Z</updated>
+    
+    <content type="html"><![CDATA[<p>Siggraph Asia2019的工作，</p>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;p&gt;Siggraph Asia2019的工作，&lt;/p&gt;
+
+      
     
     </summary>
     
@@ -157,9 +225,9 @@
     <link href="https://zeyuxiao1997.github.io/2019/11/15/index/"/>
     <id>https://zeyuxiao1997.github.io/2019/11/15/index/</id>
     <published>2019-11-15T01:52:15.000Z</published>
-    <updated>2020-01-06T04:12:39.935Z</updated>
+    <updated>2020-01-29T07:38:20.877Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="SIGGRAPH"><a href="#SIGGRAPH" class="headerlink" title="SIGGRAPH"></a>SIGGRAPH</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Manipulating Atributes of Natural Scenes via Hallucination</td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="CVPR"><a href="#CVPR" class="headerlink" title="CVPR"></a>CVPR</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ECCV"><a href="#ECCV" class="headerlink" title="ECCV"></a>ECCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ICCV"><a href="#ICCV" class="headerlink" title="ICCV"></a>ICCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Face Video Deblurring using 3D Facial Priors</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>ICCV2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="NIPS"><a href="#NIPS" class="headerlink" title="NIPS"></a>NIPS</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="JOURNAL"><a href="#JOURNAL" class="headerlink" title="JOURNAL"></a>JOURNAL</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>A Video Deblurring Algorithm Based on Motion Vector and An Encorder-Decoder Network</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>IEEE Access 2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ARXIV"><a href="#ARXIV" class="headerlink" title="ARXIV"></a>ARXIV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>EnlightenGAN：Deep Light Enhancement without Paired Supervision</td><td></td><td>arxiv201906</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div>]]></content>
+    <content type="html"><![CDATA[<h1 id="SIGGRAPH"><a href="#SIGGRAPH" class="headerlink" title="SIGGRAPH"></a>SIGGRAPH</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Manipulating Atributes of Natural Scenes via Hallucination</td><td><a href="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/">笔记</a></td><td>SiggraphAsia2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="CVPR"><a href="#CVPR" class="headerlink" title="CVPR"></a>CVPR</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ECCV"><a href="#ECCV" class="headerlink" title="ECCV"></a>ECCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ICCV"><a href="#ICCV" class="headerlink" title="ICCV"></a>ICCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Face Video Deblurring using 3D Facial Priors</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>ICCV2019</td></tr><tr><td>Mop Moire Patterns Using MopNet</td><td><a href="https://zeyuxiao1997.github.io/2020/01/27/MopNet/">笔记</a></td><td>ICCV2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="NIPS"><a href="#NIPS" class="headerlink" title="NIPS"></a>NIPS</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="JOURNAL"><a href="#JOURNAL" class="headerlink" title="JOURNAL"></a>JOURNAL</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>A Video Deblurring Algorithm Based on Motion Vector and An Encorder-Decoder Network</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>IEEE Access 2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="PREPRINT"><a href="#PREPRINT" class="headerlink" title="PREPRINT"></a>PREPRINT</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>EnlightenGAN：Deep Light Enhancement without Paired Supervision</td><td><a href="https://zeyuxiao1997.github.io/2020/01/06/VDMV/">https://zeyuxiao1997.github.io/2020/01/06/VDMV/</a></td><td>arxiv201906</td></tr><tr><td>HIGH RESOLUTION DEMOIRE NETWORK</td><td><a href="https://zeyuxiao1997.github.io/2020/01/27/HRDN/">笔记</a></td><td>github</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div>]]></content>
     
     <summary type="html">
     

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zeyuxiao1997.github.io/"/>
-  <updated>2020-01-28T08:46:15.513Z</updated>
+  <updated>2020-02-01T13:26:51.396Z</updated>
   <id>https://zeyuxiao1997.github.io/</id>
   
   <author>
@@ -15,6 +15,278 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【论文阅读】Pyramid Convolutional Network for Single Image Deraining</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/01/PDRNet/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/01/PDRNet/</id>
+    <published>2020-02-01T03:42:06.000Z</published>
+    <updated>2020-02-01T13:26:51.396Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPRW2019论文，目的是消除rain steak。</p><p>论文的motivation(这里是直接谷歌翻译的)：<font color="blue">为了充分利用多尺度冗余，网络通过层次小波变换将多雨图像分解为多尺度子带，然后分别由几个子网进行处理。 特别地，小波变换还起到下采样的作用，并在不增加网络深度或不牺牲网络效率的情况下扩大了接收场。</font>现有的方法仍然无法消除复杂背景场景中的大雨斑，并且无法将雨斑与无雨背景的相似图像纹理区分开。<br><img src="/2020/02/01/PDRNet/1.png" width="1"><br>使用类似上图的方法进行不同band上的derain</p><img src="/2020/02/01/PDRNet/2.png" width="1"><p>使用multi-scale loss进行训练</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CVPRW2019论文，目的是消除rain steak。&lt;/p&gt;
+&lt;p&gt;论文的motivation(这里是直接谷歌翻译的)：&lt;font color=&quot;blue&quot;&gt;为了充分利用多尺度冗余，网络通过层次小波变换将多雨图像分解为多尺度子带，然后分别由几个子网进行处理。 特别地，小
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+      <category term="derain" scheme="https://zeyuxiao1997.github.io/tags/derain/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】Single Image Deraining：A Comprehensive Benchmark Analysis</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/01/derainBenchmark/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/01/derainBenchmark/</id>
+    <published>2020-02-01T03:26:22.000Z</published>
+    <updated>2020-02-01T03:38:56.508Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2019论文。论文没有细看，重点在于关注去雨模型中常用的三种建模方式。</p><img src="/2020/02/01/derainBenchmark/1.png" width="1"><ul><li><p>rain steak</p><script type="math/tex; mode=display">\mathbf{R}_{s}=\mathbf{B}+\mathbf{S}</script></li><li><p>rain drop </p><script type="math/tex; mode=display">\mathbf{R}_{d}=(1-\mathbf{M}) \odot \mathbf{B}+\mathbf{D}</script></li></ul><p>M is a binary mask and ⊙ means element-wise multiplication. In the mask, a pixel x is part of a raindrop region if<br>M(x) = 1, and otherwise belongs to the background.</p><ul><li>rain and mist<script type="math/tex; mode=display">\mathbf{R}_{m}=\mathbf{B} \odot t+A(1-t)+\mathbf{S}</script></li></ul><p>where S is the rain streak component; t and A are the<br>transmission map and atmospheric light that determines the<br>fog/mist component, respectively.</p><p>三种不同的建模方式决定了去雨网络不同。未来我应该更关注rain drop和mist混合的情况。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CVPR2019论文。论文没有细看，重点在于关注去雨模型中常用的三种建模方式。&lt;/p&gt;
+&lt;img src=&quot;/2020/02/01/derainBenchmark/1.png&quot; width=&quot;1&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;rain steak&lt;/p&gt;
+&lt;script ty
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+      <category term="derain" scheme="https://zeyuxiao1997.github.io/tags/derain/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】CRRN：Multi-Scale Guided Concurrent Reflection Removal Network</title>
+    <link href="https://zeyuxiao1997.github.io/2020/01/31/CRRN/"/>
+    <id>https://zeyuxiao1997.github.io/2020/01/31/CRRN/</id>
+    <published>2020-01-31T07:13:49.000Z</published>
+    <updated>2020-02-01T03:03:06.702Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2018论文。</p><p>没有阴影的图片的梯度信息在去反射任务中非常重要，论文把之前的two-stage方案中的梯度推测和图片推测融合在统一的框架中。网络整体架构如下：<br><img src="/2020/01/31/CRRN/1.png" width="1"></p><h1 id="Gradient-Inference-Network-GiN"><a href="#Gradient-Inference-Network-GiN" class="headerlink" title="Gradient Inference Network(GiN)"></a>Gradient Inference Network(GiN)</h1><p>对于GIN网络，网络输入4-channel的tensor（3通道图像和1通道梯度），使用Unet的结构进行cross-scale的feature提取。为了更好的保留sharp details和避免gradient information丢失</p><h1 id="Image-inference-Network-IiN"><a href="#Image-inference-Network-IiN" class="headerlink" title="Image inference Network(IiN)"></a>Image inference Network(IiN)</h1><p>使用fine-tuned的VGG网络进行feature extraction，使用Inception-ResNet-v2用于更好的提取特征。多尺度表征在inverse problems上有较好的表现，因此在网络上进行相连（网络图上很清楚）</p><h1 id="loss-function"><a href="#loss-function" class="headerlink" title="loss function"></a>loss function</h1><p>在IiN网络中使用SSIM loss，<font color="blue">但是尽管SSIM具有感知上的贡献，但由于它对均匀偏差不敏感，因此可能会导致亮度变化和颜色偏移，从而使最终结果变得晦暗</font>。所以又使用了L1 loss对background layer进行恢复。</p><p>在GiN中，SSIM中的亮度和对比度分量变得不确定。 因此，我们忽略了原始SSIM中对比度和亮度的依赖性，并将GiN的损失函数定义为</p><script type="math/tex; mode=display">\mathcal{L}^{\mathrm{SI}}\left(x, x^{\star}\right)=1-\mathbf{S I}\left(x, x^{\star}\right)$$，where$$\mathbf{S I}=\frac{2 \sigma_{x x^{\star}}+c}{\sigma_{x}^{2}+\sigma_{x^{\star}}^{2}+c}</script><p>所以loss为<script type="math/tex">\begin{aligned} \mathcal{L}=& \gamma \mathcal{L}^{\mathrm{SSIM}}\left(\mathbf{B}, \mathbf{B}^{\star}\right)+\mathcal{L}_{1}\left(\mathbf{B}, \mathbf{B}^{\star}\right)+\\ & \mathcal{L}^{\mathrm{SSIM}}\left(\mathbf{R}, \mathbf{R}^{\star}\right)+\mathcal{L}^{\mathbf{S I}}\left(\nabla \mathbf{B}, \nabla \mathbf{B}^{\star}\right) \end{aligned}</script></p><h1 id="训练方案"><a href="#训练方案" class="headerlink" title="训练方案"></a>训练方案</h1><p>GiN先训练50epoch，然后和IiN一起训练。并且使用multi-size training strategy by feeding images of two sizes: coarse scales 96 × 160 and fine scale 224 × 288</p><h1 id="metric"><a href="#metric" class="headerlink" title="metric"></a>metric</h1><p>使用SSIM和SI，并且又基于region提出改进的SSIM和SI，这个还是比较创新的地方。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CVPR2018论文。&lt;/p&gt;
+&lt;p&gt;没有阴影的图片的梯度信息在去反射任务中非常重要，论文把之前的two-stage方案中的梯度推测和图片推测融合在统一的框架中。网络整体架构如下：&lt;br&gt;&lt;img src=&quot;/2020/01/31/CRRN/1.png&quot; width=&quot;1&quot;
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+      <category term="dereflection" scheme="https://zeyuxiao1997.github.io/tags/dereflection/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】Revisiting Shadow Detection：A New Benchmark Dataset for Complex World</title>
+    <link href="https://zeyuxiao1997.github.io/2020/01/31/FSDNet/"/>
+    <id>https://zeyuxiao1997.github.io/2020/01/31/FSDNet/</id>
+    <published>2020-01-31T06:34:16.000Z</published>
+    <updated>2020-01-31T07:01:22.502Z</updated>
+    
+    <content type="html"><![CDATA[<p>arxiv上的一篇preprint文章，通过构建更复杂场景的数据集进行阴影检测。论文没有详细看，我关注的重点在<font color="blue">特征融合模块</font>，这里的特征融合还是具有不错的参考价值的。</p><p>low-level feature maps包含细节信息，可以帮助discover shadow boundaries and tiny shadows；而深层次的features contain global context information to help recognize the shadows，因此这里使用如下的结构进行特征融合，也就是detail enhance module。</p><img src="/2020/01/31/FSDNet/1.png" width="1"><p>使用log函数衡量深层特征和浅层特征的距离，再引入alpha参数作为可学参数进行gate，没有引入过多参数量。<br>使用该模块可以<font color="red">enhance the spatial details and produce the refined low-level feature</font>。</p><p>整个网络的Pipeline如图<img src="/2020/01/31/FSDNet/2.png" width="2"></p><p>下面的表格是ablation study，使用DEM后效果更好<br><img src="/2020/01/31/FSDNet/3.png" width="3"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;arxiv上的一篇preprint文章，通过构建更复杂场景的数据集进行阴影检测。论文没有详细看，我关注的重点在&lt;font color=&quot;blue&quot;&gt;特征融合模块&lt;/font&gt;，这里的特征融合还是具有不错的参考价值的。&lt;/p&gt;
+&lt;p&gt;low-level feature map
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="high-level" scheme="https://zeyuxiao1997.github.io/tags/high-level/"/>
+    
+      <category term="detection" scheme="https://zeyuxiao1997.github.io/tags/detection/"/>
+    
+      <category term="shadow" scheme="https://zeyuxiao1997.github.io/tags/shadow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】Bidirectional Feature Pyramid Network with Recurrent Attention Residual Modules for Shadow Detection</title>
+    <link href="https://zeyuxiao1997.github.io/2020/01/31/BFPN/"/>
+    <id>https://zeyuxiao1997.github.io/2020/01/31/BFPN/</id>
+    <published>2020-01-31T03:17:46.000Z</published>
+    <updated>2020-01-31T03:54:21.563Z</updated>
+    
+    <content type="html"><![CDATA[<p>ECCV2018的论文，使用双向注意力金字塔网络进行阴影检测。论文没有详细看，我关注的重点在<font color="blue">特征融合模块</font>，这里的特征注意力融合还是具有不错的参考价值的。</p><p>网络结构如图，<img src="/2020/01/31/BFPN/1.png" width="1"></p><p>在高分辨率特征图中抑制非阴影细节的能力有限，并将非阴影区域引入结果中的能力有限，因此作者摒弃之前直接将不同层间的feature maps直接concat，使用循环残差注意力结构，更好的对不同特征进行融合。<br><img src="/2020/01/31/BFPN/2.png" width="2"></p><p>最后，在双向结果融合的时候也使用了注意力融合方式。<br><img src="/2020/01/31/BFPN/3.png" width="3"></p><p>个人感觉这篇文章的亮点就是融合cross-scale的方式好，不过这是2018的论文了，距今已经有两年时间，两年间应该有更好的融合方式了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ECCV2018的论文，使用双向注意力金字塔网络进行阴影检测。论文没有详细看，我关注的重点在&lt;font color=&quot;blue&quot;&gt;特征融合模块&lt;/font&gt;，这里的特征注意力融合还是具有不错的参考价值的。&lt;/p&gt;
+&lt;p&gt;网络结构如图，&lt;img src=&quot;/2020/01/3
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="high-level" scheme="https://zeyuxiao1997.github.io/tags/high-level/"/>
+    
+      <category term="detection" scheme="https://zeyuxiao1997.github.io/tags/detection/"/>
+    
+      <category term="shadow" scheme="https://zeyuxiao1997.github.io/tags/shadow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】Deep Multi-Model Fusion for Single-Image Dehazing(ICCV2019)</title>
+    <link href="https://zeyuxiao1997.github.io/2020/01/30/DM2FNet/"/>
+    <id>https://zeyuxiao1997.github.io/2020/01/30/DM2FNet/</id>
+    <published>2020-01-30T12:47:31.000Z</published>
+    <updated>2020-01-31T03:18:36.650Z</updated>
+    
+    <content type="html"><![CDATA[<p>ICCV2019论文。<a href="https://blog.csdn.net/Najlepszy/article/details/103354223" target="_blank" rel="noopener">CSDN</a>上有这篇论文的一个解析，可以参考。</p><p>大气散射模型为：<script type="math/tex">I(p)=J(p) \times T(p)+A(p) \times(1-T(p))</script>，I是输入的含雾的图像； J是所需要的没有雾的图像；T是传输图(trasmission map),传输地图，其表示影响光的到达照相机传感器的距离相关的分量；A是全局的大气散射图，代表着环境的光强度。深度学习方法将图像去雾任务视为layer separation model，分成无雾层和有雾层。</p><p>论文把两种建模方式进行融合，提高去雾的表现。<br>另外论文还指出：这些功能的除雾预测可以捕获大多数背景细节，但是许多非雾细节也会因雾而损坏。 另一方面，深CNN层的要素负责捕获语义信息以消除输入图像中的大多数雾度，但由于它们的接收场比浅层大，因此某种程度上缺乏非雾背景细节。</p><p>网络结构如下：<br><img src="/2020/01/30/DM2FNet/1.png" width="1"><br><img src="/2020/01/30/DM2FNet/2.png" width="2"><br><img src="/2020/01/30/DM2FNet/3.png" width="3"></p><p>论文说明了，使用多种建模方法进行模型融合可能会获得更好的结果，这启发我们是否可以在其他low-level tasks上也使用类似的方法进行融合呢？此外，论文的cross-scale设计的还是可以的，具有较大的借鉴意义.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ICCV2019论文。&lt;a href=&quot;https://blog.csdn.net/Najlepszy/article/details/103354223&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CSDN&lt;/a&gt;上有这篇论文的一个解析，可以参考。&lt;/
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+      <category term="dehaze" scheme="https://zeyuxiao1997.github.io/tags/dehaze/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】MOIRE PATTERN REMOVAL WITH MULTI-SCALE FEATURE ENHANCING NETWORK(ICMEW2019)</title>
+    <link href="https://zeyuxiao1997.github.io/2020/01/30/MFSE/"/>
+    <id>https://zeyuxiao1997.github.io/2020/01/30/MFSE/</id>
+    <published>2020-01-30T04:03:54.000Z</published>
+    <updated>2020-01-30T07:37:14.974Z</updated>
+    
+    <content type="html"><![CDATA[<p>ICMEW2019的论文。</p><p>论文基于以下出发点：高分辨率的底层特征有空间信息；低分辨率的高层特征有语义信息；之前的方法没有将两者良好结合，并且在cross-scale的时候没有结合不同scale上的features。</p><p>因此论文用下面的网络结构进行摩尔纹去除。<br><img src="/2020/01/30/MFSE/1.png" width="1"><br><img src="/2020/01/30/MFSE/2.png" width="2"><br>loss function是常规的loss。</p><p>论文比较好的地方是，通过融合不同深度的特征和不同语义、高频信息进行摩尔纹去除。这个和之前的HENet有异曲同工之妙.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ICMEW2019的论文。&lt;/p&gt;
+&lt;p&gt;论文基于以下出发点：高分辨率的底层特征有空间信息；低分辨率的高层特征有语义信息；之前的方法没有将两者良好结合，并且在cross-scale的时候没有结合不同scale上的features。&lt;/p&gt;
+&lt;p&gt;因此论文用下面的网络结构进行
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+      <category term="demoire" scheme="https://zeyuxiao1997.github.io/tags/demoire/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ISP Pipeline</title>
+    <link href="https://zeyuxiao1997.github.io/2020/01/30/ISPPipeline/"/>
+    <id>https://zeyuxiao1997.github.io/2020/01/30/ISPPipeline/</id>
+    <published>2020-01-30T01:29:57.000Z</published>
+    <updated>2020-01-31T06:46:30.645Z</updated>
+    
+    <content type="html"><![CDATA[<p>【coming soon】</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;【coming soon】&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="theoretical analysis" scheme="https://zeyuxiao1997.github.io/categories/theoretical-analysis/"/>
+    
+    
+      <category term="photography theory" scheme="https://zeyuxiao1997.github.io/tags/photography-theory/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Demoire的一些知识点</title>
+    <link href="https://zeyuxiao1997.github.io/2020/01/29/DemoireeireRelated/"/>
+    <id>https://zeyuxiao1997.github.io/2020/01/29/DemoireeireRelated/</id>
+    <published>2020-01-29T07:41:24.000Z</published>
+    <updated>2020-01-30T04:04:30.707Z</updated>
+    
+    <content type="html"><![CDATA[<!-- <font color='red'> </font> --><p>这里主要是看了几篇硕博论文后，摘录出来的一些关于Demoire上可能有用的KeyPoints。<br>后面附上我阅读Demoire论文的笔记链接</p><h1 id="《基于图像分解的纹理图像摩尔纹消除方法》-2016天大"><a href="#《基于图像分解的纹理图像摩尔纹消除方法》-2016天大" class="headerlink" title="《基于图像分解的纹理图像摩尔纹消除方法》(2016天大)"></a>《基于图像分解的纹理图像摩尔纹消除方法》(2016天大)</h1><h2 id="大致思路"><a href="#大致思路" class="headerlink" title="大致思路"></a>大致思路</h2><p>纹理图像中摩尔纹现象是由数码相机场景采集过程中欠采样导致，纹理高频信息在采样频率下混叠到低频成分即对应空间域可见的摩尔纹结构。结合<font color="red"> 人眼对高频色彩信息的不敏感特性</font>，论文将纹理图像中的摩尔纹干扰简化为<font color="red">加性干扰模型</font>，即摩尔纹干扰降质纹理图像可分解为纹理图像成分和摩尔纹成分，通过设计合理的非相关特征分别约束纹理图像成分和摩尔纹成分，从而实现两者的有效分离。</p><h2 id="keypoints"><a href="#keypoints" class="headerlink" title="keypoints"></a>keypoints</h2><ul><li><p>考虑到Bayer CFA应用于数码相机成像设备中，输入的摩尔纹干扰降质纹理图像I中，相比红蓝两色通道，<font color="blue"> 绿色通道的图像信息采样频率最高，摩尔纹干扰程度最小</font>。【这一点感觉还是比较靠谱的，看MopNet里面展示的效果图确实看出来绿色通道上摩尔纹干扰最小，也许可以使用绿色做文章，是不是可以把绿色作为prior】</p></li><li><p>摩尔纹的频域能量分布集中</p></li><li><p>无论是空域结构统计特性还是频域能量分布，摩尔纹成分都和自然图像信息特性比较接近，相比图像去噪问题，摩尔纹消除方法研究更具有挑战性</p></li><li><p>LED屏幕的摩尔纹成分与屏幕显示图像无关，只和屏幕显示器显示参数、数码相机参数和成像位置角度有关。所以，屏摄图像中的摩尔纹成分和图像信息具有<font color="blue">加性关系</font>。</p></li><li><p>摩尔纹图案类似于结构性的干扰，图像去雨、扫描图像去网纹等图像分解算法对去摩尔有一定的作用。将纹理图像中摩尔纹与纹理成分间的关系简化为加性模型提供了思路借鉴。</p></li><li><p>用导向滤波后，同时红、蓝色通道内的纹理结构信息几乎完全保留</p></li><li><p>论文将图像模型简化为加性模型，然而实际情况下，摩尔纹分量与纹理分量在频域存在能量混叠，因此容易将纹理信息误判为摩尔纹成分，纹理恢复图像中存在轻微的振铃效应。另外，由于导向滤波算法本身固有的缺陷，容易导致恢复图像的局部出现光晕现象。</p></li></ul><h1 id="《基于CCD静态图像的摩尔纹去除算法研究》-2012南理工"><a href="#《基于CCD静态图像的摩尔纹去除算法研究》-2012南理工" class="headerlink" title="《基于CCD静态图像的摩尔纹去除算法研究》(2012南理工)"></a>《基于CCD静态图像的摩尔纹去除算法研究》(2012南理工)</h1><h2 id="keypoints-1"><a href="#keypoints-1" class="headerlink" title="keypoints"></a>keypoints</h2><ul><li><p>常见的几种CFA(color filter array)：Bayer型CFA, Mosaic型CFA, Stripe型CFA等，下图按次序依次表示上述三种CFA<img src="/2020/01/29/DemoireeireRelated/2.png" title="CFA"></p></li><li><p>人眼视觉对亮度的敏感度大于对色彩的敏感度。在Bayer模板中，绿色采样点的分布呈梅花点状，红色和蓝色点呈四方形分布。采样总数的1/2是绿色像素，这是人眼对绿色波长能量更为敏感的缘故，亮度信息主要反映在绿色分量之中，这样的数量分配使得人眼看到的亮度更为适宜，因此Bayer模板具有较好的彩色信号敏感特性和彩色恢复特性</p></li><li><p>采用Bayer CFA滤波后，每个像素只有红、绿、蓝一种分量。(a)图为经过单片CCD采集的原始图像，任意选取一块区域用红框表示，将框内区域放大如图(b)。在放大的图像里，可以清晰地看到红框内像素的排列格式。此时图像是不完整的，只有1/3的信息，为了得到完整的彩色图像，必须估算每个采样点的另外两个颜色分量值，这个估算的过程也被称为是去马赛克</p><img src="/2020/01/29/DemoireeireRelated/1.png" width="1"></li><li><p>只有在含有密布纹理的图像里才会出现摩尔纹，摩尔纹不会出现在一幅平滑的图像里。</p></li></ul><h1 id="我的笔记"><a href="#我的笔记" class="headerlink" title="我的笔记"></a>我的笔记</h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;!-- &lt;font color=&#39;red&#39;&gt; &lt;/font&gt; --&gt;
+&lt;p&gt;这里主要是看了几篇硕博论文后，摘录出来的一些关于Demoire上可能有用的KeyPoints。&lt;br&gt;后面附上我阅读Demoire论文的笔记链接&lt;/p&gt;
+&lt;h1 id=&quot;《基于图像分解的纹理图像摩尔纹消
+      
+    
+    </summary>
+    
+      <category term="Summary" scheme="https://zeyuxiao1997.github.io/categories/Summary/"/>
+    
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+      <category term="demoire" scheme="https://zeyuxiao1997.github.io/tags/demoire/"/>
+    
+  </entry>
   
   <entry>
     <title>【论文阅读】HIGH RESOLUTION DEMOIRE NETWORK(submit to ICIP?)</title>
@@ -81,15 +353,15 @@
     <link href="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/"/>
     <id>https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/</id>
     <published>2020-01-06T04:11:28.000Z</published>
-    <updated>2020-01-06T04:30:22.155Z</updated>
+    <updated>2020-01-31T06:44:39.244Z</updated>
     
-    <content type="html"><![CDATA[<p>Siggraph Asia2019的工作，</p>]]></content>
+    <content type="html"><![CDATA[<p>Siggraph Asia2019的工作，<br>【coming soon】</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;Siggraph Asia2019的工作，&lt;/p&gt;
+        &lt;p&gt;Siggraph Asia2019的工作，&lt;br&gt;【coming soon】&lt;/p&gt;
 
       
     
@@ -225,9 +497,9 @@
     <link href="https://zeyuxiao1997.github.io/2019/11/15/index/"/>
     <id>https://zeyuxiao1997.github.io/2019/11/15/index/</id>
     <published>2019-11-15T01:52:15.000Z</published>
-    <updated>2020-01-29T07:38:20.877Z</updated>
+    <updated>2020-02-01T03:43:09.251Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="SIGGRAPH"><a href="#SIGGRAPH" class="headerlink" title="SIGGRAPH"></a>SIGGRAPH</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Manipulating Atributes of Natural Scenes via Hallucination</td><td><a href="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/">笔记</a></td><td>SiggraphAsia2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="CVPR"><a href="#CVPR" class="headerlink" title="CVPR"></a>CVPR</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ECCV"><a href="#ECCV" class="headerlink" title="ECCV"></a>ECCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ICCV"><a href="#ICCV" class="headerlink" title="ICCV"></a>ICCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Face Video Deblurring using 3D Facial Priors</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>ICCV2019</td></tr><tr><td>Mop Moire Patterns Using MopNet</td><td><a href="https://zeyuxiao1997.github.io/2020/01/27/MopNet/">笔记</a></td><td>ICCV2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="NIPS"><a href="#NIPS" class="headerlink" title="NIPS"></a>NIPS</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="JOURNAL"><a href="#JOURNAL" class="headerlink" title="JOURNAL"></a>JOURNAL</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>A Video Deblurring Algorithm Based on Motion Vector and An Encorder-Decoder Network</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>IEEE Access 2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="PREPRINT"><a href="#PREPRINT" class="headerlink" title="PREPRINT"></a>PREPRINT</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>EnlightenGAN：Deep Light Enhancement without Paired Supervision</td><td><a href="https://zeyuxiao1997.github.io/2020/01/06/VDMV/">https://zeyuxiao1997.github.io/2020/01/06/VDMV/</a></td><td>arxiv201906</td></tr><tr><td>HIGH RESOLUTION DEMOIRE NETWORK</td><td><a href="https://zeyuxiao1997.github.io/2020/01/27/HRDN/">笔记</a></td><td>github</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div>]]></content>
+    <content type="html"><![CDATA[<h1 id="SIGGRAPH"><a href="#SIGGRAPH" class="headerlink" title="SIGGRAPH"></a>SIGGRAPH</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Manipulating Atributes of Natural Scenes via Hallucination</td><td><a href="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/">笔记</a></td><td>SiggraphAsia2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="CVPR"><a href="#CVPR" class="headerlink" title="CVPR"></a>CVPR</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>CRRN：Multi-Scale Guided Concurrent Reflection Removal Network</td><td><a href>笔记</a></td><td>CVPR2018</td></tr><tr><td>Single Image Deraining：A Comprehensive Benchmark Analysis</td><td><a href>笔记</a></td><td>CVPR2019</td></tr><tr><td>Pyramid Convolutional Network for Single Image Deraining</td><td><a href>笔记</a></td><td>CVPRW2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ECCV"><a href="#ECCV" class="headerlink" title="ECCV"></a>ECCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Bidirectional Feature Pyramid Network with Recurrent Attention Residual Modules for Shadow Detection</td><td><a href>笔记</a></td><td>ECCV2018</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ICCV"><a href="#ICCV" class="headerlink" title="ICCV"></a>ICCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Face Video Deblurring using 3D Facial Priors</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>ICCV2019</td></tr><tr><td>Mop Moire Patterns Using MopNet</td><td><a href="https://zeyuxiao1997.github.io/2020/01/27/MopNet/">笔记</a></td><td>ICCV2019</td></tr><tr><td>Deep Multi-Model Fusion for Single-Image Dehazing</td><td><a href>笔记</a></td><td>ICCV2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="OTHER-CV-conference"><a href="#OTHER-CV-conference" class="headerlink" title="OTHER CV conference"></a>OTHER CV conference</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>MOIRE PATTERN REMOVAL WITH MULTI-SCALE FEATURE ENHANCING NETWORK</td><td><a href>笔记</a></td><td>ICMEW2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="NIPS-ICLR-ICML"><a href="#NIPS-ICLR-ICML" class="headerlink" title="NIPS+ICLR+ICML"></a>NIPS+ICLR+ICML</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="JOURNAL"><a href="#JOURNAL" class="headerlink" title="JOURNAL"></a>JOURNAL</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>A Video Deblurring Algorithm Based on Motion Vector and An Encorder-Decoder Network</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>IEEE Access 2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="PREPRINT"><a href="#PREPRINT" class="headerlink" title="PREPRINT"></a>PREPRINT</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>EnlightenGAN：Deep Light Enhancement without Paired Supervision</td><td><a href="https://zeyuxiao1997.github.io/2020/01/06/VDMV/">https://zeyuxiao1997.github.io/2020/01/06/VDMV/</a></td><td>arxiv201906</td></tr><tr><td>HIGH RESOLUTION DEMOIRE NETWORK</td><td><a href="https://zeyuxiao1997.github.io/2020/01/27/HRDN/">笔记</a></td><td>github</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div>]]></content>
     
     <summary type="html">
     

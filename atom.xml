@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zeyuxiao1997.github.io/"/>
-  <updated>2020-02-05T12:00:16.912Z</updated>
+  <updated>2020-02-10T13:22:24.763Z</updated>
   <id>https://zeyuxiao1997.github.io/</id>
   
   <author>
@@ -15,6 +15,360 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>STSR</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/10/STSR/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/10/STSR/</id>
+    <published>2020-02-10T07:54:23.000Z</published>
+    <updated>2020-02-10T13:22:24.763Z</updated>
+    
+    <content type="html"><![CDATA[<p>PAMI2005的上古论文。</p><h1 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h1><p>空间分辨率由照相机中检测器的空间密度及其引起的模糊确定。时间分辨率取决于帧速率和相机的曝光时间。 这些限制了可以在视频序列中观察到的动态事件的最大速度。<br>现有用于超分辨率的方法通常假设静态场景的空间分辨率有限，并且无法解决动态场景中有限的时间分辨率；论文将超分辨率的概念扩展到时空域。<br>对于一个运动变化极快的场景(比如打球)，视频记录仪器很难正确的记录下球的正确轨迹：这就有两种现象：</p><ul><li>motion blur：由相机的曝光时间引起。通过增加时间分辨率</li><li>motion aliasing：相机的下采样引起（也就是帧率问题）。比如曲线运动变成了直线运动，信息恢复不了。</li></ul><h1 id="STSR"><a href="#STSR" class="headerlink" title="STSR"></a>STSR</h1><p>时间分辨率的大幅提高通常以空间分辨率的大幅提升为代价，反之亦然。两者存在trade-off。</p><p>temporal misalignment：不同的相机不同时间开机或相机本身的帧率就不同（可以通过时间的一维仿射变换来建模此类时间不对准，并且通常以子帧时间为单位</p><p>spatial misalignment：由于相机外部信息（pose、rotation）和内部信息不同（zoom）造成，可以通过homography解决</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;PAMI2005的上古论文。&lt;/p&gt;
+&lt;h1 id=&quot;introduction&quot;&gt;&lt;a href=&quot;#introduction&quot; class=&quot;headerlink&quot; title=&quot;introduction&quot;&gt;&lt;/a&gt;introduction&lt;/h1&gt;&lt;p&gt;空间分辨率由照相
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+      <category term="super resolution" scheme="https://zeyuxiao1997.github.io/tags/super-resolution/"/>
+    
+      <category term="video" scheme="https://zeyuxiao1997.github.io/tags/video/"/>
+    
+      <category term="interpolation" scheme="https://zeyuxiao1997.github.io/tags/interpolation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/08/PoolNet/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/08/PoolNet/</id>
+    <published>2020-02-08T05:18:22.000Z</published>
+    <updated>2020-02-10T07:55:31.358Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2019论文，关注实时显著性检测。<a href="https://blog.csdn.net/P_LarT/article/details/90605128" target="_blank" rel="noopener">CSDN</a>和<a href="https://www.linkresearcher.com/theses/672fe653-2fac-4088-b0ce-b0a250df65cc" target="_blank" rel="noopener">网站</a>有讲解，可参考。</p><p>在U型结构的特征网络中，高层富含语义特征捕获的位置信息在自底向上的传播过程中可能会逐渐被稀释；在[Pyramid scene parsing network]所指出的，CNN的感受野大小与其层深度不成比例。现有方法通过将注意机制引入U形结构，以循环方式细化特征图，结合多尺度特征信息来解决上述问题，或者在显着性图中添加额外约束，如[Non-local deep features for salient object detection]中的边界损失项。【这里好像MopNet就是类似的方法】</p><h1 id="GGM（全局引导模块）"><a href="#GGM（全局引导模块）" class="headerlink" title="GGM（全局引导模块）"></a>GGM（全局引导模块）</h1><p>我们知道高层语义特征对挖掘显著对象的详细位置是很有帮助的，但是中低层的语义特征也可以提供必要的细节。因为在 top-down 的过程中，高层语义信息被稀释，而且实际上的感受野也是小于理论感受野，所以对于全局信息的捕捉十分的缺乏，导致显著物体被背景吞噬。</p><p>因此作者提出了 GGM 模块，GGM 其实是 PPM（Pyramid Pooling module，金字塔池化模块）的改进并且加上了一系列的 GGFs（Global Guiding Flows，全局引导流），这样做的好处是，在特征图上的每层都能关注到显著物体，另外不同的是，GGM 是一个独立的模块，而 PPM 是在 U 型架构中，在基础网络（backbone）中参与引导全局信息的过程。 </p><p>其实这部分论文说得并不是很清晰，没有说 GGM 的详细结构，我们可以知道 PPM [7] 的结构如下：<br><img src="/2020/02/08/PoolNet/4.png" width="4"></p><p>该 PPM 模块融合了 4 种不同金字塔尺度的特征，第一行红色是最粗糙的特征–全局池化生成单个 bin 输出，后面三行是不同尺度的池化特征。为了保证全局特征的权重，如果金字塔共有 N 个级别，则在每个级别后使用 1×1 的卷积将对于级别通道降为原本的 1/N。再通过双线性插值获得未池化前的大小，最终 concat 到一起。 </p><p>如果明白了这个的话，其实 GGM 就是在 PPM 的结构上的改进，PPM 是对每个特征图都进行了金字塔池化，所以作者说是嵌入在 U 型结构中的，但是他加入了 global guiding flows（GGFs），即 Fig1 中绿色箭头，引入了对每级特征的不同程度的上采样映射（文中称之为 identity mapping），所以可以是个独立的模块。简单地说，作者想要 FPN 在 top-down 的路径上不被稀释语义特征，所以在每次横向连接的时候都加入高层的语义信息，这样做也是一个十分直接主观的想法。 </p><h1 id="FAM（特征整合模块）"><a href="#FAM（特征整合模块）" class="headerlink" title="FAM（特征整合模块）"></a>FAM（特征整合模块）</h1><p>特征整合模块也是使用了池化技巧的模块，如下图，先把 GGM 得到的高层语义与该级特征分别上采样之后横向连接一番得到 FAM 的输入 b，之后采取的操作是先把 b 用 {2,4,8} 的三种下采样得到蓝绿红特征图然后 avg pool（平均池化）再上采样回原来尺寸，最后蓝绿红紫（紫色是 FAM 的输入 b）四个分支像素相加得到整合后的特征图。<br><img src="/2020/02/08/PoolNet/2.png" width="2"></p><p>FAM 有以下两个优点： </p><ul><li>帮助模型降低上采样（upsample）导致的混叠效应（aliasing）；</li><li>从不同的多角度的尺度上纵观显著物体的空间位置，放大整个网络的感受野。<br>第二点很容易理解，从不同角度看，不同的放缩尺度看待特征，能够放大网络的感受野。对于第一点降低混叠效应的理解，用明珊师姐说的话，混叠效应就相当于引入杂质，GGFs 从基础网络最后得到的特征图经过金字塔池化之后需要最高是 8 倍上采样才能与前面的特征图融合，这样高倍数的采样确实容易引入杂质。作者就是因为这样才会提出 FAM，进行特征整合，先把特征用不同倍数的下采样，池化之后，再用不同倍数的上采样，最后叠加在一起。因为单个高倍数上采样容易导致失真，所以补救措施就是高倍数上采样之后，再下采样，再池化上采样平均下来可以弥补错误。</li></ul><img src="/2020/02/08/PoolNet/3.png" width="3"><p>上图就是为了说明 FAM 的优点的，经过高倍上采样之后的图像（b）和（d）容易引入许多杂质，致使边缘不清晰，但是经过 FAM 模块之后的特征图就能降低混叠效应。【这里的可视化方法值得学习，可以用在论文中】</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CVPR2019论文，关注实时显著性检测。&lt;a href=&quot;https://blog.csdn.net/P_LarT/article/details/90605128&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CSDN&lt;/a&gt;和&lt;a href=&quot;htt
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="high-level" scheme="https://zeyuxiao1997.github.io/tags/high-level/"/>
+    
+      <category term="salient object detection" scheme="https://zeyuxiao1997.github.io/tags/salient-object-detection/"/>
+    
+      <category term="real-time" scheme="https://zeyuxiao1997.github.io/tags/real-time/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/08/BANet/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/08/BANet/</id>
+    <published>2020-02-08T02:05:07.000Z</published>
+    <updated>2020-02-08T03:51:11.503Z</updated>
+    
+    <content type="html"><![CDATA[<p>arxiv201901的论文，关注于人像分割。与通用语义分割任务相比，Portrait分割需要更高的精度和更快的速度。现有方法问题主要有下面几个：</p><ul><li>首先是数据集，即使是标注的比较好的数据集，在人物边缘区域仍然不能将细节标注出来，这样的监督网络学不到；</li><li>再有就是现在的肖像分割网络用的backbone输出的size小，不能刻画fine detail</li></ul><p>论文也采用分支结构，但是两个分支没有完全割裂开。low-level branch is guided by high-level branch via a boundary attention map。</p><p>论文认为，没有边界的区域应该使用大感受野获得全局语义信息；有边界区域应该使用小感受野关注局部特征。网络结构如图所示：<img src="/2020/02/08/BANet/1.png" width="1"></p><p>Segmentation Loss：BCE loss<br>Boundary Attention Loss：BA loss，BCE loss<br>Refine Loss：The first part Lcos uses cosine distance to supervise the gradient direction of segmentation confidence map, Lmag brings a constrain on gradient magnitude to inforce the network produce clear and sharp results.<br>总的loss是三者加权和。<br>值得注意的是，refine loss 需要图像梯度。论文作者使用 a Gradient Calculation Layer(GCL) 在GPU上计算， Sobel 描述符作为滤波器。<br><img src="/2020/02/08/BANet/2.png" width="2"></p><p>代码实现的loss可以参考第三方实现：<a href="https://github.com/suruoxi/BANet/blob/master/loss.py" target="_blank" rel="noopener">https://github.com/suruoxi/BANet/blob/master/loss.py</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;arxiv201901的论文，关注于人像分割。与通用语义分割任务相比，Portrait分割需要更高的精度和更快的速度。现有方法问题主要有下面几个：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;首先是数据集，即使是标注的比较好的数据集，在人物边缘区域仍然不能将细节标注出来，这样的监督网络学不到
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="high-level" scheme="https://zeyuxiao1997.github.io/tags/high-level/"/>
+    
+      <category term="real-time" scheme="https://zeyuxiao1997.github.io/tags/real-time/"/>
+    
+      <category term="portrait segmentation" scheme="https://zeyuxiao1997.github.io/tags/portrait-segmentation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】DABNet:Depth-wise Asymmetric Bottleneck for Real-time Semantic Segmentation</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/07/DABNet/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/07/DABNet/</id>
+    <published>2020-02-07T13:18:34.000Z</published>
+    <updated>2020-02-07T15:09:17.101Z</updated>
+    
+    <content type="html"><![CDATA[<p>BMVC2019论文，关注实时语义分割。</p><p>现有实时方法，主要有几个途径：</p><ul><li>空洞卷积，在不增加参数的情况下增加感受野</li><li>depth-wise separable convolution</li></ul><p>但是暴力的将上面两种方法进行替换并不能取得最好的结果，因此论文就设计了一种网络框架，用于两种方法的结合。</p><ul><li>DAB module：</li></ul><ol><li><p>作者首先采用了3<em>3的卷积去减少channel，而不是1</em>1的卷积。虽然1<em>1的卷积能够减少计算量。但是1</em>1的卷积在resnet中采用主要是为了加深网络的深度，但是这里不需要网络深度100层以上。</p></li><li><p>为了更好的获取空间信息，作者在卷积之后将channel数减少了一般，并没有压缩太多。</p></li><li><p>由于之前的网路结构已经证实分层的网络会对语义分割任务更有效，所以DAB module也是融合多尺度的信息，感觉也是借鉴了bisenet，采用了双分支的结构。</p></li></ol><p>一个分支获取local information，为了减少计算量，借鉴了erfnet采用了将n<em>n的卷积分解成n</em>1深度可分离卷积和1*n的深度可分离卷积。</p><p>一个分支为了获取边缘语义信息，采用空洞卷积，在不减少分辨率的情况下。但是空洞卷积随着rate的增大，计算量也会变大。为了解决这个问题，作者将其与depth-wise asymmetric convolution结合。所以叫做depth-wise asymmetric dilated convolution。</p><p>激活函数：作者采用了前置激活的策略（conv之前做激活），参考（Identity mappings in deep residual networks ICCV 2016），并且Mobilenetv2: Inverted residuals and linear bottlenecks中提出了non-linear layers in bottlenecks hurts the performance。所以在1*1的point-wise convolution之删除了non-linearity</p><p>Downsampling策略：作者没有像enet一样一上来就下采样而是先用3*3卷积减少通道然后采用enet initial block，之后再经过一次不加max pooling的下采样。借鉴ESPNetv2中的方法，利用了long-range shortcut connection融合原图和downsampling block。</p><p>DAB block：做block内的信息融合，采用可空洞卷积。毕竟dense connect的方式效果还是很显著的。</p><p>DABnet:无decoder</p><p>这里采用了不少trick，值得学习和借鉴！！</p><p>实验结果表明：</p><ol><li><p>空洞卷积rate{3, 3, 7, 7, 13, 13}要比{4, 4, 8, 8, 16, 16}高2.3个点。</p></li><li><p>加上decoder效果提升不大，但是很影响速度。</p></li><li><p>加入spp有效果提升，但是也会影响速度。</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;BMVC2019论文，关注实时语义分割。&lt;/p&gt;
+&lt;p&gt;现有实时方法，主要有几个途径：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;空洞卷积，在不增加参数的情况下增加感受野&lt;/li&gt;
+&lt;li&gt;depth-wise separable convolution&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但是暴
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="high-level" scheme="https://zeyuxiao1997.github.io/tags/high-level/"/>
+    
+      <category term="real-time" scheme="https://zeyuxiao1997.github.io/tags/real-time/"/>
+    
+      <category term="semantic segmentation" scheme="https://zeyuxiao1997.github.io/tags/semantic-segmentation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】Fast-SCNN:Fast Semantic Segmentation Network</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/07/FastSCNN/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/07/FastSCNN/</id>
+    <published>2020-02-07T11:10:35.000Z</published>
+    <updated>2020-02-07T12:33:07.541Z</updated>
+    
+    <content type="html"><![CDATA[<p>BMVC2019论文。<a href="https://blog.csdn.net/calvinpaean/article/details/88534052" target="_blank" rel="noopener">CSDN</a>可以参考论文解析。</p><p>现有实时语义分割网络大多采用two-branch的结构，一路在高分辨率上采集空间信息，一路downsample后在低分辨率上采集语义信息，然后使用某种新奇方法融合两种不同形式特征，从而兼顾高低分辨率、高低层次信息，使得网络可以达到实时计算并且精确度不错。<br>下面三幅图是本文主要强调的三种2-branch的结构图。<br><img src="/2020/02/07/FastSCNN/1.png" width="1"><br><img src="/2020/02/07/FastSCNN/2.png" width="2"><br><img src="/2020/02/07/FastSCNN/3.png" width="3"></p><p>论文网络结构如下，<br><img src="/2020/02/07/FastSCNN/4.png" width="4"></p><ul><li>Adding few layers after the feature fusion module boosts the accuracy</li></ul><img src="/2020/02/07/FastSCNN/5.png" width="4"><p>PPM模块如图：<img src="/2020/02/07/FastSCNN/ppm.png" title="ppm"></p><p>在特征融合上，论文进行相加，避免引入过多参数量。</p><p>State of art 的方法如 BiSeNet, GUN等都使用了 two-branch 网络。我们的 learn to downsample 模块和它们的 spatial path 等价，因为它们都很浅，从全分辨率输入上学习，用在特征融合模块中（图1）。</p><p>我们的全局特征提取模块和这些方法中的较深的低分辨率 branch 等价。但是，我们的全局特征提取器将它前几个层的计算与 learn to downsample 模块进行了共享。通过共享这几个层，我们不仅将第了特征提取的计算复杂度，也将第了输入的大小，Fast-SCNN 使用1/8的分辨率，而不是全局特征提取阶段的1/4分辨率。</p><p>Fast-SCNN 可被看作 encoder-decoder 方法的特例，如 FCN 或 U-Net。但是，不像FCN中的 multiple skip connections 或者 U-Net 中的 dense skip connections，Fast-SCNN 只使用了单个 skip connections 来降低计算量和内存消耗。</p><p>这篇论文从另一个角度展示了two-branch的设计方法，还是有借鉴意义的。提示我们，不同深度上的特征可以进行不同程度的复用，然后再进行融合。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;BMVC2019论文。&lt;a href=&quot;https://blog.csdn.net/calvinpaean/article/details/88534052&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CSDN&lt;/a&gt;可以参考论文解析。&lt;/p&gt;
+&lt;p&gt;现
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="high-level" scheme="https://zeyuxiao1997.github.io/tags/high-level/"/>
+    
+      <category term="real-time" scheme="https://zeyuxiao1997.github.io/tags/real-time/"/>
+    
+      <category term="semantic segmentation" scheme="https://zeyuxiao1997.github.io/tags/semantic-segmentation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>轻量级网络模型</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/07/lightModel/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/07/lightModel/</id>
+    <published>2020-02-07T09:12:42.000Z</published>
+    <updated>2020-02-07T11:10:14.926Z</updated>
+    
+    <content type="html"><![CDATA[<p>轻量级网络模型汇总，先mark一下，日后慢慢看。</p><ul><li><a href="https://zhuanlan.zhihu.com/p/64699779" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/64699779</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;轻量级网络模型汇总，先mark一下，日后慢慢看。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/64699779&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://zhuanlan.zhi
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="network architecture design" scheme="https://zeyuxiao1997.github.io/tags/network-architecture-design/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】DFANet:Deep Feature Aggregation for Real-Time Semantic Segmentation</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/07/DFANet/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/07/DFANet/</id>
+    <published>2020-02-07T07:07:55.000Z</published>
+    <updated>2020-02-07T09:07:54.764Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2019论文，旷视的事实语义分割。<a href="https://blog.csdn.net/Blankit1/article/details/95057018" target="_blank" rel="noopener">CSDN1</a>、<a href="https://blog.csdn.net/LawenceRay/article/details/94620787" target="_blank" rel="noopener">CSDN2</a>有相关讲解，可参考。</p><p>现有实时语义分割算法通过限制input image大小或者是进行冗余channel剪枝进行加速。现有网络在特征重用上做的并不是很好，割裂了深层特征和浅层特征的融合机制。</p><p>本文采用的网络模型结构如下图：横向的三层淡蓝色的结构代表三个级联的backbone，可视作encoder，最后一行是decoder部分。文章中关注的是encoder中的特征聚合方式，主要包括两点：sub-network aggregation、sub-stage aggregation，下面结合这张图说明。<br><img src="/2020/02/07/DFANet/1.png" width="1"></p><p>看了这个图感觉就像是连连看。可能对本质的分析和改进还不是那么那么充分。我还需要再看看那些经典的backbone吧.</p><p><a href="https://zhuanlan.zhihu.com/p/68126193" target="_blank" rel="noopener">知乎</a>有xiangyu zhang在valse2019上的报告总结，可以参看</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CVPR2019论文，旷视的事实语义分割。&lt;a href=&quot;https://blog.csdn.net/Blankit1/article/details/95057018&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CSDN1&lt;/a&gt;、&lt;a href=&quot;
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="high-level" scheme="https://zeyuxiao1997.github.io/tags/high-level/"/>
+    
+      <category term="real-time" scheme="https://zeyuxiao1997.github.io/tags/real-time/"/>
+    
+      <category term="semantic segmentation" scheme="https://zeyuxiao1997.github.io/tags/semantic-segmentation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】ThunderNet:Towards Real-time Generic Object Detection on Mobile Devices</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/07/ThunderNet/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/07/ThunderNet/</id>
+    <published>2020-02-07T02:58:24.000Z</published>
+    <updated>2020-02-07T11:05:37.677Z</updated>
+    
+    <content type="html"><![CDATA[<p>ICCV2019论文，实现了ARM平台上的第一个实时检测器和最快的单线程速度。<a href="https://zhuanlan.zhihu.com/p/61113865" target="_blank" rel="noopener">知乎</a>上有论文讲解，可以参考。</p><p>现有方法(当然我没有看过相关论文)有one-stage和two-stage，one-stage在精度上显然会更差；two-stage在时间上更久。现有的实时检测网络大多是基于one-stage的。MobileNet和ShuffleNet是经常采用的检测backbone，但是这些backbone来源于classification，对于检测并不是最优的。</p><ul><li>Backbone的设计思路</li></ul><ul><li><p>背景：大的感受野有助于提供全局信息，在分割和检测中是重要的；在backbone中，浅层信息和深层信息都很重要（这个和SR是一致的）</p></li><li><p>将shufflenetV2的3x3卷积替换成5x5，这里感受野变大但是计算速度没有大太多</p></li><li>作者在ShufflenetV2的基准下，结合上述特性对ShufflenetV2进行修改并命名为SNet。如下图所示，作者给出了集中不同形式的SNet网络。<img src="/2020/02/07/ThunderNet/1.png" width="1"></li></ul><ul><li>Context Enhancement Module </li></ul><ul><li>Light-Head R-CNN网络中在骨干网络之后利用GCN:Global Convolutional Network产生更小的特征图，这虽然增加了感受野但却提升了计算复杂度，因此在本文提出的网络中没有使用GCN。然而，感受野小且在没有GCN的情况下网络很难提取到足够的可分辨的特征信息。 为了解决这个问题，本文使用了特征金字塔网络（FPN）。 然而，原始的FPN结构涉及许多额外的卷积和多个检测分支，这增加了计算成本并且引起了巨大的运行时间延迟。因此，基于FPN，本文提出了Context Enhancement Module (CEM)，示意图如下。<img src="/2020/02/07/ThunderNet/2.png" width="2"></li><li>通过利用局部和全局信息，CEM有效地扩大了感受野，并细化了薄特征图的表示能力。与先前的FPN结构相比，CEM仅涉及两个1×1卷积和fc层，这更加计算友好。</li></ul><ul><li>Spatial Attention Module</li></ul><ul><li>在进行RoI操作的时候，我们期望背景区域中的特征不被关注，且前景物体的特征被强烈关注。 然而，由于本文的检测网络利用的是轻量级骨干网络和小分辨率输入图像，因此很难学习到正确的特征分布。出于这个原因，作者设计了一个计算友好的空间注意模块（SAM），以便在RoI扭曲空间维度之前显式地重新加权特征图，引导网络学习到正确的前景背景特征分布。SAM的关键思想是使用来自RPN学习到的知识来细化特征图的特征分布。因为训练RPN网络时，网络就是以前景目标作为监督来训练的。 因此，RPN网络可以用于区分前景特征和背景特征。<img src="/2020/02/07/ThunderNet/3.png" width="3"></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ICCV2019论文，实现了ARM平台上的第一个实时检测器和最快的单线程速度。&lt;a href=&quot;https://zhuanlan.zhihu.com/p/61113865&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;知乎&lt;/a&gt;上有论文讲解，可以参考。&lt;
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="high-level" scheme="https://zeyuxiao1997.github.io/tags/high-level/"/>
+    
+      <category term="real-time" scheme="https://zeyuxiao1997.github.io/tags/real-time/"/>
+    
+      <category term="object detection" scheme="https://zeyuxiao1997.github.io/tags/object-detection/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】Cascaded Partial Decoder for Fast and Accurate Salient Object Detection</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/06/CPD/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/06/CPD/</id>
+    <published>2020-02-06T11:43:19.000Z</published>
+    <updated>2020-02-07T03:00:31.908Z</updated>
+    
+    <content type="html"><![CDATA[<p>CVPR2019论文，快速显著性检测。</p><p>这是我接触的第一篇讲显著性检测的论文。需要先明确一下显著性检测的含义等。显著性检测基于人类视觉注意机制，在一个场景中，人眼第一个注意到的物体，就是显著性目标。因此显著性检测是基于待检测像素/超像素与背景区域/非显著性区域的对比度、频率、空间分布来计算显著性分值。一般来讲，显著性检测检测的是图像中“最显眼”的目标，所以当场景中有多个目标时，也只是检测出某一块目标区域。来源<a href="https://www.zhihu.com/question/265488900/answer/866005287" target="_blank" rel="noopener">知乎</a></p><p>现有方法主要是先用pretrained模型进行特征提取，然后将深层特征和浅层特征进行融合；但是论文认为，浅层特征分辨率高，占用计算资源；且深层信息也可以相对较好的表征浅层信息体现的空间细节信息，因此没必要融合太多的浅层细节。因此论文中丢弃浅层特征，refine深层信息。【SR中好像有类似的结论？或者是相反的结论，我记得SROBB的论文里面提到过，回头看一下】</p><p><a href="https://blog.csdn.net/P_LarT/article/details/89741755" target="_blank" rel="noopener">CSDN</a>上有这篇论文的详细介绍，我这里就不赘述了，下图是本文核心思想：<br><img src="/2020/02/06/CPD/2.png" width="2"></p><p>在decoder中，作者基于下面的结构进行了改进，增加了一路分支，用于更大感受野的信息提取。<br><img src="/2020/02/06/CPD/1.png" width="1"></p><p><a href="https://github.com/wuzhe71/CPD" target="_blank" rel="noopener">代码链接</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;CVPR2019论文，快速显著性检测。&lt;/p&gt;
+&lt;p&gt;这是我接触的第一篇讲显著性检测的论文。需要先明确一下显著性检测的含义等。显著性检测基于人类视觉注意机制，在一个场景中，人眼第一个注意到的物体，就是显著性目标。因此显著性检测是基于待检测像素/超像素与背景区域/非显著性区域
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="high-level" scheme="https://zeyuxiao1997.github.io/tags/high-level/"/>
+    
+      <category term="salient object detection" scheme="https://zeyuxiao1997.github.io/tags/salient-object-detection/"/>
+    
+      <category term="real-time" scheme="https://zeyuxiao1997.github.io/tags/real-time/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】Making a “Completely Blind” Image Quality Analyzer</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/06/NIQE/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/06/NIQE/</id>
+    <published>2020-02-06T06:48:48.000Z</published>
+    <updated>2020-02-06T11:23:30.105Z</updated>
+    
+    <content type="html"><![CDATA[<p>NIQE，Natural Image Quality Evaluator，是一种新的无参考图像质量指标。这篇文章详细介绍了现在在perceptual上广泛使用的评测指标NIQE。<a href="https://blog.csdn.net/xiaoxifei/article/details/103666186" target="_blank" rel="noopener">CSDN1</a>和<a href="https://www.cnblogs.com/RyanXing/p/NIQE.html" target="_blank" rel="noopener">CSDN2</a>也有针对这篇论文的理解。</p><p>主要思想是构建一个质量相关的特征集，然后用多元高斯模型拟合他们。</p><p>NIQE就是ECCV 2018年PIRM比赛时的评价指标，其原理同brusque几乎一模一样，因为一作是同一个人。前面36个特征提取方法几乎一模一样，只是NIQE在提取图像统计特征时先对图像提取了感兴趣区域，这一点源自于人眼更倾向于以图像中更清晰的部分来判断图像质量。所以作者通过计算图像中不同patch的方差场来判别清晰度，选择大于一定阈值的清晰度为自然图像的patch，而失真图像采用全局计算NSS。</p><p>所以我猜想，是不是针对性的提高某些显著性高的patch就可以attack这个指标呢？—&gt;所以接下来我会尝试看看显著性检测相关论文，看看能不能获得启发。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;NIQE，Natural Image Quality Evaluator，是一种新的无参考图像质量指标。这篇文章详细介绍了现在在perceptual上广泛使用的评测指标NIQE。&lt;a href=&quot;https://blog.csdn.net/xiaoxifei/article
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+      <category term="perceptual" scheme="https://zeyuxiao1997.github.io/tags/perceptual/"/>
+    
+      <category term="assessment" scheme="https://zeyuxiao1997.github.io/tags/assessment/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【论文阅读】ESRGAN：Enhanced Super-Resolution Generative Adversarial Networks</title>
+    <link href="https://zeyuxiao1997.github.io/2020/02/06/ESRGAN/"/>
+    <id>https://zeyuxiao1997.github.io/2020/02/06/ESRGAN/</id>
+    <published>2020-02-06T01:32:15.000Z</published>
+    <updated>2020-02-06T02:23:35.402Z</updated>
+    
+    <content type="html"><![CDATA[<p>ECCVW2018的论文，是SRGAN的加强版。相比于SRGAN，本文做了下面几个针对性的优化：</p><ul><li>去掉所有BN，将basic block替换成RRDB，如下图所示。BN层在SR、deblur任务中被证明会损害PSNR、引入伪影【当trainset和testset差距很大时，这种情况尤其明显，会降低网络泛化性】<img src="/2020/02/06/ESRGAN/1.png" width="1">在这里作者又发现了几个trick</li></ul><ul><li>可以使用残差缩放，即在将残差添加到主路径之前通过在0和1之间乘一个常数来缩小残差以防止不稳定</li><li>初始化要小。当初始参数方差变小时，残差体系更易于训练。</li></ul><ul><li>优化判别器的判别规则，从原来的真假判断变成相对真或相对假的判断。判别loss和生成loss可以看论文。<img src="/2020/02/06/ESRGAN/2.png" width="2"></li><li>优化perceptual loss的表现形式：从原来的激活后的特征变成激活前的特征送入pretrained的模型</li></ul><ul><li>激活后的特征非常稀疏，监督不强，导致性能差<img src="/2020/02/06/ESRGAN/3.png" width="3"></li><li>为了进一步优化perceptual loss，使用VGG在材料识别的数据集上进行finetune，使loss更关注于纹理细节的生成</li></ul><p>在补充材料里面作者反复强调了几点：</p><ul><li>去掉BN，否则会产生神奇的空洞</li><li>小值初始化</li><li>大patch</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ECCVW2018的论文，是SRGAN的加强版。相比于SRGAN，本文做了下面几个针对性的优化：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;去掉所有BN，将basic block替换成RRDB，如下图所示。BN层在SR、deblur任务中被证明会损害PSNR、引入伪影【当trainset和
+      
+    
+    </summary>
+    
+      <category term="paper reading" scheme="https://zeyuxiao1997.github.io/categories/paper-reading/"/>
+    
+    
+      <category term="image" scheme="https://zeyuxiao1997.github.io/tags/image/"/>
+    
+      <category term="low-level" scheme="https://zeyuxiao1997.github.io/tags/low-level/"/>
+    
+      <category term="super resolution" scheme="https://zeyuxiao1997.github.io/tags/super-resolution/"/>
+    
+      <category term="perceptual" scheme="https://zeyuxiao1997.github.io/tags/perceptual/"/>
+    
+      <category term="GAN" scheme="https://zeyuxiao1997.github.io/tags/GAN/"/>
+    
+  </entry>
   
   <entry>
     <title>【论文阅读】FC2N：Fully Channel-Concatenated Network for Single Image Super-Resolution</title>
@@ -804,9 +1158,9 @@
     <link href="https://zeyuxiao1997.github.io/2019/11/15/index/"/>
     <id>https://zeyuxiao1997.github.io/2019/11/15/index/</id>
     <published>2019-11-15T01:52:15.000Z</published>
-    <updated>2020-02-05T09:38:49.236Z</updated>
+    <updated>2020-02-08T02:06:42.226Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="SIGGRAPH"><a href="#SIGGRAPH" class="headerlink" title="SIGGRAPH"></a>SIGGRAPH</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Manipulating Atributes of Natural Scenes via Hallucination</td><td><a href="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/">笔记</a></td><td>SiggraphAsia2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="CVPR"><a href="#CVPR" class="headerlink" title="CVPR"></a>CVPR</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>CRRN：Multi-Scale Guided Concurrent Reflection Removal Network</td><td><a href="https://zeyuxiao1997.github.io/2020/01/31/CRRN/">笔记</a></td><td>CVPR2018</td></tr><tr><td>Single Image Deraining：A Comprehensive Benchmark Analysis</td><td><a href="https://zeyuxiao1997.github.io/2020/02/01/derainBenchmark/">笔记</a></td><td>CVPR2019</td></tr><tr><td>Pyramid Convolutional Network for Single Image Deraining</td><td><a href="https://zeyuxiao1997.github.io/2020/02/01/PDRNet/">笔记</a></td><td>CVPRW2019</td></tr><tr><td>Fast and Accurate Single Image Super-Resolution via Information Distillation Network</td><td><a href>笔记</a></td><td>CVPR2018</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ECCV"><a href="#ECCV" class="headerlink" title="ECCV"></a>ECCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Bidirectional Feature Pyramid Network with Recurrent Attention Residual Modules for Shadow Detection</td><td><a href="https://zeyuxiao1997.github.io/2020/01/31/BFPN/">笔记</a></td><td>ECCV2018</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ICCV"><a href="#ICCV" class="headerlink" title="ICCV"></a>ICCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Face Video Deblurring using 3D Facial Priors</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>ICCV2019</td></tr><tr><td>Mop Moire Patterns Using MopNet</td><td><a href="https://zeyuxiao1997.github.io/2020/01/27/MopNet/">笔记</a></td><td>ICCV2019</td></tr><tr><td>Deep Multi-Model Fusion for Single-Image Dehazing</td><td><a href="https://zeyuxiao1997.github.io/2020/02/01/derainBenchmark/">笔记</a></td><td>ICCV2019</td></tr><tr><td>LAP-Net：Level-Aware Progressive Network for Image Dehazing</td><td><a href="https://zeyuxiao1997.github.io/2020/02/02/LAPNet/">笔记</a></td><td>ICCV2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="OTHER-CV-conference"><a href="#OTHER-CV-conference" class="headerlink" title="OTHER CV conference"></a>OTHER CV conference</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>MOIRE PATTERN REMOVAL WITH MULTI-SCALE FEATURE ENHANCING NETWORK</td><td><a href="https://zeyuxiao1997.github.io/2020/01/30/MFSE/">笔记</a></td><td>ICMEW2019</td></tr><tr><td>EEMEFN:Low-Light Image Enhancement via Edge-Enhanced Multi-Exposure Fusion Network</td><td><a href="https://zeyuxiao1997.github.io/2020/02/03/EEMEFN/">笔记</a></td><td>AAAI2020</td></tr><tr><td>Lightweight Image Super-Resolution with Information Multi-distillation Network</td><td><a href>笔记</a></td><td>MM2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="NIPS-ICLR-ICML"><a href="#NIPS-ICLR-ICML" class="headerlink" title="NIPS+ICLR+ICML"></a>NIPS+ICLR+ICML</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="JOURNAL"><a href="#JOURNAL" class="headerlink" title="JOURNAL"></a>JOURNAL</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>A Video Deblurring Algorithm Based on Motion Vector and An Encorder-Decoder Network</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>IEEE Access 2019</td></tr><tr><td>Learning a Deep Single Image Contrast Enhancer from Multi-Exposure Images</td><td><a href="https://zeyuxiao1997.github.io/2020/02/03/SICE/">笔记</a></td><td>TIP2018</td></tr><tr><td>An Underwater Image Enhancement Benchmark Dataset and Beyond</td><td><a href="https://zeyuxiao1997.github.io/2020/02/03/UnderWaterEnhancer/">笔记</a></td><td>TIP2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="PREPRINT"><a href="#PREPRINT" class="headerlink" title="PREPRINT"></a>PREPRINT</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>EnlightenGAN：Deep Light Enhancement without Paired Supervision</td><td><a href="https://zeyuxiao1997.github.io/2020/01/06/VDMV/">https://zeyuxiao1997.github.io/2020/01/06/VDMV/</a></td><td>arxiv201906</td></tr><tr><td>HIGH RESOLUTION DEMOIRE NETWORK</td><td><a href="https://zeyuxiao1997.github.io/2020/01/27/HRDN/">笔记</a></td><td>github</td></tr><tr><td>Revisiting Shadow Detection:A New Benchmark Dataset for Complex World</td><td><a href="https://zeyuxiao1997.github.io/2020/01/31/FSDNet/">笔记</a></td><td>arxiv201911</td></tr><tr><td>Gradient Information Guided Deraining with A Novel Network and Adversarial</td></tr></tbody></table></div><p>Training | <a href="https://zeyuxiao1997.github.io/2020/02/02/GRASPPGAN/">笔记</a> | arxiv201910 |<br>| Real-Time Semantic Segmentation via Multiply Spatial Fusion Network | <a href="https://zeyuxiao1997.github.io/2020/02/02/MSFNet/">笔记</a> | arxiv201911 |<br>| FC2N：Fully Channel-Concatenated Network for Single Image Super-Resolution | <a href>笔记</a> | arxiv201907 |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="SIGGRAPH"><a href="#SIGGRAPH" class="headerlink" title="SIGGRAPH"></a>SIGGRAPH</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Manipulating Atributes of Natural Scenes via Hallucination</td><td><a href="https://zeyuxiao1997.github.io/2020/01/06/attribute-hallucination/">笔记</a></td><td>SiggraphAsia2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="CVPR"><a href="#CVPR" class="headerlink" title="CVPR"></a>CVPR</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>CRRN：Multi-Scale Guided Concurrent Reflection Removal Network</td><td><a href="https://zeyuxiao1997.github.io/2020/01/31/CRRN/">笔记</a></td><td>CVPR2018</td></tr><tr><td>Single Image Deraining：A Comprehensive Benchmark Analysis</td><td><a href="https://zeyuxiao1997.github.io/2020/02/01/derainBenchmark/">笔记</a></td><td>CVPR2019</td></tr><tr><td>Pyramid Convolutional Network for Single Image Deraining</td><td><a href="https://zeyuxiao1997.github.io/2020/02/01/PDRNet/">笔记</a></td><td>CVPRW2019</td></tr><tr><td>Fast and Accurate Single Image Super-Resolution via Information Distillation Network</td><td><a href>笔记</a></td><td>CVPR2018</td></tr><tr><td>Cascaded Partial Decoder for Fast and Accurate Salient Object Detection</td><td><a href>笔记</a></td><td>CVPR2018</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ECCV"><a href="#ECCV" class="headerlink" title="ECCV"></a>ECCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Bidirectional Feature Pyramid Network with Recurrent Attention Residual Modules for Shadow Detection</td><td><a href="https://zeyuxiao1997.github.io/2020/01/31/BFPN/">笔记</a></td><td>ECCV2018</td></tr><tr><td>ESRGAN:Enhanced Super-Resolution Generative Adversarial Networks</td><td><a href>笔记</a></td><td>ECCVW2018</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="ICCV"><a href="#ICCV" class="headerlink" title="ICCV"></a>ICCV</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>Face Video Deblurring using 3D Facial Priors</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>ICCV2019</td></tr><tr><td>Mop Moire Patterns Using MopNet</td><td><a href="https://zeyuxiao1997.github.io/2020/01/27/MopNet/">笔记</a></td><td>ICCV2019</td></tr><tr><td>Deep Multi-Model Fusion for Single-Image Dehazing</td><td><a href="https://zeyuxiao1997.github.io/2020/02/01/derainBenchmark/">笔记</a></td><td>ICCV2019</td></tr><tr><td>LAP-Net：Level-Aware Progressive Network for Image Dehazing</td><td><a href="https://zeyuxiao1997.github.io/2020/02/02/LAPNet/">笔记</a></td><td>ICCV2019</td></tr><tr><td>ThunderNet:Towards Real-time Generic Object Detection on Mobile Devices</td><td><a href>笔记</a></td><td>ICCV2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="OTHER-CV-conference"><a href="#OTHER-CV-conference" class="headerlink" title="OTHER CV conference"></a>OTHER CV conference</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>MOIRE PATTERN REMOVAL WITH MULTI-SCALE FEATURE ENHANCING NETWORK</td><td><a href="https://zeyuxiao1997.github.io/2020/01/30/MFSE/">笔记</a></td><td>ICMEW2019</td></tr><tr><td>EEMEFN:Low-Light Image Enhancement via Edge-Enhanced Multi-Exposure Fusion Network</td><td><a href="https://zeyuxiao1997.github.io/2020/02/03/EEMEFN/">笔记</a></td><td>AAAI2020</td></tr><tr><td>Lightweight Image Super-Resolution with Information Multi-distillation Network</td><td><a href>笔记</a></td><td>MM2019</td></tr><tr><td>Fast-SCNN:Fast Semantic Segmentation Network</td><td><a href>笔记</a></td><td>BMVC2019</td></tr><tr><td>DABNet:Depth-wise Asymmetric Bottleneck for Real-time Semantic Segmentation</td><td><a href>笔记</a></td><td>BMVC2019</td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="NIPS-ICLR-ICML"><a href="#NIPS-ICLR-ICML" class="headerlink" title="NIPS+ICLR+ICML"></a>NIPS+ICLR+ICML</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="JOURNAL"><a href="#JOURNAL" class="headerlink" title="JOURNAL"></a>JOURNAL</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>A Video Deblurring Algorithm Based on Motion Vector and An Encorder-Decoder Network</td><td><a href="https://zeyuxiao1997.github.io/2019/11/16/FVD3DFP/">笔记</a></td><td>IEEE Access 2019</td></tr><tr><td>Learning a Deep Single Image Contrast Enhancer from Multi-Exposure Images</td><td><a href="https://zeyuxiao1997.github.io/2020/02/03/SICE/">笔记</a></td><td>TIP2018</td></tr><tr><td>An Underwater Image Enhancement Benchmark Dataset and Beyond</td><td><a href="https://zeyuxiao1997.github.io/2020/02/03/UnderWaterEnhancer/">笔记</a></td><td>TIP2019</td></tr><tr><td>Making a “Completely Blind” Image Quality Analyzer</td><td><a href>笔记</a></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></div><h1 id="PREPRINT"><a href="#PREPRINT" class="headerlink" title="PREPRINT"></a>PREPRINT</h1><div class="table-container"><table><thead><tr><th>论文标题</th><th>链接</th><th>备注</th></tr></thead><tbody><tr><td>EnlightenGAN：Deep Light Enhancement without Paired Supervision</td><td><a href="https://zeyuxiao1997.github.io/2020/01/06/VDMV/">https://zeyuxiao1997.github.io/2020/01/06/VDMV/</a></td><td>arxiv201906</td></tr><tr><td>HIGH RESOLUTION DEMOIRE NETWORK</td><td><a href="https://zeyuxiao1997.github.io/2020/01/27/HRDN/">笔记</a></td><td>github</td></tr><tr><td>Revisiting Shadow Detection:A New Benchmark Dataset for Complex World</td><td><a href="https://zeyuxiao1997.github.io/2020/01/31/FSDNet/">笔记</a></td><td>arxiv201911</td></tr><tr><td>Gradient Information Guided Deraining with A Novel Network and Adversarial</td></tr></tbody></table></div><p>Training | <a href="https://zeyuxiao1997.github.io/2020/02/02/GRASPPGAN/">笔记</a> | arxiv201910 |<br>| Real-Time Semantic Segmentation via Multiply Spatial Fusion Network | <a href="https://zeyuxiao1997.github.io/2020/02/02/MSFNet/">笔记</a> | arxiv201911 |<br>| FC2N：Fully Channel-Concatenated Network for Single Image Super-Resolution | <a href>笔记</a> | arxiv201907 |<br>| Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation<br> | <a href>笔记</a> | arxiv201901 |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |<br>|  |  |  |</p>]]></content>
     
     <summary type="html">
     

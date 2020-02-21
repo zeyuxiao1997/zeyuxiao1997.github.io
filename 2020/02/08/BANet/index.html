@@ -104,18 +104,18 @@
 
 
   <meta name="description" content="arxiv201901的论文，关注于人像分割。与通用语义分割任务相比，Portrait分割需要更高的精度和更快的速度。现有方法问题主要有下面几个：  首先是数据集，即使是标注的比较好的数据集，在人物边缘区域仍然不能将细节标注出来，这样的监督网络学不到； 再有就是现在的肖像分割网络用的backbone输出的size小，不能刻画fine detail  论文也采用分支结构，但是两个分支没有完全割裂开。">
-<meta name="keywords" content="image,high-level,real-time,portrait segmentation">
+<meta name="keywords" content="image,high-level,portrait segmentation,real-time">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation">
+<meta property="og:title" content="【论文阅读】Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation">
 <meta property="og:url" content="https://zeyuxiao1997.github.io/2020/02/08/BANet/index.html">
 <meta property="og:site_name" content="ZeyuXiao @ USTC">
 <meta property="og:description" content="arxiv201901的论文，关注于人像分割。与通用语义分割任务相比，Portrait分割需要更高的精度和更快的速度。现有方法问题主要有下面几个：  首先是数据集，即使是标注的比较好的数据集，在人物边缘区域仍然不能将细节标注出来，这样的监督网络学不到； 再有就是现在的肖像分割网络用的backbone输出的size小，不能刻画fine detail  论文也采用分支结构，但是两个分支没有完全割裂开。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://zeyuxiao1997.github.io/2020/02/08/BANet/1.png">
 <meta property="og:image" content="https://zeyuxiao1997.github.io/2020/02/08/BANet/2.png">
-<meta property="og:updated_time" content="2020-02-08T03:51:11.503Z">
+<meta property="og:updated_time" content="2020-02-21T01:20:16.466Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation">
+<meta name="twitter:title" content="【论文阅读】Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation">
 <meta name="twitter:description" content="arxiv201901的论文，关注于人像分割。与通用语义分割任务相比，Portrait分割需要更高的精度和更快的速度。现有方法问题主要有下面几个：  首先是数据集，即使是标注的比较好的数据集，在人物边缘区域仍然不能将细节标注出来，这样的监督网络学不到； 再有就是现在的肖像分割网络用的backbone输出的size小，不能刻画fine detail  论文也采用分支结构，但是两个分支没有完全割裂开。">
 <meta name="twitter:image" content="https://zeyuxiao1997.github.io/2020/02/08/BANet/1.png">
 
@@ -137,7 +137,7 @@
   };
 </script>
 
-  <title>Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation | ZeyuXiao @ USTC</title>
+  <title>【论文阅读】Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation | ZeyuXiao @ USTC</title>
   
 
 
@@ -277,7 +277,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">35</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">40</span></a>
 
   </li>
         
@@ -315,7 +315,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">38</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">43</span></a>
 
   </li>
         
@@ -422,7 +422,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation
+          <h1 class="post-title" itemprop="name headline">【论文阅读】Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation
 
               
             
@@ -449,12 +449,24 @@
                 
               
 
-              <time title="Created: 2020-02-08 10:05:07 / Modified: 11:51:11" itemprop="dateCreated datePublished" datetime="2020-02-08T10:05:07+08:00">2020-02-08</time>
+              <time title="Created: 2020-02-08 10:05:07" itemprop="dateCreated datePublished" datetime="2020-02-08T10:05:07+08:00">2020-02-08</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-02-21 09:20:16" itemprop="dateModified" datetime="2020-02-21T09:20:16+08:00">2020-02-21</time>
               
             
           </span>
@@ -486,7 +498,7 @@
 
           
           
-            <span id="/2020/02/08/BANet/" class="leancloud_visitors" data-flag-title="Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation">
+            <span id="/2020/02/08/BANet/" class="leancloud_visitors" data-flag-title="【论文阅读】Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -580,11 +592,11 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2020/02/08/BANet/">Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation</a></p>
+  <p><span>本文标题:</span><a href="/2020/02/08/BANet/">【论文阅读】Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Zeyuxiao 的个人博客">Zeyuxiao</a></p>
   <p><span>发布时间:</span>2020年02月08日 - 10:02</p>
-  <p><span>最后更新:</span>2020年02月08日 - 11:02</p>
-  <p><span>原始链接:</span><a href="/2020/02/08/BANet/" title="Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation">https://zeyuxiao1997.github.io/2020/02/08/BANet/</a>
+  <p><span>最后更新:</span>2020年02月21日 - 09:02</p>
+  <p><span>原始链接:</span><a href="/2020/02/08/BANet/" title="【论文阅读】Boundary-Aware Network for Fast and High-Accuracy Portrait Segmentation">https://zeyuxiao1997.github.io/2020/02/08/BANet/</a>
     <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://zeyuxiao1997.github.io/2020/02/08/BANet/" aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
@@ -663,9 +675,9 @@
           
             <a href="/tags/high-level/" rel="tag">  <i class="fa fa-tag"></i>  high-level</a>
           
-            <a href="/tags/real-time/" rel="tag">  <i class="fa fa-tag"></i>  real-time</a>
-          
             <a href="/tags/portrait-segmentation/" rel="tag">  <i class="fa fa-tag"></i>  portrait segmentation</a>
+          
+            <a href="/tags/real-time/" rel="tag">  <i class="fa fa-tag"></i>  real-time</a>
           
         </div>
       
@@ -688,8 +700,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/02/08/PoolNet/" rel="prev" title="【论文阅读】">
-                【论文阅读】 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/02/08/PoolNet/" rel="prev" title="【论文阅读】A Simple Pooling-Based Design for Real-Time Salient Object Detection">
+                【论文阅读】A Simple Pooling-Based Design for Real-Time Salient Object Detection <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -750,7 +762,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-count">43</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -864,7 +876,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">35</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -969,7 +991,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">29k</span>
+    <span title="Symbols count total">31k</span>
   
 
   
@@ -978,7 +1000,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">36 mins.</span>
+    <span title="Reading time total">39 mins.</span>
   
 </div>
 

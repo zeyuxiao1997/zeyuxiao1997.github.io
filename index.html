@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zeyu Xiao</title>
+<style>
+  body { font: 15px 'Lato', Arial, sans-serif; color: #000; background: rgb(233,234,237); margin: 0; }
+  a { color: #1772d0; text-decoration: none; }
+  a:hover { color: #f09228; }
+  .menu { position: fixed; top: 0; left: 0; right: 0; height: 42px; line-height: 42px;
+          background: #333; text-align: center; z-index: 9; }
+  .menu a { color: #fff; margin: 0 18px; font-size: 16px; }
+  .menu a:hover { color: #f09228; }
+  .container { max-width: 1000px; margin: 60px auto 20px; padding: 20px 28px;
+               background: #fff; box-shadow: 0 0 7px rgb(100,100,100); box-sizing: border-box; }
+  .profile { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; font-size: 14px; }
+  .profile img { width: 160px; }
+  .name { font-size: 28px; font-weight: bold; }
+  .profile p { margin: 6px 0; line-height: 1.5; }
+  .links a { margin-right: 22px; }
+  .anchor { display: block; position: relative; top: -50px; }
+  .section { display: block; font-size: 20px; font-weight: bold; color: #444;
+             border-bottom: 1px solid #ccc; margin: 30px 0 12px; padding-bottom: 4px; }
+  .bio { font-size: 14px; line-height: 1.7; }
+  ul { margin: 6px 0 14px; line-height: 1.8; font-size: 14px; }
+  footer { margin-top: 40px; font-size: 13px; color: #555; }
+</style>
+</head>
+<body>
+  <div class="menu">
+    <a href="#">Home</a>
+    <a href="#bio">Bio</a>
+    <a href="#services">Services</a>
+  </div>
+
+  <div class="container">
+    <div class="profile">
+      <img src="photo.jpg" alt="Zeyu Xiao" onerror="this.style.display='none'">
+      <div>
+        <div class="name">Zeyu Xiao (肖泽宇)</div>
+        <p><br>
+          Postdoctoral Research Fellow,<br>
+          <a href="https://cde.nus.edu.sg/ece/">Department of Electrical and Computer Engineering,</a><br>
+          <a href="https://www.nus.edu.sg/">National University of Singapore</a>.
+        </p>
+        <p>4 Engineering Drive 3, Singapore 117583.</p>
+        <p><strong>E-mail</strong>: zeyuxiao1997@gmail.com; zeyuxiao1997@163.com</p>
+        <p class="links">
+          <a href="https://scholar.google.com/citations?user=ETw76ZEAAAAJ&hl=en">Google Scholar</a>
+          <a href="https://www.linkedin.com/in/zeyu-xiao-788a19183/">LinkedIn</a>
+        </p>
+      </div>
+    </div>
+
+    <a id="bio" class="anchor"></a>
+    <span class="section">Brief Bio</span>
+    <div class="bio">
+      I am Zeyu Xiao, currently a Postdoctoral Research Fellow at the Department of Electrical and Computer Engineering,
+      <a href="https://www.nus.edu.sg/">National University of Singapore (NUS)</a>, working with
+      <a href="https://sites.google.com/site/sitexinchaowang/">Prof. Xinchao Wang</a>.
+      I received the Ph.D. degree from the <a href="https://www.ustc.edu.cn/">University of Science and Technology of China (USTC)</a>,
+      supervised by <a href="http://staff.ustc.edu.cn/~zwxiong/">Prof. Zhiwei Xiong</a>,
+      and the B.E. degree from <a href="https://www.hfut.edu.cn/">Hefei University of Technology (HFUT)</a>.
+      My research interests include <strong>computer vision</strong> and <strong>machine learning</strong>.<!-- TODO: 可改成更具体的研究方向 -->
+    </div>
+
+    <a id="services" class="anchor"></a>
+    <span class="section">Academic Services</span>
+    <strong>Area Chair:</strong>
+    <ul>
+      <li>International Conference on Learning Representations (ICLR)</li>
+      <li>Conference on Neural Information Processing Systems (NeurIPS)</li>
+      <li>IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)</li>
+      <li>IEEE International Conference on Image Processing (ICIP)</li>
+    </ul>
+    <strong>Reviewer of Journals:</strong>
+    <ul>
+      <li>IEEE Transactions on Pattern Analysis and Machine Intelligence (TPAMI)</li>
+      <li>International Journal of Computer Vision (IJCV)</li>
+    </ul>
+    <strong>Reviewer of Conferences:</strong>
+    <ul>
+      <li>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</li>
+      <li>IEEE/CVF International Conference on Computer Vision (ICCV)</li>
+      <li>European Conference on Computer Vision (ECCV)</li>
+      <li>International Conference on Machine Learning (ICML)</li>
+    </ul>
+
+    <footer>&copy; 2026 Zeyu Xiao.</footer>
+  </div>
+</body>
+</html>
